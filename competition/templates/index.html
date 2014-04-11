@@ -1,9 +1,167 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="bootstrap/docs/assets/ico/favicon.ico" type="image/x-icon">
 
-</body>
+    <title>CollabCTF</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+    
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="bootstrap/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://collabctf.hackucf.org">CollabCTF</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="/settings/">Settings</a></li>
+            <li><a href="/profile/">Profile</a></li>
+            <li><a href="/help">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="/">Overview</a></li>
+            <li><a href="/reports/">Reports</a></li>
+            <li><a href="/ctftools/">CTF Tools</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="/ctf/">Sample CTF</a></li>
+            <li><a href="/challenge/">--Sample Challenge</a></li>
+            <li><a href="/addchallenge/">--Add Challenge</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Add CTF</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <!--img src="clocks/orange.png" width="200"-->
+	      <div id="solved-container"></div>
+              <h4>Challenges Solved</h4>
+              <span class="text-muted">Percent by CTF</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+	      <!--img src="clocks/pink.png" width="200"-->
+	      <div id="time-container"></div>
+              <h4>Time Remaining</h4>
+              <span class="text-muted">Until the end of CTF</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+	      <!--img src="clocks/green.png" width="200"-->
+	      <div id="users-container"></div>
+              <h4>Users Online</h4>
+              <span class="text-muted">Within the Past 30 Min</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <!--img src="clocks/blue.png" width="200"-->
+	      <div id="points-container"></div>
+              <h4>Points Earned</h4>
+              <span class="text-muted">Percent by CTF</span>
+            </div>
+          </div>
+
+          <h2 class="sub-header">Challenges</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>CTF</th>
+                  <th>Challenge ID</th>
+                  <th>Status</th>
+                  <th>Added By</th>
+                  <th>Last Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sample CTF</td>
+                  <td>Sample Challenge</td>
+                  <td>Solved/In Progress</td>
+                  <td>Sample User</td>
+                  <td>Sample User</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap/docs/assets/js/docs.min.js"></script>
+    <script src="js/lib/socket.io.js"></script>
+    <script src="js/metr.js"></script>
+    <script> 
+	$(function() {
+		var solvedMetr = new Metr($('#solved-container'), {
+			background: true,
+			colors: ['#D00000', '#A00000'],
+			progress: [60, 88]
+		});
+		var timeMetr = new Metr($('#time-container'), {
+			background: true,
+			colors: ['#C0C000', '#A0A000'],
+			progress: [17, 72]
+		}); 
+		var usersMetr = new Metr($('#users-container'), {
+			background: true,	
+			colors: ['#0000D0', '#0000A0'],
+			progress: [38, 65]
+		});
+		var pointsMetr = new Metr($('#points-container'), {
+			background: true,	
+			colors: ['#00D000', '#00A000'],
+			progress: [27, 53]
+		});
+		var a=0, b=0;
+		setInterval(function() {
+			timeMetr.update([a, b]);
+			a = a < 100 ? a+1 : 0;
+			b = b < 100 ? b+2 : 0;
+		}, 33);
+	});
+    </script>
+    <script src="js/chat-client.js"></script>
+  </body>
 </html>

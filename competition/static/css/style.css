@@ -1,3 +1,40 @@
 .errorlist > li {
     color: red;
 }
+
+table#challenges > tbody > tr:before {
+    display: table-cell;
+    content: '';
+    width: 1px;
+    height: 100%;
+    margin: 1px 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+table#challenges > tbody > tr.not-started:before {
+    background: red;
+}
+
+table#challenges > tbody > tr.in-progress:before {
+    background: #0000c8;
+    overflow: hidden;
+}
+
+table#challenges > tbody > tr.finished:before {
+    background: forestgreen;
+    overflow: hidden;
+}
+
+table#challenges > tbody > tr.finished {
+    opacity: 0.6;
+    transition: opacity .1s ease-in-out;
+    -webkit-transition: opacity .1s ease-in-out;
+    -moz-transition: opacity .1s ease-in-out;
+    -ms-transition: opacity .1s ease-in-out;
+    -o-transition: opacity .1s ease-in-out;
+}
+
+table#challenges > tbody > tr.finished:hover {
+    opacity: 1;
+}

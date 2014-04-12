@@ -37,9 +37,10 @@
         <h2 class="sub-header">Challenges</h2>
 
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table id="challenges" class="table table-striped">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Challenge ID</th>
                     <th>Status</th>
                     <th>Added By</th>
@@ -48,7 +49,7 @@
                 </thead>
                 <tbody>
                 {% for chall in challenges %}
-                    <tr>
+                    <tr class="{{ chall.get_progress_display|slugify }}">
                         <td>{{ chall.name }}</td>
                         <td>{{ chall.get_progress_display }}</td>
                         <td>Sample User</td>

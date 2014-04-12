@@ -1,6 +1,7 @@
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from datetime import datetime
 
 
 class Competition(models.Model):
@@ -28,9 +29,16 @@ class Challenge(models.Model):
     point_value = models.FloatField(default=0)
 
     competition = models.ForeignKey(Competition, related_name='challenges')
+    last_viewed = models.DateTimeField(auto_created=True)
 
     def __unicode__(self):
         return self.name
+
+    def last_viewed_display(self):
+        if self.last_viewed == 0:
+            return 'Never'
+        else:
+            return self.last_viewed
 
 
 class ChallengeFile(models.Model):

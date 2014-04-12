@@ -3,7 +3,7 @@
     <ul class="nav nav-sidebar">
         <li class="{% if view_name == 'index' %}active{% endif %}"><a href="{% url 'index' %}">Overview</a></li>
         <li class="{% if view_name == 'reports' %}active{% endif %}"><a href="{% url 'reports' %}">Reports</a></li>
-        <li class="{% if view_name == '' %}active{% endif %}"><a href="{% url 'ctf_tools' %}">CTF Tools</a></li>
+        <li class="{% if view_name == 'ctf_tools' %}active{% endif %}"><a href="{% url 'ctf_tools' %}">CTF Tools</a></li>
     </ul>
     {% for ctf in ctfs %}
     <ul class="nav nav-sidebar">

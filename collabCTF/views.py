@@ -30,10 +30,6 @@ def about(request):
     return render_to_response('about.html')
 
 
-def addctfoverview(request):
-    return render_to_response('ctf/add.html')
-
-
 def profile(request):
     return render_to_response('profile.html')
 
@@ -54,7 +50,8 @@ def sidebar(request):
         view_name = 'index'
     data = {
         'ctfs': Competition.objects.prefetch_related('challenges'),
-        'view_name': view_name
+        'view_name': view_name,
+        'url': url
     }
 
     return render_to_response('sidebar.html', data)

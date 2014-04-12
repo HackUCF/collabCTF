@@ -71,7 +71,11 @@ def base_conversions(value=None, base=None, currBase=10):
     if base < 2:
         return 'Base must be greater than 1'
 
+    base = int(str(base), 10)
+    currBase = int(str(currBase), 10)
+
     if currBase == 10:
+        value = int(str(value), 10)
         return int_to_base(value, base)
     else:
         value = int(str(value), currBase)
@@ -99,10 +103,11 @@ def int_to_base(value, base):
     digits.reverse()
     return ''.join(digits)
 
+
 def xor_tool(val=None, xor_key=None):
     if val is None:
         return 'You must specify a base'
     if xor_key is None:
         return 'You must specify a value'
 
-    return ''.join(chr(ord(a) ^ ord(b)) for a,b in zip(val,itertools.cycle(xor_key)))
+    return ''.join(chr(ord(a) ^ ord(b)) for a, b in zip(val, itertools.cycle(xor_key)))

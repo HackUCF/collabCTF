@@ -2,6 +2,7 @@ __author__ = 'broglea'
 
 import hashlib
 import string
+import itertools
 
 
 def hash(type=None, value=None):
@@ -102,3 +103,11 @@ def int_to_base(value, base):
         digits.append('-')
     digits.reverse()
     return ''.join(digits)
+
+def xor_tool(val=None, xor_key=None):
+    if val is None:
+        return 'You must specify a base'
+    if xor_key is None:
+        return 'You must specify a value'
+
+    return ''.join(chr(ord(a) ^ ord(b)) for a,b in zip(val,itertools.cycle(xor_key)))

@@ -2,6 +2,7 @@ __author__ = 'broglea'
 
 import hashlib
 
+#testing git
 
 def hash(type=None, value=None):
     if type is None:

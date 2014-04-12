@@ -1,4 +1,5 @@
 from django import forms
+
 from competition.models import Challenge, Competition
 
 
@@ -44,6 +45,7 @@ class BaseConversionForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     base = forms.CharField(widget=forms.TextInput(attrs={'size': 2}))
     currBase = forms.CharField(widget=forms.TextInput(attrs={'size': 2}), label="Current Base")
+
 
 class XorForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))

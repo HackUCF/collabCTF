@@ -1,4 +1,15 @@
 from django import forms
+from competition.models import Challenge
+
+
+class ChallengeModelForm(forms.ModelForm):
+    class Meta:
+        model = Challenge
+        fields = ('name', 'point_value', 'progress', 'num_progress', 'competition')
+        widgets = {
+            'point_value': forms.TextInput(attrs={'type': 'number'}),
+            'num_progress': forms.TextInput(attrs={'type': 'number'})
+        }
 
 
 class HashForm(forms.Form):

@@ -26,9 +26,6 @@ def about(request):
 def addctfoverview(request):
     return render_to_response('addctfoverview.html')
 
-def addctfchallenge(request):
-    return render_to_response('addctfchallenge.html')
-
 def profile(request):
     return render_to_response('profile.html')
 

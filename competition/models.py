@@ -5,6 +5,7 @@ from django.db import models
 
 class Competition(models.Model):
     name = models.CharField('Name', max_length=255)
+    slug = models.SlugField()
     url = models.URLField('Competition URL', blank=True)
     start_time = models.DateTimeField(blank=True)
     end_time = models.DateTimeField(blank=True)
@@ -21,6 +22,7 @@ class Challenge(models.Model):
     )
 
     name = models.CharField('Name', max_length=255)
+    slug = models.SlugField()
     progress = models.PositiveSmallIntegerField(choices=PROGRESS_CHOICES)
     num_progress = models.FloatField(default=0)
     point_value = models.FloatField(default=0)

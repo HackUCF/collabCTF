@@ -11,18 +11,29 @@ from competition.forms import HashForm, RotForm
 def home(request):
     return render_to_response('index.html')
 
-
 def ctfoverview(request):
     return render_to_response('ctfoverview.html')
-
 
 def ctfchallenge(request):
     return render_to_response('ctfchallenge.html')
 
-
 def reports(request):
     return render_to_response('reports.html')
 
+def about(request):
+    return render_to_response('about.html')
+
+def addctfoverview(request):
+    return render_to_response('addctfoverview.html')
+
+def addctfchallenge(request):
+    return render_to_response('addctfchallenge.html')
+
+def profile(request):
+    return render_to_response('profile.html')
+
+def settings(request):
+    return render_to_response('settings.html')
 
 @require_safe
 def ctf_tools(request):
@@ -42,6 +53,7 @@ def hash_val(request):
             'result': crypto.hash(cd['hash_type'], cd['value'])
         })
         return HttpResponse(jdata, content_type='application/json')
+
     else:
         jdata = json.dumps({
             'error': form.errors

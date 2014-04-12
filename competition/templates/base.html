@@ -41,10 +41,10 @@
         <div class="navbar-collapse collapse">
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/">Dashboard</a></li>
-            <li><a href="/settings/">Settings</a></li>
-            <li><a href="/profile/">Profile</a></li>
-            <li><a href="/help">Help</a></li>
+            <li class="{% block dashboard_class %}{% endblock %}"><a href="/">Dashboard</a></li>
+            <li class="{% block settings_class %}{% endblock %}"><a href="settings">Settings</a></li>
+            <li class="{% block profile_class %}{% endblock %}"><a href="profile">Profile</a></li>
+            <li class="{% block about_class %}{% endblock %}"><a href="about">About</a></li>
           </ul>
         </div>
       </div>
@@ -53,17 +53,17 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/">Overview</a></li>
-            <li><a href="reports">Reports</a></li>
-            <li><a href="ctftools">CTF Tools</a></li>
+            <li class="{% block overview_class %}{% endblock %}"><a href="/">Overview</a></li>
+            <li class="{% block reports_class %}{% endblock %}"><a href="reports">Reports</a></li>
+            <li class="{% block tools_class %}{% endblock %}"><a href="ctftools">CTF Tools</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="ctfoverview">Sample CTF</a></li>
-            <li><a href="ctfchallenge">--Sample Challenge</a></li>
-            <li><a href="/addchallenge/">--Add Challenge</a></li>
+            <li class="{% block ctfoverview_class %}{% endblock %}"><a href="ctfoverview">Sample CTF</a></li>
+            <li class="{% block ctfchallenge_class %}{% endblock %}"><a href="ctfchallenge">--Sample Challenge</a></li>
+            <li class="{% block addctfchallenge_class %}{% endblock %}"><a href="addctfchallenge">--Add Challenge</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">Add CTF</a></li>
+            <li class="{% block addctfoverview_class %}{% endblock %}"><a href="addctfoverview">Add CTF</a></li>
           </ul>
         </div>
 

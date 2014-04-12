@@ -10,8 +10,9 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'collabCTF.views.home'),
-    url(r'reports$', 'collabCTF.views.reports'),
-    url(r'ctftools$', 'collabCTF.views.ctftools'),
-    url(r'ctfoverview$', 'collabCTF.views.ctfoverview'),
-    url(r'ctfchallenge$', 'collabCTF.views.ctfchallenge')
+    url(r'^reports$', 'collabCTF.views.reports'),
+    url(r'^ctftools$', 'collabCTF.views.ctftools'),
+    url(r'^ctfoverview$', 'collabCTF.views.ctfoverview'),
+    url(r'^ctfchallenge$', 'collabCTF.views.ctfchallenge'),
+    url(r'^ctf/(?P<ctf_slug>[\w\d_\-]+)/', 'competition.views.view_ctf')
 )

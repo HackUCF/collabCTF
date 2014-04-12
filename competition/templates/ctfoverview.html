@@ -4,20 +4,20 @@
 {% block subtitle %}- Overview{% endblock %}
 {% block content %}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Sample CTF</h1>
+          <h1 class="page-header">{{ ctf.name }}</h1>
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <!--img src="clocks/orange.png" width="200"-->
 	      <div id="solved-container"></div>
               <h4>Challenges Solved</h4>
-              <span class="text-muted">Percent for Sample CTF</span>
+              <span class="text-muted">Percent for {{ ctf.name }}</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
 	      <!--img src="clocks/pink.png" width="200"-->
 	      <div id="time-container"></div>
               <h4>Time Remaining</h4>
-              <span class="text-muted">Until the end of Sample CTF</span>
+              <span class="text-muted">Until the end of {{ ctf.name }}</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
 	      <!--img src="clocks/green.png" width="200"-->
@@ -29,7 +29,7 @@
               <!--img src="clocks/blue.png" width="200"-->
 	      <div id="points-container"></div>
               <h4>Points Earned</h4>
-              <span class="text-muted">Percent by Sample CTF</span>
+              <span class="text-muted">Percent by {{ ctf.name }}</span>
             </div>
           </div>
 
@@ -38,7 +38,6 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>CTF</th>
                   <th>Challenge ID</th>
                   <th>Status</th>
                   <th>Added By</th>
@@ -47,7 +46,6 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Sample CTF</td>
                   <td>Sample Challenge</td>
                   <td>Solved/In Progress</td>
                   <td>Sample User</td>
@@ -57,6 +55,4 @@
             </table>
           </div>
         </div>
-      </div>
-    </div>
-        {% endblock %}
+{% endblock %}

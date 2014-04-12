@@ -15,6 +15,6 @@
     </ul>
     {% endfor %}
     <ul class="nav nav-sidebar">
-        <li class="{% if view_name == 'add_ctf' %}active{% endif %}"><a href="/addctfoverview">Add CTF</a></li>
+        <li class="{% if view_name == 'add_ctf' %}active{% endif %}"><a href="{% url 'add_ctf' %}">Add CTF</a></li>
     </ul>
 </div>

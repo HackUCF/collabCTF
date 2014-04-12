@@ -37,12 +37,9 @@ class ChallengeFile(models.Model):
     mtime = models.DateTimeField(auto_now=True)
     challenge = models.ForeignKey(Challenge, related_name='files')
 
-<<<<<<< HEAD
     def __unicode__(self):
         return self.file.name
 
-=======
->>>>>>> 48d2b6e4dfdfb0a3d4db331c71f7d70fbe94530a
 
 class Tag(models.Model):
     tag = models.SlugField()

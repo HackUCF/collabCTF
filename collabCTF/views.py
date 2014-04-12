@@ -1,8 +1,9 @@
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.views.decorators.http import require_safe, require_POST
+
+from collabCTF.tools import crypto
 from competition.forms import HashForm
-from competition.tools import crypto
 
 
 def home(request):

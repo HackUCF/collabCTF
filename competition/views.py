@@ -1,10 +1,11 @@
 from datetime import datetime
+
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.text import slugify
 from django.views.decorators.http import require_safe
-from competition.forms import CompetitionModelForm, ChallengeModelForm
 
+from competition.forms import CompetitionModelForm, ChallengeModelForm
 from competition.models import Competition, Challenge
 
 

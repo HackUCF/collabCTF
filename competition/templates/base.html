@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'dashboard.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="bootstrap/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -25,48 +26,48 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{% url 'index' %}">CollabCTF</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'index' %}">CollabCTF</a>
         </div>
         <div class="navbar-collapse collapse">
 
-          <ul class="nav navbar-nav navbar-right">
-            <li class="{% block dashboard_class %}{% endblock %}"><a href="{% url 'index' %}">Dashboard</a></li>
-            <li class="{% block settings_class %}{% endblock %}"><a href="settings">Settings</a></li>
-            <li class="{% block profile_class %}{% endblock %}"><a href="profile">Profile</a></li>
-            <li class="{% block about_class %}{% endblock %}"><a href="about">About</a></li>
-          </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="{% block dashboard_class %}{% endblock %}"><a href="{% url 'index' %}">Dashboard</a></li>
+                <li class="{% block settings_class %}{% endblock %}"><a href="settings">Settings</a></li>
+                <li class="{% block profile_class %}{% endblock %}"><a href="profile">Profile</a></li>
+                <li class="{% block about_class %}{% endblock %}"><a href="about">About</a></li>
+            </ul>
         </div>
-      </div>
     </div>
-    <div class="container-fluid">
-      <div class="row">
+</div>
+<div class="container-fluid">
+    <div class="row">
         <div id="sidebar" style="display: none"></div>
 
         {# main viewport content #}
         {% block content %}{% endblock %}
-      </div>
     </div>
-    {% block scripts %}
-        <script src="//code.jquery.com/jquery-2.0.0.min.js"></script>
-        <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'bootstrap/docs/assets/js/docs.min.js' %}"></script>
+</div>
+{% block scripts %}
+    <script src="//code.jquery.com/jquery-2.0.0.min.js"></script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap/docs/assets/js/docs.min.js' %}"></script>
 
-        <script src="{% static 'js/lib/socket.io.js' %}"></script>
-        <script src="{% static 'js/metr.js' %}"></script>
-        <script src="{% static 'js/script.js' %}"></script>
-        <script>
-        $(function() {
+    <script src="{% static 'js/lib/socket.io.js' %}"></script>
+    <script src="{% static 'js/metr.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        $(function () {
             var solvedMetr = new Metr($('#solved-container'), {
                 background: true,
                 colors: ['#D00000', '#A00000'],
@@ -87,15 +88,15 @@
                 colors: ['#00D000', '#00A000'],
                 progress: [27, 53]
             });
-            var a=0, b=0;
-            setInterval(function() {
+            var a = 0, b = 0;
+            setInterval(function () {
                 timeMetr.update([a, b]);
-                a = a < 100 ? a+1 : 0;
-                b = b < 100 ? b+2 : 0;
+                a = a < 100 ? a + 1 : 0;
+                b = b < 100 ? b + 2 : 0;
             }, 33);
         });
-        </script>
-        <script src="{% static 'js/chat-client.js' %}"></script>
-    {% endblock %}
+    </script>
+    <script src="{% static 'js/chat-client.js' %}"></script>
+{% endblock %}
 </body>
 </html>

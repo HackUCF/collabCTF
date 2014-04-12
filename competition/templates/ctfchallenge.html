@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="bootstrap/docs/assets/ico/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{% 'bootstrap/docs/assets/ico/favicon.ico' %}" type="image/x-icon">
 
     <title>CollabCTF</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="{% static 'dashboard.css' %}" rel="stylesheet">
     
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="bootstrap/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -207,6 +207,6 @@
 		}, 33);
 	});
     </script>
-    <script src="js/chat-client.js"></script>
+    <script src="{% static 'js/chat-client.js' %}"></script>
   </body>
 </html>

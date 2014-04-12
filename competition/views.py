@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_safe
 from competition.forms import ChallengeModelForm
 
-from competition.models import Competition
+from competition.models import Competition, Challenge
 
 
 @require_safe
@@ -44,3 +44,15 @@ def add_challenge(request, ctf_slug):
             data['challenge'] = challenge
 
         return render_to_response('ctf/challenge/add.html', data, RequestContext(request))
+
+
+def view_challenge(request, ctf_slug, chall_slug):
+    ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
+    challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)
+
+    data = {
+        'ctf': ctf,
+        'challenge': challenge
+    }
+
+    return render_to_response('ctf/challenge/overview.html', data, RequestContext(request))

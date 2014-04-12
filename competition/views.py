@@ -1,19 +1,18 @@
 from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from django.utils.text import slugify
 from django.views.decorators.http import require_safe
 from competition.forms import CompetitionModelForm, ChallengeModelForm
 
 from competition.models import Competition, Challenge
 
 
-def add_ctf(request, ctf_slug):
-    ctf = get_object_or_404(Competition.objects, )
+def add_ctf(request):
     if request.method == 'GET':
         form = CompetitionModelForm()
         data = {
-            'form': form,
-            #??
+            'form': form
         }
         return render_to_response('ctf/add.html', data, RequestContext(request))
 
@@ -25,10 +24,10 @@ def add_ctf(request, ctf_slug):
 
         if form.is_valid():
             competition = form.save(commit=False)
-            # set things
+            competition.slug = slugify(competition.name)
             competition.save()
             data['competition'] = competition
-
+        # url tbd
         return render_to_response('ctf/add.html', data, RequestContext(request))
 
 
@@ -65,12 +64,14 @@ def add_challenge(request, ctf_slug):
             challenge = form.save(commit=False)
             challenge.competition = ctf
             challenge.last_viewed = datetime.now()
+            challenge.slug = slugify(challenge.name)
             challenge.save()
             data['challenge'] = challenge
 
         return render_to_response('ctf/challenge/add.html', data, RequestContext(request))
 
 
+@require_safe
 def view_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
     challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)

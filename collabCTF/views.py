@@ -1,3 +1,4 @@
+import json
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -28,7 +29,6 @@ def ctf_tools(request):
     data = {
         'hash_form': HashForm()
     }
-    print data
     return render_to_response('ctftools.html', data, RequestContext(request))
 
 
@@ -37,12 +37,12 @@ def hash_val(request):
     form = HashForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
-        jdata = {
+        jdata = json.dumps({
             'result': crypto.hash(cd['hash_type'], cd['value'])
-        }
+        })
         return HttpResponse(jdata, content_type='application/json')
     else:
-        jdata = {
+        jdata = json.dumps({
             'error': form.errors
-        }
+        })
         return HttpResponseBadRequest(jdata, content_type='application/json')

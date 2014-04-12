@@ -5,6 +5,7 @@
         <li class="{% if view_name == 'reports' %}active{% endif %}"><a href="{% url 'reports' %}">Reports</a></li>
         <li class="{% if view_name == 'ctf_tools' %}active{% endif %}"><a href="{% url 'ctf_tools' %}">CTF Tools</a></li>
     </ul>
+    {# the problem starts here #}
     {% for ctf in ctfs %}
     <ul class="nav nav-sidebar">
         <li class="{% if view_name == 'view_ctf' %}active{% endif %}"><a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
@@ -14,6 +15,7 @@
         <li class="{% if view_name == 'add_challenge' %}active{% endif %}"><a href="{% url 'add_challenge' ctf.slug %}">--Add Challenge</a></li>
     </ul>
     {% endfor %}
+    {# the problem ends here #}
     <ul class="nav nav-sidebar">
         <li class="{% if view_name == 'add_ctf' %}active{% endif %}"><a href="{% url 'add_ctf' %}">Add CTF</a></li>
     </ul>

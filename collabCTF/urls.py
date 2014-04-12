@@ -14,5 +14,5 @@ urlpatterns = patterns('',
     url(r'^ctftools$', 'collabCTF.views.ctftools'),
     url(r'^ctfoverview$', 'collabCTF.views.ctfoverview'),
     url(r'^ctfchallenge$', 'collabCTF.views.ctfchallenge'),
-    url(r'^ctf/(?P<ctf_slug>[\w\d_\-]+)/', 'competition.views.view_ctf')
+    url(r'^ctf/(?P<ctf_slug>[a-z\d_\-]+)/', 'competition.views.view_ctf')
 )

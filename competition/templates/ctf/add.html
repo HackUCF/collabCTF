@@ -14,11 +14,16 @@
                 <fieldset>
                     {% csrf_token %}
                     <legend>Add a competition</legend>
+                    {% if form.non_field_errors %}
+                        <div class="errors">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
                     <table>
                         {% for field in form %}
                         <tr>
                             <td>{{ field.label_tag }}</td>
-                            <td>{{ field }}</td>
+                            <td>{{ field }} {{ field.errors }}</td>
                         </tr>
                         {% endfor %}
                     </table>

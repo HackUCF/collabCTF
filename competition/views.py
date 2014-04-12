@@ -2,9 +2,34 @@ from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.http import require_safe
-from competition.forms import ChallengeModelForm
+from competition.forms import CompetitionModelForm, ChallengeModelForm
 
 from competition.models import Competition, Challenge
+
+
+def add_ctf(request, ctf_slug):
+    ctf = get_object_or_404(Competition.objects, )
+    if request.method == 'GET':
+        form = CompetitionModelForm()
+        data = {
+            'form': form,
+            #??
+        }
+        return render_to_response('ctf/add.html', data, RequestContext(request))
+
+    elif request.method == 'POST':
+        form = CompetitionModelForm(request.POST)
+        data = {
+            'form': form
+        }
+
+        if form.is_valid():
+            competition = form.save(commit=False)
+            # set things
+            competition.save()
+            data['competition'] = competition
+
+        return render_to_response('ctf/add.html', data, RequestContext(request))
 
 
 @require_safe

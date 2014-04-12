@@ -1,5 +1,11 @@
 from django import forms
-from competition.models import Challenge
+from competition.models import Challenge, Competition
+
+
+class CompetitionModelForm(forms.ModelForm):
+    class Meta:
+        model = Competition
+        fields = ('name', 'url', 'start_time', 'end_time')
 
 
 class ChallengeModelForm(forms.ModelForm):
@@ -22,6 +28,7 @@ class HashForm(forms.Form):
 
     hash_type = forms.ChoiceField(choices=HASH_CHOICES)
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+
 
 class RotForm(forms.Form):
     ENCODE_CHOICE = (

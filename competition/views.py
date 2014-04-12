@@ -46,7 +46,7 @@ def view_ctf(request, ctf_slug):
 def add_challenge(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
     if request.method == 'GET':
-        form = ChallengeModelForm()
+        form = ChallengeModelForm(initial={'competition': ctf})
         data = {
             'form': form,
             'ctf': ctf
@@ -62,11 +62,11 @@ def add_challenge(request, ctf_slug):
 
         if form.is_valid():
             challenge = form.save(commit=False)
-            challenge.competition = ctf
             challenge.last_viewed = datetime.now()
             challenge.slug = slugify(challenge.name)
             challenge.save()
             data['challenge'] = challenge
+            data['form'] = ChallengeModelForm()
 
         return render_to_response('ctf/challenge/add.html', data, RequestContext(request))
 

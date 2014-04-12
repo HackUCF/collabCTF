@@ -50,6 +50,9 @@ class Challenge(models.Model):
         else:
             return self.last_viewed
 
+    class Meta:
+        unique_together = ('name', 'competition')
+
 
 class ChallengeFile(models.Model):
     file = models.FileField(upload_to='files/')

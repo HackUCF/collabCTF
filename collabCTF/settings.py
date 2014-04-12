@@ -65,7 +65,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from local_settings import *
+    from collabCTF.local_settings import *
 except ImportError:
     from django.core.exceptions import ImproperlyConfigured
     raise ImproperlyConfigured('local_settings.py not found')

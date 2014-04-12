@@ -22,20 +22,15 @@ def hash(type=None, value=None):
 
 
 #rotational cipher encoder/decoder
-def rot(shift=None, value=None, encode=True):
+def rot(shift, value, encode):
     #If we want to encode this
-
-    if shift is None:
-        return 'You must specify a shift'
-    if value is None:
-        return 'You must specify a value'
-    if encode:
+    if encode == "True":
         alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
                     "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
                     "z"]
         dic = {}
         for i in range(0, len(alphabet)):
-            dic[alphabet[i]] = alphabet[(i + shift) % len(alphabet)]
+            dic[alphabet[i]] = alphabet[(i + int(shift, 10)) % len(alphabet)]
 
         #Convert each letter of plaintext to the corrsponding
         #encrypted letter in our dictionary creating the cryptext
@@ -54,7 +49,7 @@ def rot(shift=None, value=None, encode=True):
                     "z"]
         dic = {}
         for i in range(0, len(alphabet)):
-            dic[alphabet[i]] = alphabet[(i + (26 - (shift % 26))) % len(alphabet)]
+            dic[alphabet[i]] = alphabet[(i + (26 - (int(shift, 10) % 26))) % len(alphabet)]
 
         #Convert each letter of plaintext to the corrsponding
         #encrypted letter in our dictionary creating the cryptext

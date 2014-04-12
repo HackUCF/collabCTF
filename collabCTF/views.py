@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST
 
 from collabCTF.tools import crypto
-from competition.forms import HashForm
+from competition.forms import HashForm, RotForm
 
 
 def home(request):
@@ -27,7 +27,8 @@ def reports(request):
 @require_safe
 def ctf_tools(request):
     data = {
-        'hash_form': HashForm()
+        'hash_form': HashForm(),
+        'rot_form': RotForm()
     }
     return render_to_response('ctftools.html', data, RequestContext(request))
 
@@ -39,6 +40,21 @@ def hash_val(request):
         cd = form.cleaned_data
         jdata = json.dumps({
             'result': crypto.hash(cd['hash_type'], cd['value'])
+        })
+        return HttpResponse(jdata, content_type='application/json')
+    else:
+        jdata = json.dumps({
+            'error': form.errors
+        })
+        return HttpResponseBadRequest(jdata, content_type='application/json')
+
+@require_POST
+def rot_val(request):
+    form = RotForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        jdata = json.dumps({
+            'result': crypto.rot(cd['rot_type'], cd['value'], cd['encode'])
         })
         return HttpResponse(jdata, content_type='application/json')
     else:

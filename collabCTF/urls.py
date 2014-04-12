@@ -25,5 +25,7 @@ urlpatterns = patterns('',
         name='view_challenge'),
     url(r'^tools/ajax/hash$', 'collabCTF.views.hash_val', name='tools_hash'),
     url(r'^tools/ajax/rot$', 'collabCTF.views.rot_val', name='tools_rot'),
-    url(r'^sidebar$', 'collabCTF.views.sidebar', name='sidebar')
+    url(r'^sidebar$', 'collabCTF.views.sidebar', name='sidebar'),
+    url(r'^tools/ajax/base_conversions$', 'collabCTF.views.base_conversion_val', name='tools_base_conversion'),
+    url(r'^tools/ajax/xor$', 'collabCTF.views.xor_val', name='tools_xor')
 )

@@ -38,3 +38,13 @@ class RotForm(forms.Form):
     rot_type = forms.CharField(widget=forms.TextInput(attrs={'size': 2, 'type': 'number'}))
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     encode = forms.ChoiceField(choices=ENCODE_CHOICE, label="")
+
+
+class BaseConversionForm(forms.Form):
+    value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+    base = forms.CharField(widget=forms.TextInput(attrs={'size': 2}))
+    currBase = forms.CharField(widget=forms.TextInput(attrs={'size': 2}), label="Current Base")
+
+class XorForm(forms.Form):
+    value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+    key = forms.CharField(widget=forms.TextInput(attrs={'size': 40}))

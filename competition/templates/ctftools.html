@@ -83,6 +83,66 @@
                         </form>
                     </div>
                 </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-6">
+                        <form id="base-conversion-form" action="{% url 'tools_base_conversion' %}" method="post">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend>Base Conversions</legend>
+                                <style scoped="">
+                                    #base-conversion-form tr > td:first-child {
+                                        text-align: right;
+                                    }
+                                    #base-conversion-form tr > td {
+                                        vertical-align: top;
+                                        padding-right: 1em;
+                                        padding-bottom: 1em;
+                                    }
+                                </style>
+                                <table>
+                                    {% for field in base_conversion_form %}
+                                        <tr>
+                                            <td>{{ field.label_tag }}</td>
+                                            <td>{{ field }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <input type="submit" value="Submit"/>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-6">
+                        <form id="xor-form" action="{% url 'tools_xor' %}" method="post">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend>XOR Tool</legend>
+                                <style scoped="">
+                                    #xor-form tr > td:first-child {
+                                        text-align: right;
+                                    }
+                                    #xor-form tr > td {
+                                        vertical-align: top;
+                                        padding-right: 1em;
+                                        padding-bottom: 1em;
+                                    }
+                                </style>
+                                <table>
+                                    {% for field in xor_form %}
+                                        <tr>
+                                            <td>{{ field.label_tag }}</td>
+                                            <td>{{ field }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <input type="submit" value="Submit"/>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

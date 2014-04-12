@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST
 
 from collabCTF.tools import crypto
-from competition.forms import HashForm, RotForm
+from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm
 from competition.models import Competition
 
 
@@ -64,7 +64,9 @@ def sidebar(request):
 def ctf_tools(request):
     data = {
         'hash_form': HashForm(),
-        'rot_form': RotForm()
+        'rot_form': RotForm(),
+        'base_conversion_form': BaseConversionForm(),
+        'xor_form': XorForm()
     }
     return render_to_response('ctftools.html', data, RequestContext(request))
 
@@ -93,6 +95,37 @@ def rot_val(request):
         cd = form.cleaned_data
         jdata = json.dumps({
             'result': crypto.rot(cd['rot_type'], cd['value'], cd['encode'])
+        })
+        return HttpResponse(jdata, content_type='application/json')
+    else:
+        jdata = json.dumps({
+            'error': form.errors
+        })
+        return HttpResponseBadRequest(jdata, content_type='application/json')
+
+@require_POST
+def base_conversion_val(request):
+    form = BaseConversionForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        jdata = json.dumps({
+            'result': crypto.base_conversions(cd['value'], cd['base'], cd['currBase'])
+        })
+        return HttpResponse(jdata, content_type='application/json')
+    else:
+        jdata = json.dumps({
+            'error': form.errors
+        })
+        return HttpResponseBadRequest(jdata, content_type='application/json')
+
+
+@require_POST
+def xor_val(request):
+    form = XorForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        jdata = json.dumps({
+            'result': crypto.xor_tool(cd['value'], cd['key'])
         })
         return HttpResponse(jdata, content_type='application/json')
     else:

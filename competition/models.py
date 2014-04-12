@@ -2,7 +2,6 @@ from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db import models
-from datetime import datetime
 
 
 class Competition(models.Model):
@@ -14,6 +13,8 @@ class Competition(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    __str__ = __unicode__
 
     def get_absolute_url(self):
         return reverse('view_ctf', kwargs={'ctf_slug': self.slug})
@@ -29,7 +30,7 @@ class Challenge(models.Model):
     name = models.CharField('Name', max_length=255)
     slug = models.SlugField()
     progress = models.PositiveSmallIntegerField(choices=PROGRESS_CHOICES)
-    num_progress = models.FloatField(default=0)
+    num_progress = models.FloatField('Progress %', default=0)
     point_value = models.FloatField(default=0)
 
     competition = models.ForeignKey(Competition, related_name='challenges')
@@ -37,6 +38,8 @@ class Challenge(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    __str__ = __unicode__
 
     def get_absolute_url(self):
         return reverse('view_challenge', kwargs={'ctf_slug': self.competition.slug, 'chall_slug': self.slug})
@@ -57,6 +60,8 @@ class ChallengeFile(models.Model):
     def __unicode__(self):
         return self.file.name
 
+    __str__ = __unicode__
+
 
 class Tag(models.Model):
     tag = models.SlugField()
@@ -67,3 +72,5 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.tag
+
+    __str__ = __unicode__

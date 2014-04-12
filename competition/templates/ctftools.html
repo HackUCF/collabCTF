@@ -26,6 +26,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-lg-6">
                         <form id="hash-form" action="{% url 'tools_hash' %}" method="post">
+                            {% csrf_token %}
                             <fieldset>
                                 <legend>Hash Form</legend>
                                 <style scoped="">

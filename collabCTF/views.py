@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST
 
 from collabCTF.tools import crypto
@@ -28,7 +29,7 @@ def ctf_tools(request):
         'hash_form': HashForm()
     }
     print data
-    return render_to_response('ctftools.html', data)
+    return render_to_response('ctftools.html', data, RequestContext(request))
 
 
 @require_POST

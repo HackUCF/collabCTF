@@ -21,11 +21,12 @@ def hash(type=None, value=None):
 #rotational cipher encoder/decoder
 def rot(shift=None, value=None, encode=True):
     #If we want to encode this
+
+    if shift is None:
+        return 'You must specify a shift'
+    if value is None:
+        return 'You must specify a value'
     if encode:
-        if shift is None:
-            return 'You must specify a shift'
-        if value is None:
-            return 'You must specify a value'
         alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
                     "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
                     "z"]
@@ -45,10 +46,6 @@ def rot(shift=None, value=None, encode=True):
 
     #If we want to decode a rotational cipher
     else:
-        if shift is None:
-            return 'You must specify a shift'
-        if value is None:
-            return 'You must specify a value'
         alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
                     "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
                     "z"]
@@ -65,3 +62,4 @@ def rot(shift=None, value=None, encode=True):
             ciphertext += l
 
         return ciphertext
+

@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class Competition(models.Model):
-    name = models.CharField('Name', max_length=255)
+    name = models.CharField('Name', max_length=255, unique=True)
     slug = models.SlugField(unique=True)
     url = models.URLField('Competition URL', blank=True)
     start_time = models.DateTimeField(blank=True)

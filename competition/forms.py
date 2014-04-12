@@ -1,9 +1,9 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder
 from django import forms
-from django.core.urlresolvers import reverse
 
 from competition.models import Challenge, Competition
+
 
 _form_control = {'class': 'form-control'}
 
@@ -18,7 +18,7 @@ class CompetitionModelForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             Fieldset(
-                'Add Competition',
+                'Add a competition',
                 'name',
                 'url',
                 'start_time',
@@ -37,13 +37,30 @@ class CompetitionModelForm(forms.ModelForm):
 
 
 class ChallengeModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ChallengeModelForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'add-challenge'
+        self.helper.form_method = 'post'
+        self.helper.form_action = ''
+        self.helper.layout = Layout(
+            Fieldset(
+                'Add a challenge',
+                'name',
+                'point_value',
+                'progress',
+                'num_progress'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
+
     class Meta:
         model = Challenge
-        fields = ('name', 'point_value', 'progress', 'num_progress', 'competition')
-        widgets = {
-            'point_value': forms.NumberInput(_form_control),
-            'num_progress': forms.NumberInput(_form_control)
-        }
+        fields = ('name', 'point_value', 'progress', 'num_progress')
 
 
 class HashForm(forms.Form):

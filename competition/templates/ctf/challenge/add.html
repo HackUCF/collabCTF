@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block subtitle %}- Add Challenge{% endblock %}
 {% block addctfchallenge_class %}active{% endblock %}
@@ -8,27 +9,8 @@
         <h1 class="page-header">{{ ctf.name }} - Add Challenge</h1>
 
         <div class="row">
-            <div class="col-md-12">
-                <form id="add-challenge" action="" method="post">
-                    <fieldset>
-                        {% csrf_token %}
-                        <legend>Add a challenge</legend>
-                        {% if form.non_field_errors %}
-                            <div class="errors">
-                                {{ form.non_field_errors }}
-                            </div>
-                        {% endif %}
-                        <table>
-                            {% for field in form %}
-                                <tr>
-                                    <td>{{ field.label_tag }}</td>
-                                    <td>{{ field }} {{ field.errors }}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                        <input type="submit"/>
-                    </fieldset>
-                </form>
+            <div class="col-sm-8 col-md-6">
+                {% crispy form %}
             </div>
         </div>
     </div>

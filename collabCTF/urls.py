@@ -15,6 +15,10 @@ urlpatterns = patterns('',
     url(r'^ctfoverview$', 'collabCTF.views.ctfoverview'),
     url(r'^ctfchallenge$', 'collabCTF.views.ctfchallenge'),
     url(r'^about', 'collabCTF.views.about'),
+    url(r'^addctfchallenge', 'collabCTF.views.addctfchallenge'),
+    url(r'^addctfoverview', 'collabCTF.views.addctfoverview'),
+    url(r'^profile', 'collabCTF.views.profile'),
+    url(r'^settings', 'collabCTF.views.settings'),
     url(r'^ctf/(?P<ctf_slug>[a-z\d_\-]+)/', 'competition.views.view_ctf'),
     url(r'^tools/ajax/hash$', 'collabCTF.views.hash_val', name='tools_hash')
 )

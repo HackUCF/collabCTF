@@ -11,20 +11,29 @@ from competition.forms import HashForm
 def home(request):
     return render_to_response('index.html')
 
-
 def ctfoverview(request):
     return render_to_response('ctfoverview.html')
 
-
 def ctfchallenge(request):
     return render_to_response('ctfchallenge.html')
-
 
 def reports(request):
     return render_to_response('reports.html')
 
 def about(request):
     return render_to_response('about.html')
+
+def addctfoverview(request):
+    return render_to_response('addctfoverview.html')
+
+def addctfchallenge(request):
+    return render_to_response('addctfchallenge.html')
+
+def profile(request):
+    return render_to_response('profile.html')
+
+def settings(request):
+    return render_to_response('settings.html')
 
 @require_safe
 def ctf_tools(request):

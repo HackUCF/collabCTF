@@ -2,11 +2,19 @@ from django import forms
 
 from competition.models import Challenge, Competition
 
+_form_control = {'class': 'form-control'}
+
 
 class CompetitionModelForm(forms.ModelForm):
     class Meta:
         model = Competition
         fields = ('name', 'url', 'start_time', 'end_time')
+        widgets = {
+            'name': forms.TextInput(attrs=_form_control),
+            'url': forms.URLInput(attrs=_form_control),
+            'start_time': forms.DateTimeInput(attrs=_form_control),
+            'end_time': forms.DateTimeInput(attrs=_form_control)
+        }
 
 
 class ChallengeModelForm(forms.ModelForm):
@@ -14,8 +22,8 @@ class ChallengeModelForm(forms.ModelForm):
         model = Challenge
         fields = ('name', 'point_value', 'progress', 'num_progress', 'competition')
         widgets = {
-            'point_value': forms.TextInput(attrs={'type': 'number'}),
-            'num_progress': forms.TextInput(attrs={'type': 'number'})
+            'point_value': forms.NumberInput(_form_control),
+            'num_progress': forms.NumberInput(_form_control)
         }
 
 

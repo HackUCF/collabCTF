@@ -9,8 +9,8 @@
         <h1 class="page-header">Add Competition</h1>
 
         <div class="row">
-            <div class="col-md-12">
-                <form id="add-ctf" action="" method="post">
+            <div class="col-sm-8 col-md-6">
+                <form id="add-ctf" class="form" role="form" action="" method="post">
                     <fieldset>
                         {% csrf_token %}
                         <legend>Add a competition</legend>
@@ -19,15 +19,17 @@
                                 {{ form.non_field_errors }}
                             </div>
                         {% endif %}
-                        <table>
-                            {% for field in form %}
-                                <tr>
-                                    <td>{{ field.label_tag }}</td>
-                                    <td>{{ field }} {{ field.errors }}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                        <input type="submit"/>
+                        {% for field in form %}
+                            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {{ field.errors }}
+                            </div>
+                        {% endfor %}
+                        <div class="text-right">
+                            <input class="btn btn-default" type="submit"/>
+                            <input class="btn btn-danger" type="reset"/>
+                        </div>
                     </fieldset>
                 </form>
             </div>

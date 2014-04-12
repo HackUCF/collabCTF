@@ -51,32 +51,20 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="{% block overview_class %}{% endblock %}"><a href="home">Overview</a></li>
-            <li class="{% block reports_class %}{% endblock %}"><a href="reports">Reports</a></li>
-            <li class="{% block tools_class %}{% endblock %}"><a href="ctftools">CTF Tools</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li class="{% block ctfoverview_class %}{% endblock %}"><a href="ctfoverview">Sample CTF</a></li>
-            <li class="{% block ctfchallenge_class %}{% endblock %}"><a href="ctfchallenge">--Sample Challenge</a></li>
-            <li class="{% block addctfchallenge_class %}{% endblock %}"><a href="addctfchallenge">--Add Challenge</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li class="{% block addctfoverview_class %}{% endblock %}"><a href="addctfoverview">Add CTF</a></li>
-          </ul>
-        </div>
+        <div id="sidebar" style="display: none"></div>
 
         {# main viewport content #}
         {% block content %}{% endblock %}
       </div>
     </div>
     {% block scripts %}
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="bootstrap/docs/assets/js/docs.min.js"></script>
+        <script src="//code.jquery.com/jquery-2.0.0.min.js"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'bootstrap/docs/assets/js/docs.min.js' %}"></script>
+
         <script src="{% static 'js/lib/socket.io.js' %}"></script>
         <script src="{% static 'js/metr.js' %}"></script>
+        <script src="{% static 'js/script.js' %}"></script>
         <script>
         $(function() {
             var solvedMetr = new Metr($('#solved-container'), {

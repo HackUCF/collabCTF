@@ -1,5 +1,6 @@
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 from django.db import models
 from datetime import datetime
 
@@ -13,6 +14,9 @@ class Competition(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('view_ctf', kwargs={'ctf_slug': self.slug})
 
 
 class Challenge(models.Model):
@@ -33,6 +37,9 @@ class Challenge(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('view_challenge', kwargs={'ctf_slug': self.competition.slug, 'chall_slug': self.slug})
 
     def last_viewed_display(self):
         if self.last_viewed == 0:

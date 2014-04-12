@@ -12,6 +12,7 @@
             <div class="col-md-12">
                 <form id="add-challenge" action="" method="post">
                     <fieldset>
+                        {% csrf_token %}
                         <legend>Add a challenge</legend>
                         <table>
                             {% for field in form %}

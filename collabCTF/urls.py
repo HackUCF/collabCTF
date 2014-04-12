@@ -10,7 +10,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'collabCTF.views.home', name='index'),
-    url(r'^reports$', 'collabCTF.views.reports'),
+    url(r'^reports$', 'collabCTF.views.reports', name = 'reports'),
     url(r'^ctftools$', 'collabCTF.views.ctf_tools', name='ctf_tools'),
     url(r'^ctfoverview$', 'collabCTF.views.ctfoverview'),
     url(r'^ctfchallenge$', 'collabCTF.views.ctfchallenge'),

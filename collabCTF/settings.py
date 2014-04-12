@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'south',
     'competition'
 )
@@ -63,6 +64,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Theme
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 
 try:
     from collabCTF.local_settings import *

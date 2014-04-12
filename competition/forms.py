@@ -1,4 +1,7 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder
 from django import forms
+from django.core.urlresolvers import reverse
 
 from competition.models import Challenge, Competition
 
@@ -6,15 +9,31 @@ _form_control = {'class': 'form-control'}
 
 
 class CompetitionModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CompetitionModelForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'add-ctf'
+        self.helper.form_method = 'post'
+        self.helper.form_action = ''
+
+        self.helper.layout = Layout(
+            Fieldset(
+                'Add Competition',
+                'name',
+                'url',
+                'start_time',
+                'end_time'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
+
     class Meta:
         model = Competition
         fields = ('name', 'url', 'start_time', 'end_time')
-        widgets = {
-            'name': forms.TextInput(attrs=_form_control),
-            'url': forms.URLInput(attrs=_form_control),
-            'start_time': forms.DateTimeInput(attrs=_form_control),
-            'end_time': forms.DateTimeInput(attrs=_form_control)
-        }
 
 
 class ChallengeModelForm(forms.ModelForm):

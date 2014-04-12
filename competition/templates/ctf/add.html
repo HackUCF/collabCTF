@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block subtitle %}- Overview{% endblock %}
 {% block addctfoverview_class %}active{% endblock %}
@@ -10,28 +11,7 @@
 
         <div class="row">
             <div class="col-sm-8 col-md-6">
-                <form id="add-ctf" class="form" role="form" action="" method="post">
-                    <fieldset>
-                        {% csrf_token %}
-                        <legend>Add a competition</legend>
-                        {% if form.non_field_errors %}
-                            <div class="errors">
-                                {{ form.non_field_errors }}
-                            </div>
-                        {% endif %}
-                        {% for field in form %}
-                            <div class="form-group {% if field.errors %}has-error{% endif %}">
-                                {{ field.label_tag }}
-                                {{ field }}
-                                {{ field.errors }}
-                            </div>
-                        {% endfor %}
-                        <div class="text-right">
-                            <input class="btn btn-default" type="submit"/>
-                            <input class="btn btn-danger" type="reset"/>
-                        </div>
-                    </fieldset>
-                </form>
+                {% crispy form %}
             </div>
         </div>
     </div>

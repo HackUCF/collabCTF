@@ -55,8 +55,8 @@
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="bootstrap/docs/assets/js/docs.min.js"></script>
-        <script src="js/lib/socket.io.js"></script>
-        <script src="js/metr.js"></script>
+        <script src="{% static 'js/lib/socket.io.js' %}"></script>
+        <script src="{% static 'js/metr.js' %}"></script>
         <script>
         $(function() {
             var solvedMetr = new Metr($('#solved-container'), {

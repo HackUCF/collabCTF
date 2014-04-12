@@ -23,6 +23,8 @@ def ctfchallenge(request):
 def reports(request):
     return render_to_response('reports.html')
 
+def about(request):
+    return render_to_response('about.html')
 
 @require_safe
 def ctf_tools(request):

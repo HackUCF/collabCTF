@@ -12,10 +12,10 @@ def home(request):
     return render_to_response('index.html')
 
 def ctfoverview(request):
-    return render_to_response('ctfoverview.html')
+    return render_to_response('ctf/overview.html')
 
 def ctfchallenge(request):
-    return render_to_response('ctfchallenge.html')
+    return render_to_response('ctf/challenge/overview.html')
 
 def reports(request):
     return render_to_response('reports.html')
@@ -24,7 +24,7 @@ def about(request):
     return render_to_response('about.html')
 
 def addctfoverview(request):
-    return render_to_response('addctfoverview.html')
+    return render_to_response('ctf/add.html')
 
 def profile(request):
     return render_to_response('profile.html')

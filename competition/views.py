@@ -16,7 +16,7 @@ def view_ctf(request, ctf_slug):
         'challenges': challenges
     }
 
-    return render_to_response('ctfoverview.html', data)
+    return render_to_response('ctf/overview.html', data)
 
 
 def add_challenge(request, ctf_slug):
@@ -27,7 +27,7 @@ def add_challenge(request, ctf_slug):
             'form': form,
             'ctf': ctf
         }
-        return render_to_response('addctfchallenge.html', data, RequestContext(request))
+        return render_to_response('ctf/challenge/add.html', data, RequestContext(request))
 
     elif request.method == 'POST':
         form = ChallengeModelForm(request.POST)
@@ -43,4 +43,4 @@ def add_challenge(request, ctf_slug):
             challenge.save()
             data['challenge'] = challenge
 
-        return render_to_response('addctfchallenge.html', data, RequestContext(request))
+        return render_to_response('ctf/challenge/add.html', data, RequestContext(request))

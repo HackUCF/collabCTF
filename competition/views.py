@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.http import require_safe
@@ -38,6 +39,7 @@ def add_challenge(request, ctf_slug):
         if form.is_valid():
             challenge = form.save(commit=False)
             challenge.competition = ctf
+            challenge.last_viewed = datetime.now()
             challenge.save()
             data['challenge'] = challenge
 

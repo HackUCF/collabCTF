@@ -41,6 +41,7 @@ def hash_val(request):
             'result': crypto.hash(cd['hash_type'], cd['value'])
         })
         return HttpResponse(jdata, content_type='application/json')
+
     else:
         jdata = json.dumps({
             'error': form.errors

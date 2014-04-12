@@ -1,5 +1,5 @@
 import json
-from django.core.urlresolvers import resolve, Resolver404
+from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -48,7 +48,7 @@ def sidebar(request):
         try:
             resolved = resolve(url)
             view_name = resolved.view_name
-        except Resolver404:
+        except (Resolver404, NoReverseMatch):
             view_name = 'index'
     else:
         view_name = 'index'

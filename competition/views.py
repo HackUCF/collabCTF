@@ -6,8 +6,11 @@ from competition.models import Competition
 
 @require_GET
 def view_ctf(request, ctf_slug):
-    competition = get_object_or_404(Competition.objects, slug=ctf_slug)
+    competition = get_object_or_404(Competition.objects.prefetch_related('challenges'), slug=ctf_slug)
+    challenges = competition.challenges.all()
     data = {
-        'ctf': competition
+        'ctf': competition,
+        'challenges': challenges
     }
+
     return render_to_response('ctfoverview.html', data)

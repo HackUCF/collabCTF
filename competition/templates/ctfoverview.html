@@ -41,16 +41,18 @@
                   <th>Challenge ID</th>
                   <th>Status</th>
                   <th>Added By</th>
-                  <th>Last Edit</th>
+                  <th>Last viewed</th>
                 </tr>
               </thead>
               <tbody>
+              {% for chall in challenges %}
                 <tr>
-                  <td>Sample Challenge</td>
-                  <td>Solved/In Progress</td>
+                  <td>{{ chall.name }}</td>
+                  <td>{{ chall.get_progress_display }}</td>
                   <td>Sample User</td>
-                  <td>Sample User</td>
+                  <td>{{ chall.last_viewed }}</td>
                 </tr>
+              {% endfor %}
               </tbody>
             </table>
           </div>

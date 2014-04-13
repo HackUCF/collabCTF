@@ -25,12 +25,12 @@ table#challenges > tbody > tr.in-progress:before {
     overflow: hidden;
 }
 
-table#challenges > tbody > tr.finished:before {
+table#challenges > tbody > tr.solved:before {
     background: #dff0d8;
     overflow: hidden;
 }
 
-table#challenges > tbody > tr.finished {
+table#challenges > tbody > tr.solved {
     opacity: 0.6;
     transition: opacity .1s ease-in-out;
     -webkit-transition: opacity .1s ease-in-out;
@@ -39,6 +39,11 @@ table#challenges > tbody > tr.finished {
     -o-transition: opacity .1s ease-in-out;
 }
 
-table#challenges > tbody > tr.finished:hover {
+table#challenges > tbody > tr.solved:hover {
     opacity: 1;
+}
+
+#challenge-header.solved {
+    padding-left: 2px;
+    background: #dff0d8;
 }

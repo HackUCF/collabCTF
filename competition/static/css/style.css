@@ -2,6 +2,10 @@
     color: red;
 }
 
+table#challenges > tbody > tr {
+    cursor: pointer;
+}
+
 table#challenges > tbody > tr:before {
     display: table-cell;
     content: '';
@@ -17,12 +21,12 @@ table#challenges > tbody > tr.not-started:before {
 }
 
 table#challenges > tbody > tr.in-progress:before {
-    background: #0000c8;
+    background: #fcf8e3;
     overflow: hidden;
 }
 
 table#challenges > tbody > tr.finished:before {
-    background: forestgreen;
+    background: #dff0d8;
     overflow: hidden;
 }
 

@@ -65,7 +65,7 @@
 
     <script src="{% static 'js/lib/socket.io.js' %}"></script>
     <script src="{% static 'js/metr.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
     <script>
         $(function () {
             var solvedMetr = new Metr($('#solved-container'), {
@@ -98,5 +98,6 @@
     </script>
     <script src="{% static 'js/chat-client.js' %}"></script>
 {% endblock %}
+{% block extra_scripts %}{% endblock %}
 </body>
 </html>

@@ -11,25 +11,42 @@ _form_control = {'class': 'form-control'}
 class CompetitionModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CompetitionModelForm, self).__init__(*args, **kwargs)
-        fieldset_title = kwargs.get('fieldset_title', 'Add a competition')
-        self.helper = FormHelper()
-        self.helper.form_id = 'add-ctf'
-        self.helper.form_method = 'post'
-        self.helper.form_action = ''
+        self.add_helper = FormHelper()
+        self.add_helper.form_id = 'add-ctf'
+        self.add_helper.form_method = 'post'
+        self.add_helper.form_action = ''
 
-        self.helper.layout = Layout(
+        self.update_helper = FormHelper()
+        self.update_helper.form_id = 'update-ctf'
+        self.update_helper.form_method = 'post'
+        self.update_helper.form_action = ''
+
+        button_holder = ButtonHolder(
+            Submit('submit', 'Submit'),
+            Reset('reset', 'Reset'),
+            css_class='text-right'
+        )
+
+        self.add_helper.layout = Layout(
             Fieldset(
-                fieldset_title,
+                'Add a competition',
                 'name',
                 'url',
                 'start_time',
                 'end_time'
             ),
-            ButtonHolder(
-                Submit('submit', 'Submit'),
-                Reset('reset', 'Reset'),
-                css_class='text-right'
-            )
+            button_holder
+        )
+
+        self.update_helper.layout = Layout(
+            Fieldset(
+                'Update competition',
+                'name',
+                'url',
+                'start_time',
+                'end_time'
+            ),
+            button_holder
         )
 
     class Meta:

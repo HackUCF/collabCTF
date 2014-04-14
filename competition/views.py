@@ -12,7 +12,7 @@ from competition.models import Competition, Challenge
 @require_http_methods(['GET', 'POST'])
 def add_ctf(request):
     if request.method == 'GET':
-        form = CompetitionModelForm(fieldset_title='Update competition')
+        form = CompetitionModelForm()
         data = {
             'form': form
         }
@@ -93,6 +93,20 @@ def update_ctf(request, ctf_slug):
     if request.method == 'GET':
         data = {
             'ctf': ctf,
-            'form': CompetitionModelForm(ctf, fieldset_title='Update competition')
+            'form': CompetitionModelForm(instance=ctf)
+        }
+        return render_to_response('ctf/update.html', data, RequestContext(request))
+
+    elif request.method == 'POST':
+        form = CompetitionModelForm(request.POST)
+        saved = False
+        if form.is_valid():
+            form.save()
+            saved = True
+
+        data = {
+            'ctf': ctf,
+            'form': form,
+            'saved': saved
         }
         return render_to_response('ctf/update.html', data, RequestContext(request))

@@ -11,6 +11,8 @@
         <ul class="nav nav-sidebar">
             {% if view_name == 'view_ctf' or view_name == 'update_ctf' %}
                 <li class="{% if ctf.get_absolute_url in url %}active{% endif %}">
+            {% else %}
+                <li>
             {% endif %}
                 <a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
             {% for challenge in ctf.challenges.all %}

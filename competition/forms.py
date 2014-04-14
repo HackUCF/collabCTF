@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder
 from django import forms
+from django.core.urlresolvers import reverse
 
 from competition.models import Challenge, Competition
 
@@ -112,3 +113,22 @@ class BaseConversionForm(forms.Form):
 class XorForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     key = forms.CharField(widget=forms.TextInput(attrs={'size': 40}))
+
+    def __init__(self, *args, **kwargs):
+        super(XorForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'xor-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = reverse("tools_xor")
+        self.helper.layout = Layout(
+            Fieldset(
+                'XOR Strings',
+                'value',
+                'key'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )

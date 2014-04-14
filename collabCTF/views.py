@@ -37,6 +37,7 @@ def profile(request):
 def settings(request):
     return render_to_response('settings.html')
 
+
 @require_GET
 def sidebar(request):
     url = request.GET.get('url', None)
@@ -99,6 +100,7 @@ def rot_val(request):
             'error': form.errors
         })
         return HttpResponseBadRequest(jdata, content_type='application/json')
+
 
 @require_POST
 def base_conversion_val(request):

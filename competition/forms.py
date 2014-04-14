@@ -11,6 +11,7 @@ _form_control = {'class': 'form-control'}
 class CompetitionModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CompetitionModelForm, self).__init__(*args, **kwargs)
+        fieldset_title = kwargs.get('fieldset_title', 'Add a competition')
         self.helper = FormHelper()
         self.helper.form_id = 'add-ctf'
         self.helper.form_method = 'post'
@@ -18,7 +19,7 @@ class CompetitionModelForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             Fieldset(
-                'Add a competition',
+                fieldset_title,
                 'name',
                 'url',
                 'start_time',

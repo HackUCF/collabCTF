@@ -3,22 +3,23 @@ from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.text import slugify
-from django.views.decorators.http import require_safe
+from django.views.decorators.http import require_safe, require_http_methods
 
 from competition.forms import CompetitionModelForm, ChallengeModelForm
 from competition.models import Competition, Challenge
 
 
+@require_http_methods(['GET', 'POST'])
 def add_ctf(request):
     if request.method == 'GET':
-        form = CompetitionModelForm()
+        form = CompetitionModelForm(fieldset_title='Update competition')
         data = {
             'form': form
         }
         return render_to_response('ctf/add.html', data, RequestContext(request))
 
     elif request.method == 'POST':
-        form = CompetitionModelForm(request.POST)
+        form = CompetitionModelForm(request.POST, fieldset_title='Update competition')
         data = {
             'form': form
         }
@@ -44,6 +45,7 @@ def view_ctf(request, ctf_slug):
     return render_to_response('ctf/overview.html', data)
 
 
+@require_http_methods(['GET', 'POST'])
 def add_challenge(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
     if request.method == 'GET':
@@ -83,3 +85,14 @@ def view_challenge(request, ctf_slug, chall_slug):
     }
 
     return render_to_response('ctf/challenge/overview.html', data, RequestContext(request))
+
+
+@require_http_methods(['GET', 'POST'])
+def update_ctf(request, ctf_slug):
+    ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
+    if request.method == 'GET':
+        data = {
+            'ctf': ctf,
+            'form': CompetitionModelForm(ctf, fieldset_title='Update competition')
+        }
+        return render_to_response('ctf/update.html', data, RequestContext(request))

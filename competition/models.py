@@ -8,8 +8,8 @@ class Competition(models.Model):
     name = models.CharField('Name', max_length=255, unique=True)
     slug = models.SlugField(unique=True)
     url = models.URLField('Competition URL', blank=True)
-    start_time = models.DateTimeField(blank=True)
-    end_time = models.DateTimeField(blank=True)
+    start_time = models.DateTimeField(blank=True, null=True)
+    end_time = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self):
         return self.name

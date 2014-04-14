@@ -9,13 +9,13 @@
     {# the problem starts here #}
     {% for ctf in ctfs %}
         <ul class="nav nav-sidebar">
-            <li class="{% if view_name == 'view_ctf' %}active{% endif %}"><a
+            <li class="{% if view_name == 'view_ctf' and ctf.get_absolute_url == url %}active{% endif %}"><a
                     href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
             {% for challenge in ctf.challenges.all %}
                 <li class="{% if view_name == 'view_challenge' and challenge.get_absolute_url == url %}active{% endif %}"><a
                         href="{{ challenge.get_absolute_url }}">--{{ challenge.name }}</a></li>
             {% endfor %}
-            <li class="{% if view_name == 'add_challenge' %}active{% endif %}"><a
+            <li class="{% if view_name == 'add_challenge' and ctf.get_absolute_url in url %}active{% endif %}"><a
                     href="{% url 'add_challenge' ctf.slug %}">--Add Challenge</a></li>
         </ul>
     {% endfor %}

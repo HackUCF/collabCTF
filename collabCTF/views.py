@@ -3,7 +3,7 @@ from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.decorators.http import require_safe, require_POST
+from django.views.decorators.http import require_safe, require_POST, require_GET
 
 from collabCTF.tools import crypto
 from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm
@@ -37,7 +37,7 @@ def profile(request):
 def settings(request):
     return render_to_response('settings.html')
 
-
+@require_GET
 def sidebar(request):
     url = request.GET.get('url', None)
     if url is not None:

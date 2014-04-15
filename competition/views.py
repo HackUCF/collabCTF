@@ -33,6 +33,31 @@ def add_ctf(request):
         return render_to_response('ctf/add.html', data, RequestContext(request))
 
 
+@require_http_methods(['GET', 'POST'])
+def update_ctf(request, ctf_slug):
+    ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
+    if request.method == 'GET':
+        data = {
+            'ctf': ctf,
+            'form': CompetitionModelForm(instance=ctf)
+        }
+        return render_to_response('ctf/update.html', data, RequestContext(request))
+
+    elif request.method == 'POST':
+        form = CompetitionModelForm(request.POST)
+        saved = False
+        if form.is_valid():
+            form.save()
+            saved = True
+
+        data = {
+            'ctf': ctf,
+            'form': form,
+            'saved': saved
+        }
+        return render_to_response('ctf/update.html', data, RequestContext(request))
+
+
 @require_safe
 def view_ctf(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects.prefetch_related('challenges'), slug=ctf_slug)
@@ -87,27 +112,3 @@ def view_challenge(request, ctf_slug, chall_slug):
 
     return render_to_response('ctf/challenge/overview.html', data, RequestContext(request))
 
-
-@require_http_methods(['GET', 'POST'])
-def update_ctf(request, ctf_slug):
-    ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
-    if request.method == 'GET':
-        data = {
-            'ctf': ctf,
-            'form': CompetitionModelForm(instance=ctf)
-        }
-        return render_to_response('ctf/update.html', data, RequestContext(request))
-
-    elif request.method == 'POST':
-        form = CompetitionModelForm(request.POST)
-        saved = False
-        if form.is_valid():
-            form.save()
-            saved = True
-
-        data = {
-            'ctf': ctf,
-            'form': form,
-            'saved': saved
-        }
-        return render_to_response('ctf/update.html', data, RequestContext(request))

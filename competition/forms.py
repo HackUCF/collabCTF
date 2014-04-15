@@ -80,6 +80,12 @@ class ChallengeModelForm(forms.ModelForm):
     class Meta:
         model = Challenge
         fields = ('name', 'point_value', 'progress', 'num_progress')
+        widgets = {
+            'num_progress': forms.NumberInput(attrs={'type': 'range',
+                                                     'min': 0,
+                                                     'max': 100,
+                                                     'step': 1})
+        }
 
 
 class HashForm(forms.Form):

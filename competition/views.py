@@ -65,6 +65,7 @@ def add_challenge(request, ctf_slug):
 
         if form.is_valid():
             challenge = form.save(commit=False)
+            challenge.competition = ctf
             challenge.last_viewed = datetime.now()
             challenge.slug = slugify(challenge.name)
             challenge.save()

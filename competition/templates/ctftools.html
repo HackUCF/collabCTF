@@ -5,120 +5,32 @@
 {% block subtitle %}- Tools{% endblock %}
 {% block ctftools_class %}active{% endblock %}
 {% block content %}
+
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h1 class="sub-header">CTF Tools</h1>
 
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-6">
-            <form id="hash-form" action="{% url 'tools_hash' %}" method="post">
-                {% csrf_token %}
-                <fieldset>
-                    <legend>Hash Generator</legend>
-                    <style scoped="">
-                        #hash-form tr > td:first-child {
-                        text-align: right;
-                        }
+     <div class="row">
+        <div class="col-sm-8 col-md-6">
+            {% crispy hash_form %}
+        </div>
+    </div>
 
-                        #hash-form tr > td {
-                        vertical-align: top;
-                        padding-right: 1em;
-                        padding-bottom: 1em;
-                        }
-                    </style>
-                    <table>
-                        {% for field in hash_form %}
-                        <tr>
-                            <td>{{ field.label_tag }}</td>
-                            <td>{{ field }}</td>
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" value="Submit"/></td>
-                        </tr>
-                    </table>
-                </fieldset>
-            </form>
+    <div class="row">
+        <div class="col-sm-8 col-md-6">
+            {% crispy rot_form %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8 col-md-6">
+            {% crispy base_conversion_form %}
         </div>
     </div>
     <br/>
 
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-6">
-            <form id="rot-form" action="{% url 'tools_rot' %}" method="post">
-                {% csrf_token %}
-                <fieldset>
-                    <legend>Rot-* Encoder/Decoder</legend>
-                    <style scoped="">
-                        #rot-form tr > td:first-child {
-                        text-align: right;
-                        }
-
-                        #rot-form tr > td {
-                        vertical-align: top;
-                        padding-right: 1em;
-                        padding-bottom: 1em;
-                        }
-                    </style>
-                    <table>
-                        {% for field in rot_form %}
-                        <tr>
-                            <td>{{ field.label_tag }}</td>
-                            <td>{{ field }}</td>
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" value="Submit"/></td>
-                        </tr>
-                    </table>
-                </fieldset>
-            </form>
-        </div>
-    </div>
-    <br/>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-6">
-            <form id="base-conversion-form" action="{% url 'tools_base_conversion' %}" method="post">
-                {% csrf_token %}
-                <fieldset>
-                    <legend>Base Conversions</legend>
-                    <style scoped="">
-                        #base-conversion-form tr > td:first-child {
-                        text-align: right;
-                        }
-
-                        #base-conversion-form tr > td {
-                        vertical-align: top;
-                        padding-right: 1em;
-                        padding-bottom: 1em;
-                        }
-                    </style>
-                    <table>
-                        {% for field in base_conversion_form %}
-                        <tr>
-                            <td>{{ field.label_tag }}</td>
-                            <td>{{ field }}</td>
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" value="Submit"/></td>
-                        </tr>
-                    </table>
-                </fieldset>
-            </form>
-        </div>
-    </div>
-</div>
-<br/>
-<div class="row">
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <div class="row">
-            <div class="col-sm-8 col-md-6">
-                {% crispy xor_form %}
-            </div>
+        <div class="col-sm-8 col-md-6">
+            {% crispy xor_form %}
         </div>
     </div>
 </div>

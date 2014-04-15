@@ -99,6 +99,24 @@ class HashForm(forms.Form):
     hash_type = forms.ChoiceField(choices=HASH_CHOICES)
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
 
+    def __init__(self, *args, **kwargs):
+        super(HashForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'hash-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = reverse("tools_hash")
+        self.helper.layout = Layout(
+            Fieldset(
+                'Hashing Tools',
+                'hash_type',
+                'value'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
 
 class RotForm(forms.Form):
     ENCODE_CHOICE = (
@@ -108,13 +126,50 @@ class RotForm(forms.Form):
     rot_type = forms.CharField(widget=forms.TextInput(attrs={'size': 2, 'type': 'number'}))
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     encode = forms.ChoiceField(choices=ENCODE_CHOICE, label="")
-
+    def __init__(self, *args, **kwargs):
+        super(RotForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'rot-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = reverse("tools_rot")
+        self.helper.layout = Layout(
+            Fieldset(
+                'ROT=* Encoder/Decoder',
+                'rot_type',
+                'value',
+                'encode'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
 
 class BaseConversionForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     base = forms.CharField(widget=forms.TextInput(attrs={'size': 2}))
     currBase = forms.CharField(widget=forms.TextInput(attrs={'size': 2}), label="Current Base")
 
+    def __init__(self, *args, **kwargs):
+        super(BaseConversionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'base-conversion-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = reverse("tools_base_conversion")
+        self.helper.layout = Layout(
+            Fieldset(
+                'Base Conversion Tool',
+                'value',
+                'base',
+                'currBase'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
 
 class XorForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))

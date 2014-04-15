@@ -3,7 +3,7 @@ from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.text import slugify
-from django.views.decorators.http import require_safe, require_http_methods
+from django.views.decorators.http import require_safe, require_http_methods, require_POST
 
 from competition.forms import CompetitionModelForm, ChallengeModelForm
 from competition.models import Competition, Challenge
@@ -19,9 +19,9 @@ def add_ctf(request):
         return render_to_response('ctf/add.html', data, RequestContext(request))
 
     elif request.method == 'POST':
-        form = CompetitionModelForm(request.POST, fieldset_title='Update competition')
+        form = CompetitionModelForm(request.POST)
         data = {
-            'form': form
+            '`form': form
         }
 
         if form.is_valid():
@@ -68,6 +68,17 @@ def view_ctf(request, ctf_slug):
     }
 
     return render_to_response('ctf/overview.html', data)
+
+
+@require_POST
+def delete_ctf(request, ctf_slug):
+    ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
+    data = {
+        'ctf': ctf
+    }
+    response = render_to_response('ctf/removed.html', data)
+    ctf.delete()
+    return response
 
 
 @require_http_methods(['GET', 'POST'])

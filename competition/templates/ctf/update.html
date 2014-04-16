@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block subtitle %}- {{ ctf.name }}{% endblock %}
 {% block ctfoverview_class %}active{% endblock %}
@@ -13,6 +14,7 @@
                 {% if saved %}
                     <div class="alert alert-success">{{ ctf.name }} has been updated accordingly.</div>
                 {% endif %}
+                {% crispy form form.update_helper %}
             </div>
         </div>
     </div>

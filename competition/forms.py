@@ -58,11 +58,24 @@ class CompetitionModelForm(forms.ModelForm):
 class ChallengeModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ChallengeModelForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_id = 'add-challenge'
-        self.helper.form_method = 'post'
-        self.helper.form_action = ''
-        self.helper.layout = Layout(
+
+        self.add_helper = FormHelper()
+ ``       self.add_helper.form_id = 'add-challenge'
+        self.add_helper.form_method = 'post'
+        self.add_helper.form_action = ''
+
+        self.update_helper = FormHelper()
+        self.update_helper.form_id = 'update-challenge'
+        self.update_helper.form_method = 'post'
+        self.update_helper.form_action = ''
+
+        holder = ButtonHolder(
+            Submit('submit', 'Submit'),
+            Reset('reset', 'Reset'),
+            css_class='text-right'
+        )
+
+        self.add_helper.layout = Layout(
             Fieldset(
                 'Add a challenge',
                 'name',
@@ -70,11 +83,18 @@ class ChallengeModelForm(forms.ModelForm):
                 'progress',
                 'num_progress'
             ),
-            ButtonHolder(
-                Submit('submit', 'Submit'),
-                Reset('reset', 'Reset'),
-                css_class='text-right'
-            )
+            holder
+        )
+
+        self.update_helper.layout = Layout(
+            Fieldset(
+                'Update a challenge',
+                'name',
+                'point_value',
+                'progress',
+                'num_progress'
+            ),
+            holder
         )
 
     class Meta:
@@ -118,6 +138,7 @@ class HashForm(forms.Form):
             )
         )
 
+
 class RotForm(forms.Form):
     ENCODE_CHOICE = (
         ("True", 'Encode'),
@@ -126,6 +147,7 @@ class RotForm(forms.Form):
     rot_type = forms.CharField(widget=forms.TextInput(attrs={'size': 2, 'type': 'number'}))
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     encode = forms.ChoiceField(choices=ENCODE_CHOICE, label="")
+
     def __init__(self, *args, **kwargs):
         super(RotForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -145,6 +167,7 @@ class RotForm(forms.Form):
                 css_class='text-right'
             )
         )
+
 
 class BaseConversionForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
@@ -170,6 +193,7 @@ class BaseConversionForm(forms.Form):
                 css_class='text-right'
             )
         )
+
 
 class XorForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))

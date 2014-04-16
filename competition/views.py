@@ -43,7 +43,7 @@ def update_ctf(request, ctf_slug):
             'ctf': ctf,
             'form': CompetitionModelForm(instance=ctf)
         }
-        return render_to_response('ctf/deleted.html', data, RequestContext(request))
+        return render_to_response('ctf/update.html', data, RequestContext(request))
 
     elif request.method == 'POST':
         form = CompetitionModelForm(request.POST)
@@ -57,7 +57,7 @@ def update_ctf(request, ctf_slug):
             'form': form,
             'saved': saved
         }
-        return render_to_response('ctf/deleted.html', data, RequestContext(request))
+        return render_to_response('ctf/update.html', data, RequestContext(request))
 
 
 @require_safe
@@ -130,12 +130,26 @@ def view_challenge(request, ctf_slug, chall_slug):
 def update_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
     challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)
-    data = {
-        'challenge': challenge,
-        'form': ChallengeModelForm(instance=challenge)
-    }
-    return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
+    if request.method == 'GET':
+        data = {
+            'challenge': challenge,
+            'form': ChallengeModelForm(instance=challenge)
+        }
+        return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
 
+    elif request.method == 'POST':
+        form = ChallengeModelForm(request.POST)
+        saved = False
+        if form.is_valid():
+            form.save()
+            saved = True
+
+        data = {
+            'challenge': challenge,
+            'form': ChallengeModelForm(instance=challenge),
+            'saved': saved
+        }
+        return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
 
 @require_http_methods(['GET', 'POST'])
 def delete_challenge(request, ctf_slug, chall_slug):

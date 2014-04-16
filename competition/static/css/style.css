@@ -47,3 +47,7 @@ table#challenges > tbody > tr.solved:hover {
     padding-left: 2px;
     background: #dff0d8;
 }
+
+.hash-container {
+
+}

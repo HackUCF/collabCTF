@@ -41,6 +41,7 @@
 
         <h2 class="sub-header">Challenges</h2>
 
+        {% if challenges %}
         <div class="table-responsive">
             <table id="challenges" class="table table-striped">
                 <thead>
@@ -64,6 +65,13 @@
                 </tbody>
             </table>
         </div>
+        {% else %}
+            <div class="row">
+                <div class="col-sm-12">
+                    No challenges found. Click here to <a href="{% url 'add_challenge' ctf.slug %}">add a challenge</a>.
+                </div>
+            </div>
+        {% endif %}
     </div>
 
     <div class="modal fade" id="delete-ctf" role="dialog" aria-hidden="true" aria-labelledby="deleteModalLabel">

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block subtitle %}- {{ challenge.name }}{% endblock %}
+{% block content %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Challenge Deleted</h1>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <p>{{ challenge.name }} has been deleted. You wil be redirected to the CTF overview in 5 seconds.</p>
+                <script>setTimeout(function() {document.location = '{% url 'view_ctf' ctf.slug %}';}, 5000) </script>
+            </div>
+        </div>
+    </div>
+{% endblock %}

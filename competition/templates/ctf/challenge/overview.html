@@ -7,7 +7,12 @@
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         {% with challenge.get_progress_display as status %}
-            <h1 id="challenge-header" class="page-header {{ status|slugify }}">{{ challenge.name }} <small class="status">{{ status }}</small></h1>
+            <h1 id="challenge-header" class="page-header {{ status|slugify }}">{{ challenge.name }} <small class="status">{{ status }}</small>
+            <span class="pull-right">
+                <a class="edit" href="{% url 'update_challenge' ctf.slug challenge.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="delete" href="#" data-toggle="modal" data-target="#delete-challenge"><span class="glyphicon glyphicon-remove"></span></a>
+            </span>
+            </h1>
         {% endwith %}
 
         <div class="table-responsive">
@@ -61,6 +66,23 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="modal fade" id="delete-challenge" role="dialog" aria-hidden="true" aria-labelledby="deleteModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="deleteModalLabel">CTF Deletion Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <div>Are you sure that you want to delete {{ ctf.name }}?</div>
+                    <form class="text-right" action="delete" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                        <input class="btn btn-danger" type="submit" value="Delete"/>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

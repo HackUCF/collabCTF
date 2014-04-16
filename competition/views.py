@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.utils.text import slugify
 from django.views.decorators.http import require_safe, require_http_methods, require_POST
@@ -29,6 +29,8 @@ def add_ctf(request):
             competition.slug = slugify(competition.name)
             competition.save()
             data['competition'] = competition
+            return redirect(competition.get_absolute_url())
+
         # url tbd
         return render_to_response('ctf/add.html', data, RequestContext(request))
 
@@ -67,7 +69,7 @@ def view_ctf(request, ctf_slug):
         'challenges': challenges
     }
 
-    return render_to_response('ctf/overview.html', data)
+    return render_to_response('ctf/overview.html', data, RequestContext(request))
 
 
 @require_POST

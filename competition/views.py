@@ -131,8 +131,8 @@ def update_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
     challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)
     data = {
-        'ctf': ctf,
-        'challenge': challenge
+        'challenge': challenge,
+        'form': ChallengeModelForm(instance=challenge)
     }
     return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
 

@@ -46,7 +46,7 @@ def update_ctf(request, ctf_slug):
         return render_to_response('ctf/update.html', data, RequestContext(request))
 
     elif request.method == 'POST':
-        form = CompetitionModelForm(request.POST)
+        form = CompetitionModelForm(request.POST, instance=ctf)
         saved = False
         if form.is_valid():
             form.save()
@@ -138,10 +138,12 @@ def update_challenge(request, ctf_slug, chall_slug):
         return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
 
     elif request.method == 'POST':
-        form = ChallengeModelForm(request.POST)
+        form = ChallengeModelForm(request.POST, instance=challenge)
         saved = False
         if form.is_valid():
-            form.save()
+            challenge = form.save(commit=False)
+            challenge.last_viewed = datetime.now()
+            challenge.save()
             saved = True
 
         data = {

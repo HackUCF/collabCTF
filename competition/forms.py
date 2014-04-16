@@ -60,7 +60,7 @@ class ChallengeModelForm(forms.ModelForm):
         super(ChallengeModelForm, self).__init__(*args, **kwargs)
 
         self.add_helper = FormHelper()
- ``       self.add_helper.form_id = 'add-challenge'
+        self.add_helper.form_id = 'add-challenge'
         self.add_helper.form_method = 'post'
         self.add_helper.form_action = ''
 
@@ -147,6 +147,7 @@ class RotForm(forms.Form):
     rot_type = forms.CharField(widget=forms.TextInput(attrs={'size': 2, 'type': 'number'}))
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     encode = forms.ChoiceField(choices=ENCODE_CHOICE, label="")
+    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "rot-result"}), required=False)
 
     def __init__(self, *args, **kwargs):
         super(RotForm, self).__init__(*args, **kwargs)
@@ -159,7 +160,8 @@ class RotForm(forms.Form):
                 'ROT=* Encoder/Decoder',
                 'rot_type',
                 'value',
-                'encode'
+                'encode',
+                'result'
             ),
             ButtonHolder(
                 Submit('submit', 'Submit'),
@@ -173,6 +175,7 @@ class BaseConversionForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     base = forms.CharField(widget=forms.TextInput(attrs={'size': 2}))
     currBase = forms.CharField(widget=forms.TextInput(attrs={'size': 2}), label="Current Base")
+    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "base-conversion-result"}), required=False)
 
     def __init__(self, *args, **kwargs):
         super(BaseConversionForm, self).__init__(*args, **kwargs)
@@ -185,7 +188,8 @@ class BaseConversionForm(forms.Form):
                 'Base Conversion Tool',
                 'value',
                 'base',
-                'currBase'
+                'currBase',
+                'result'
             ),
             ButtonHolder(
                 Submit('submit', 'Submit'),
@@ -198,6 +202,7 @@ class BaseConversionForm(forms.Form):
 class XorForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     key = forms.CharField(widget=forms.TextInput(attrs={'size': 40}))
+    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "xor-result"}), required=False)
 
     def __init__(self, *args, **kwargs):
         super(XorForm, self).__init__(*args, **kwargs)
@@ -209,7 +214,8 @@ class XorForm(forms.Form):
             Fieldset(
                 'XOR Strings',
                 'value',
-                'key'
+                'key',
+                'result'
             ),
             ButtonHolder(
                 Submit('submit', 'Submit'),

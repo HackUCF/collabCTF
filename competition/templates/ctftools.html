@@ -31,7 +31,6 @@
     <div class="row">
         <div class="col-sm-8 col-md-6">
             {% crispy xor_form %}
-            <div id="xor-result"></div>
         </div>
     </div>
 </div>
@@ -39,13 +38,48 @@
 {% block extra_scripts %}
     <script type="application/javascript">
         $(document).ready(function() {
-            $('#xor-form').submit(function(event) {
+            $('#base-conversion-form').submit(function(event) {
                 event.preventDefault();
                 var data = $(this).serialize();
+                var resultId = this.id.replace('-form', '-result');
                 $.post(this.action, data, function(jdata){
-                    $('#xor-result').text(jdata['result']);
+                    $('#' + resultId).text(jdata['result']);
                 });
             });
         });
+
+        $(document).ready(function() {
+            $('#xor-form').submit(function(event) {
+                event.preventDefault();
+                var data = $(this).serialize();
+                var resultId = this.id.replace('-form', '-result');
+                $.post(this.action, data, function(jdata){
+                    $('#' + resultId).text(jdata['result']);
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            $('#hash-form').submit(function(event) {
+                event.preventDefault();
+                var data = $(this).serialize();
+                var resultId = this.id.replace('-form', '-result');
+                $.post(this.action, data, function(jdata){
+                    $('#' + resultId).text(jdata['result']);
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            $('#rot-form').submit(function(event) {
+                event.preventDefault();
+                var data = $(this).serialize();
+                var resultId = this.id.replace('-form', '-result');
+                $.post(this.action, data, function(jdata){
+                    $('#' + resultId).text(jdata['result']);
+                });
+            });
+        });
+
     </script>
 {% endblock %}

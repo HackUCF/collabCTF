@@ -1,9 +1,9 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder
+from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder, HTML
 from django import forms
 from django.core.urlresolvers import reverse
 
-from competition.models import Challenge, Competition
+from competition.models import Challenge, Competition, ChallengeFile
 
 
 _form_control = {'class': 'form-control'}
@@ -106,6 +106,48 @@ class ChallengeModelForm(forms.ModelForm):
                                                      'max': 100,
                                                      'step': 1})
         }
+
+
+class ChallengeFileModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ChallengeFileModelForm, self).__init__(*args, **kwargs)
+
+        self.add_helper = FormHelper()
+        self.add_helper.form_id = 'add-file'
+        self.add_helper.form_method = 'post'
+        self.add_helper.form_action = ''
+
+        self.update_helper = FormHelper()
+        self.update_helper.form_id = 'update-file'
+        self.update_helper.form_method = 'post'
+        self.update_helper.form_action = ''
+
+        holder = ButtonHolder(
+            Submit('submit', 'Submit'),
+            Reset('reset', 'Reset'),
+            css_class='text-right'
+        )
+
+        self.add_helper.layout = Layout(
+            Fieldset(
+                'Add a file',
+                HTML('<p>Original filenames are preserved whenever possible.</p>'),
+                'file',
+            ),
+            holder
+        )
+
+        self.update_helper.layout = Layout(
+            Fieldset(
+                'Update a file',
+                'file',
+            ),
+            holder
+        )
+
+    class Meta:
+        model = ChallengeFile
+        fields = ('file',)
 
 
 class HashForm(forms.Form):

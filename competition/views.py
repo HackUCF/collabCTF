@@ -5,8 +5,8 @@ from django.template import RequestContext
 from django.utils.text import slugify
 from django.views.decorators.http import require_safe, require_http_methods, require_POST
 
-from competition.forms import CompetitionModelForm, ChallengeModelForm
-from competition.models import Competition, Challenge
+from competition.forms import CompetitionModelForm, ChallengeModelForm, ChallengeFileModelForm
+from competition.models import Competition, Challenge, ChallengeFile
 
 
 @require_http_methods(['GET', 'POST'])
@@ -153,6 +153,7 @@ def update_challenge(request, ctf_slug, chall_slug):
         }
         return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
 
+
 @require_http_methods(['GET', 'POST'])
 def delete_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
@@ -164,3 +165,28 @@ def delete_challenge(request, ctf_slug, chall_slug):
     response = render_to_response('ctf/challenge/deleted.html', data, RequestContext(request))
     challenge.delete()
     return response
+
+@require_http_methods(['GET', 'POST'])
+def add_file(request, ctf_slug, chall_slug):
+    ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
+    challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)
+
+    data = {
+        'ctf': ctf,
+        'challenge': challenge,
+    }
+
+    if request.method == 'GET':
+        data['form'] = ChallengeFileModelForm()
+        return render_to_response('ctf/challenge/files/add.html', data, RequestContext(request))
+    elif request.method == 'POST':
+        form = ChallengeFileModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            upfile = form.save(commit=False)
+            upfile.challenge = challenge
+            upfile.ctime = datetime.now()
+            upfile.mtime = datetime.now()
+            return redirect('view_challenge', ctf_slug=ctf_slug, chall_slug=chall_slug)
+        else:
+            data['form'] = ChallengeFileModelForm()
+            return render_to_response('ctf/challenge/files/add.html', data, RequestContext(request))

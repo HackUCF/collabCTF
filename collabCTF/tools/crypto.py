@@ -27,43 +27,27 @@ def hash(type=None, value=None):
 #rotational cipher encoder/decoder
 def rot(shift, value, encode):
     try:
+        alphabet = string.ascii_lowercase
+        dic = {}
         #If we want to encode this
         if encode == "True":
-            alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-                        "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
-                        "z"]
-            dic = {}
             for i in range(0, len(alphabet)):
                 dic[alphabet[i]] = alphabet[(i + int(shift, 10)) % len(alphabet)]
 
-            #Convert each letter of plaintext to the corrsponding
-            #encrypted letter in our dictionary creating the cryptext
-            ciphertext = ""
-            for l in value.lower():
-                if l in dic:
-                    l = dic[l]
-                ciphertext += l
-
-            return ciphertext
-
         #If we want to decode a rotational cipher
         else:
-            alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-                        "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y",
-                        "z"]
-            dic = {}
             for i in range(0, len(alphabet)):
                 dic[alphabet[i]] = alphabet[(i + (26 - (int(shift, 10) % 26))) % len(alphabet)]
 
-            #Convert each letter of plaintext to the corrsponding
-            #encrypted letter in our dictionary creating the cryptext
-            ciphertext = ""
-            for l in value.lower():
-                if l in dic:
-                    l = dic[l]
-                ciphertext += l
+        #Convert each letter of plaintext to the corresponding
+        #encrypted letter in our dictionary creating the cryptext
+        ciphertext = ""
+        for l in value.lower():
+            if l in dic:
+                l = dic[l]
+            ciphertext += l
 
-            return ciphertext
+        return ciphertext
     except:
         return "An error occurred"
 

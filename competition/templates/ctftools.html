@@ -6,80 +6,41 @@
 {% block ctftools_class %}active{% endblock %}
 {% block content %}
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-10 col-sm-offset-3 col-md-offset-2 main">
     <h1 class="sub-header">CTF Tools</h1>
+</div>
 
-     <div class="row">
-        <div class="col-sm-8 col-md-6">
+<div class="col-sm-9 col-sm-offset-3 col-md-offset-2 col-lg-5 col-lg-offset-2 main">
+
+
+    <div class="row">
+        <div class="col-sm-12">
             {% crispy hash_form %}
         </div>
     </div>
-
+    <br />
     <div class="row">
-        <div class="col-sm-8 col-md-6">
+        <div class="col-sm-12">
             {% crispy rot_form %}
         </div>
     </div>
+</div>
 
+<div class="col-sm-12 col-sm-offset-3 col-md-offset-2 col-lg-5 col-lg-offset-0 main">
     <div class="row">
-        <div class="col-sm-8 col-md-6">
+        <div class="col-sm-12">
             {% crispy base_conversion_form %}
         </div>
     </div>
     <br/>
 
     <div class="row">
-        <div class="col-sm-8 col-md-6">
+        <div class="col-sm-12">
             {% crispy xor_form %}
         </div>
     </div>
 </div>
 {% endblock %}
 {% block extra_scripts %}
-    <script type="application/javascript">
-        $(document).ready(function() {
-            $('#base-conversion-form').submit(function(event) {
-                event.preventDefault();
-                var data = $(this).serialize();
-                var resultId = this.id.replace('-form', '-result');
-                $.post(this.action, data, function(jdata){
-                    $('#' + resultId).text(jdata['result']);
-                });
-            });
-        });
-
-        $(document).ready(function() {
-            $('#xor-form').submit(function(event) {
-                event.preventDefault();
-                var data = $(this).serialize();
-                var resultId = this.id.replace('-form', '-result');
-                $.post(this.action, data, function(jdata){
-                    $('#' + resultId).text(jdata['result']);
-                });
-            });
-        });
-
-        $(document).ready(function() {
-            $('#hash-form').submit(function(event) {
-                event.preventDefault();
-                var data = $(this).serialize();
-                var resultId = this.id.replace('-form', '-result');
-                $.post(this.action, data, function(jdata){
-                    $('#' + resultId).text(jdata['result']);
-                });
-            });
-        });
-
-        $(document).ready(function() {
-            $('#rot-form').submit(function(event) {
-                event.preventDefault();
-                var data = $(this).serialize();
-                var resultId = this.id.replace('-form', '-result');
-                $.post(this.action, data, function(jdata){
-                    $('#' + resultId).text(jdata['result']);
-                });
-            });
-        });
-
-    </script>
+<script type="application/javascript" src="{% static 'js/ctftools.js'%}"></script>
 {% endblock %}

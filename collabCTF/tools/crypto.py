@@ -6,22 +6,19 @@ import itertools
 
 
 def hash(type=None, value=None):
-    try:
-        if type is None:
-            return 'You must specify a type'
-        if value is None:
-            return 'You must specify a value'
-        if type == 'MD5':
-            return hashlib.md5(str(value)).hexdigest()
-        if type == 'SHA1':
-            return hashlib.sha1(str(value)).hexdigest()
-        if type == 'SHA256':
-            return hashlib.sha256(str(value)).hexdigest()
-        if type == 'SHA512':
-            return hashlib.sha512(str(value)).hexdigest()
-        return 'Specified type not supported'
-    except:
-        return "An error occurred"
+    if type is None:
+        return 'You must specify a type'
+    if value is None:
+        return 'You must specify a value'
+    if type == 'MD5':
+        return hashlib.md5(value).hexdigest()
+    if type == 'SHA1':
+        return hashlib.sha1(value).hexdigest()
+    if type == 'SHA256':
+        return hashlib.sha256(value).hexdigest()
+    if type == 'SHA512':
+        return hashlib.sha512(value).hexdigest()
+    return 'Specified type not supported'
 
 
 #rotational cipher encoder/decoder

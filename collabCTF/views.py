@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST, require_GET
+import sys
 
 from collabCTF.tools import crypto
 from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm
@@ -74,8 +75,12 @@ def hash_val(request):
     form = HashForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
+        value = cd['value']
+        if sys.version_info.major == 3:
+            value = value.encode('utf8')
+
         jdata = json.dumps({
-            'result': crypto.hash(cd['hash_type'], cd['value'])
+            'result': crypto.hash(cd['hash_type'], value)
         })
         return HttpResponse(jdata, content_type='application/json')
 

@@ -51,6 +51,7 @@ def rot(shift, value, encode):
     except:
         return "An error occurred"
 
+
 #main base conversion function
 def base_conversions(value=None, base=None, currBase=10):
     try:
@@ -72,7 +73,6 @@ def base_conversions(value=None, base=None, currBase=10):
             return int_to_base(value, base)
     except:
         return "An error occurred"
-
 
 
 #converts any integer to any base; only used internally, should never be called from the actual site

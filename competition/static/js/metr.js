@@ -60,11 +60,11 @@ Metr.prototype.draw = function() {
     ctx.clearRect(0, 0, this._width, this._height);
     
     for (var i=fg.length - 1; i>=0; --i) {
-        var radius = cR + (i+1) * sW;   
+        var radius = cR + (i+1) * sW;
         if (this._background) {
             ctx.fillStyle = "#000000";
             ctx.beginPath();
-            ctx.arc(cX, cY, radius, 0, 2*Math.PI);
+            ctx.arc(cX, cY, radius - 0.5, 0, 2*Math.PI);
             ctx.closePath();
             ctx.fill();
         }

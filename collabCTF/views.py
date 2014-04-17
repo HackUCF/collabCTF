@@ -23,8 +23,12 @@ def ctfchallenge(request):
     return render_to_response('ctf/challenge/overview.html')
 
 
+@require_safe
 def reports(request):
-    return render_to_response('reports.html')
+    data = {
+        'ctfs': Competition.objects.order_by('-start_time')
+    }
+    return render_to_response('reports.html', data, RequestContext(request))
 
 
 def about(request):

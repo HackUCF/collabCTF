@@ -65,36 +65,6 @@
     <script src="{% static 'js/lib/socket.io.js' %}"></script>
     <script src="{% static 'js/metr.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
-    <script>
-        $(function () {
-            var solvedMetr = new Metr($('#solved-container'), {
-                background: true,
-                colors: ['#D00000', '#A00000'],
-                progress: [60, 88]
-            });
-            var timeMetr = new Metr($('#time-container'), {
-                background: true,
-                colors: ['#C0C000', '#A0A000'],
-                progress: [17, 72]
-            });
-            var usersMetr = new Metr($('#users-container'), {
-                background: true,
-                colors: ['#0000D0', '#0000A0'],
-                progress: [38, 65]
-            });
-            var pointsMetr = new Metr($('#points-container'), {
-                background: true,
-                colors: ['#00D000', '#00A000'],
-                progress: [27, 53]
-            });
-            var a = 0, b = 0;
-            setInterval(function () {
-                timeMetr.update([a, b]);
-                a = a < 100 ? a + 1 : 0;
-                b = b < 100 ? b + 2 : 0;
-            }, 33);
-        });
-    </script>
     <script src="{% static 'js/chat-client.js' %}"></script>
 {% endblock %}
 {% block extra_scripts %}{% endblock %}

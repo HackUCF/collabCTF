@@ -7,7 +7,7 @@ from django.views.decorators.http import require_safe, require_POST, require_GET
 import sys
 
 from collabCTF.tools import crypto
-from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm
+from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm
 from competition.models import Competition
 
 
@@ -79,6 +79,14 @@ def ctf_tools(request):
         'xor_form': XorForm()
     }
     return render_to_response('ctftools.html', data, RequestContext(request))
+
+@require_safe
+def register_user(request):
+    data = {
+        'register_form': RegistrationForm()
+    }
+
+    return render_to_response('register.html', data, RequestContext(request))
 
 
 @require_POST

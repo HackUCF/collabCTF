@@ -30,8 +30,14 @@ def chart_data(request, ctf_slug):
     }
 
     # Py2+3 unix time
-    start_time = (ctf.start_time - dt.datetime(1970, 1, 1, tzinfo=UTC)).total_seconds()
-    end_time = (ctf.end_time - dt.datetime(1970, 1, 1, tzinfo=UTC)).total_seconds()
+    if ctf.start_time is not None:
+        start_time = (ctf.start_time - dt.datetime(1970, 1, 1, tzinfo=UTC)).total_seconds()
+    else:
+        start_time = None
+    if ctf.end_time is not None:
+        end_time = (ctf.end_time - dt.datetime(1970, 1, 1, tzinfo=UTC)).total_seconds()
+    else:
+        end_time = None
     users = {
         'online': 4,
         'total': 22
@@ -39,9 +45,9 @@ def chart_data(request, ctf_slug):
 
     pv_sum = Sum('point_value')
     points = {
-        'earned': solved_challenges.aggregate(pv_sum)['point_value__sum'] or 0,
-        'in_progress': in_progress_challenges.aggregate(pv_sum)['point_value__sum'] or 0,
-        'total': challenges.aggregate(pv_sum)['point_value__sum'] or 0
+        'earned': solved_challenges.aggregate(pv_sum)['point_value__sum'] or 0.001,
+        'in_progress': in_progress_challenges.aggregate(pv_sum)['point_value__sum'] or 0.001,
+        'total': challenges.aggregate(pv_sum)['point_value__sum'] or 1
     }
 
     data = {

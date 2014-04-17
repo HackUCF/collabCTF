@@ -21,7 +21,7 @@ def add_ctf(request):
     elif request.method == 'POST':
         form = CompetitionModelForm(request.POST)
         data = {
-            '`form': form
+            'form': form
         }
 
         if form.is_valid():

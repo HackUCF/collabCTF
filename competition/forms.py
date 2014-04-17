@@ -220,7 +220,8 @@ class BaseConversionForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     base = forms.CharField(widget=forms.TextInput(attrs={'size': 2}))
     currBase = forms.CharField(widget=forms.TextInput(attrs={'size': 2}), label="Current Base")
-    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "base-conversion-result"}), required=False)
+    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "base-conversion-result"}),
+                             required=False)
 
     def __init__(self, *args, **kwargs):
         super(BaseConversionForm, self).__init__(*args, **kwargs)
@@ -269,8 +270,8 @@ class XorForm(forms.Form):
             )
         )
 
-class RegistrationForm(UserCreationForm):
 
+class RegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()

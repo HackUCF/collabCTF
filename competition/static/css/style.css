@@ -57,3 +57,7 @@ table#challenges > tbody > tr.solved:hover {
 #uploaded-files tr > td:first-child {
     text-align: inherit;
 }
+
+#sidebar{
+ overflow: auto;
+}

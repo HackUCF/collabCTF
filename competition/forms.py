@@ -160,6 +160,7 @@ class HashForm(forms.Form):
 
     hash_type = forms.ChoiceField(choices=HASH_CHOICES)
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "hash-result"}), required=False)
 
     def __init__(self, *args, **kwargs):
         super(HashForm, self).__init__(*args, **kwargs)
@@ -171,7 +172,8 @@ class HashForm(forms.Form):
             Fieldset(
                 'Hashing Tools',
                 'hash_type',
-                'value'
+                'value',
+                'result'
             ),
             ButtonHolder(
                 Submit('submit', 'Submit'),

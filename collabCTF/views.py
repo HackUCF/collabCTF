@@ -14,6 +14,13 @@ from competition.models import Competition
 def home(request):
     return render_to_response('index.html')
 
+def profile(request):
+    return render_to_response('profile.html')
+def settings(request):
+    return render_to_response('settings.html')
+def about(request):
+    return render_to_response('about.html')
+
 
 def ctfoverview(request):
     return render_to_response('ctf/overview.html')

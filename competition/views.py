@@ -107,8 +107,7 @@ def add_challenge(request, ctf_slug):
             challenge.last_viewed = datetime.now()
             challenge.slug = slugify(challenge.name)
             challenge.save()
-            data['challenge'] = challenge
-            data['form'] = ChallengeModelForm()
+            return redirect(ctf.get_absolute_url())
 
         return render_to_response('ctf/challenge/add.html', data, RequestContext(request))
 

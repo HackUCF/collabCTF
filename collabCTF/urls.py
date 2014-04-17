@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'collabCTF.views.home', name='index'),
+    url(r'^.sidebar$', 'collabCTF.views.sidebar', name='sidebar'),
     url(r'^reports$', 'collabCTF.views.reports', name='reports'),
     url(r'^ctftools$', 'collabCTF.views.ctf_tools', name='ctf_tools'),
     url(r'^about$', 'collabCTF.views.about'),
@@ -28,9 +29,8 @@ urlpatterns = patterns('',
         name='delete_challenge'),
     url(r'ctf/(?P<ctf_slug>[a-z\d_\-]+)/(?P<chall_slug>[a-z\d_\-]+)/add', 'competition.views.add_file',
         name='add_file'),
-    url(r'^tools/ajax/hash$', 'collabCTF.views.hash_val', name='tools_hash'),
-    url(r'^tools/ajax/rot$', 'collabCTF.views.rot_val', name='tools_rot'),
-    url(r'^sidebar$', 'collabCTF.views.sidebar', name='sidebar'),
-    url(r'^tools/ajax/base_conversions$', 'collabCTF.views.base_conversion_val', name='tools_base_conversion'),
-    url(r'^tools/ajax/xor$', 'collabCTF.views.xor_val', name='tools_xor')
+    url(r'^tools/.hash$', 'collabCTF.views.hash_val', name='tools_hash'),
+    url(r'^tools/.rot$', 'collabCTF.views.rot_val', name='tools_rot'),
+    url(r'^tools/.base_conversions$', 'collabCTF.views.base_conversion_val', name='tools_base_conversion'),
+    url(r'^tools/.xor$', 'collabCTF.views.xor_val', name='tools_xor')
 )

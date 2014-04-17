@@ -3,7 +3,7 @@ $(document).ready(function() {
     $sidebar.hide();
     // get the sidebar
     var xhr = $.ajax({
-        url: '/sidebar?url=' + location.pathname,
+        url: '/.sidebar?url=' + location.pathname,
         cache: false
     });
     xhr.done(function(data) {

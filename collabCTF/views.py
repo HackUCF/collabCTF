@@ -81,7 +81,7 @@ def ctf_tools(request):
     return render_to_response('ctftools.html', data, RequestContext(request))
 
 @require_safe
-def register_user(request):
+def register(request):
     data = {
         'register_form': RegistrationForm()
     }

@@ -2,11 +2,16 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET
-import pytz
 from competition.models import Competition, Challenge
 from django.db.models import Sum
 
 import datetime as dt
+
+try:
+    # not required since it's included, but...
+    from pytz import UTC
+except ImportError:
+    from collabCTF.tools.misc import UTC
 
 
 @require_GET
@@ -25,8 +30,8 @@ def chart_data(request, ctf_slug):
     }
 
     # Py2+3 unix time
-    start_time = (ctf.start_time - dt.datetime(1970, 1, 1, tzinfo=pytz.utc)).total_seconds()
-    end_time = (ctf.end_time - dt.datetime(1970, 1, 1, tzinfo=pytz.utc)).total_seconds()
+    start_time = (ctf.start_time - dt.datetime(1970, 1, 1, tzinfo=UTC)).total_seconds()
+    end_time = (ctf.end_time - dt.datetime(1970, 1, 1, tzinfo=UTC)).total_seconds()
     users = {
         'online': 4,
         'total': 22

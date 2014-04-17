@@ -29,8 +29,11 @@ urlpatterns = patterns('',
         name='delete_challenge'),
     url(r'ctf/(?P<ctf_slug>[a-z\d_\-]+)/(?P<chall_slug>[a-z\d_\-]+)/add', 'competition.views.add_file',
         name='add_file'),
+
+    # ajax
+    url(r'^ctf/(?P<ctf_slug>[a-z\d_\-]+)/.chart$', 'competition.ajax.chart_data', name='ctf_chart'),
     url(r'^tools/.hash$', 'collabCTF.views.hash_val', name='tools_hash'),
     url(r'^tools/.rot$', 'collabCTF.views.rot_val', name='tools_rot'),
     url(r'^tools/.base_conversions$', 'collabCTF.views.base_conversion_val', name='tools_base_conversion'),
-    url(r'^tools/.xor$', 'collabCTF.views.xor_val', name='tools_xor')
+    url(r'^tools/.xor$', 'collabCTF.views.xor_val', name='tools_xor'),
 )

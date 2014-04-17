@@ -21,10 +21,14 @@ class Competition(models.Model):
 
 
 class Challenge(models.Model):
+    NOT_STARTED = 0
+    IN_PROGRESS = 1
+    SOLVED = 2
+
     PROGRESS_CHOICES = (
-        (0, 'Not Started'),
-        (1, 'In Progress'),
-        (2, 'Finished')
+        (NOT_STARTED, 'Not Started'),
+        (IN_PROGRESS, 'In Progress'),
+        (SOLVED, 'Solved')
     )
 
     name = models.CharField('Name', max_length=255)
@@ -52,6 +56,7 @@ class Challenge(models.Model):
 
     class Meta:
         unique_together = ('name', 'competition')
+        ordering = ('progress',)
 
 
 class ChallengeFile(models.Model):

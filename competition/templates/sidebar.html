@@ -15,12 +15,8 @@
                 <li>
             {% endif %}
                 <a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
-            {% for challenge in ctf.challenges.all %}
-                <li class="{% if view_name == 'view_challenge' and challenge.get_absolute_url == url %}active{% endif %}"><a
-                        href="{{ challenge.get_absolute_url }}">--{{ challenge.name }}</a></li>
-            {% endfor %}
             <li class="{% if view_name == 'add_challenge' and ctf.get_absolute_url in url %}active{% endif %}"><a
-                    href="{% url 'add_challenge' ctf.slug %}">--Add Challenge</a></li>
+                    href="{% url 'add_challenge' ctf.slug %}">&ndash; Add Challenge</a></li>
         </ul>
     {% endfor %}
     {# the problem ends here #}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from competition.models import Competition, Challenge
+from competition.models import Competition, Challenge, ChallengeFile
 
 # Register your models here.
 
@@ -19,3 +19,4 @@ class ChallengeAdmin(admin.ModelAdmin):
 
 admin.site.register(Competition, CompetitionAdmin)
 admin.site.register(Challenge, ChallengeAdmin)
+admin.site.register(ChallengeFile)

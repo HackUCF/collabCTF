@@ -1,6 +1,7 @@
-from django.conf.urls import patterns, include, url
-
+from django.conf.urls import patterns, include, url, static
+from django.conf import settings
 from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -37,3 +38,10 @@ urlpatterns = patterns('',
     url(r'^tools/.base_conversions$', 'collabCTF.views.base_conversion_val', name='tools_base_conversion'),
     url(r'^tools/.xor$', 'collabCTF.views.xor_val', name='tools_xor'),
 )
+
+if settings.DEBUG:
+    if 'MEDIA_ROOT' in dir(settings):
+        media_root = settings.MEDIA_ROOT
+    else:
+        media_root = 'files'
+    urlpatterns += static.static(settings.MEDIA_URL, document_root=media_root)

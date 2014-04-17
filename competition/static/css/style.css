@@ -48,6 +48,12 @@ table#challenges > tbody > tr.solved:hover {
     background: #dff0d8;
 }
 
-.hash-container {
+#uploaded-files tr > td:last-child,
+#uploaded-files tr > th:last-child{
+    text-align: right;
+}
 
+/* covering the "Upload new file" td */
+#uploaded-files tr > td:first-child {
+    text-align: inherit;
 }

@@ -7,66 +7,50 @@
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         {% with challenge.get_progress_display as status %}
-            <h1 id="challenge-header" class="page-header {{ status|slugify }}">{{ challenge.name }} <small class="status">{{ status }}</small>
+            <h1 id="challenge-header" class="page-header {{ status|slugify }}">{{ challenge.name }}
+                <small class="status">{{ status }}</small>
             <span class="pull-right">
-                <a class="edit" href="{% url 'update_challenge' ctf.slug challenge.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="delete" href="#" data-toggle="modal" data-target="#delete-challenge"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="edit" href="{% url 'update_challenge' ctf.slug challenge.slug %}"><span
+                        class="glyphicon glyphicon-pencil"></span></a>
+                <a class="delete" href="#" data-toggle="modal" data-target="#delete-challenge"><span
+                        class="glyphicon glyphicon-remove"></span></a>
             </span>
             </h1>
         {% endwith %}
 
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Document Name</th>
-                    <th>Creation Time</th>
-                    <th>Status</th>
-                    <th>Created By</th>
-                    <th>Number Of Users</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Sample Document</td>
-                    <td>Sample Time 8:00 AM EST</td>
-                    <td>In Use/Not In Use</td>
-                    <td>Sample User</td>
-                    <td>Number Of Users</td>
-                </tr>
-                <tr>
-                    <td colspan="5">Create New Document</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
         <h2 class="sub-header">Files</h2>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Filename</th>
-                    <th>Upload Time</th>
-                    <th>Version</th>
-                    <th>Uploaded By</th>
-                    <th>Downloads</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Sample File</td>
-                    <td>Sample Time 8:00 AM EST</td>
-                    <td>Sample Version 1.0</td>
-                    <td>Sample User</td>
-                    <td>Number Of Downloads, Download</td>
-                </tr>
-                <tr>
-                    <td colspan="5">Upload New File</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        {% if files %}
+            <div class="table-responsive">
+                <table id="uploaded-files" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>Upload Time</th>
+                        <th>Version</th>
+                        <th>Uploaded By</th>
+                        <th>Link</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for upfile in files %}
+                    <tr>
+                        <td>{{ upfile.filename }}</td>
+                        <td>{{ upfile.ctime }}</td>
+                        <td>{{ upfile.mtime }}</td>
+                        <td>Sample User</td>
+                        <td><a href="{{ upfile.file.url }}">Download</a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="5"><a href="{% url 'add_file' ctf.slug challenge.slug %}">Upload New File</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No files uploaded. <a href="{% url 'add_file' ctf.slug challenge.slug %}">Click here to add a file.</a>
+            </p>
+        {% endif %}
     </div>
     <div class="modal fade" id="delete-challenge" role="dialog" aria-hidden="true" aria-labelledby="deleteModalLabel">
         <div class="modal-dialog">

@@ -66,9 +66,11 @@ STATIC_URL = '/static/'
 # Theme
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+MEDIA_URL = '/media/'
 
 try:
     from collabCTF.local_settings import *
 except ImportError:
     from django.core.exceptions import ImproperlyConfigured
+
     raise ImproperlyConfigured('local_settings.py not found')

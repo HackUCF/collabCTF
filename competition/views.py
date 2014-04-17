@@ -116,11 +116,12 @@ def add_challenge(request, ctf_slug):
 @require_safe
 def view_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
-    challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)
+    challenge = get_object_or_404(Challenge.objects.prefetch_related('files'), competition=ctf, slug=chall_slug)
 
     data = {
         'ctf': ctf,
-        'challenge': challenge
+        'challenge': challenge,
+        'files': challenge.files.all()
     }
 
     return render_to_response('ctf/challenge/overview.html', data, RequestContext(request))
@@ -186,6 +187,7 @@ def add_file(request, ctf_slug, chall_slug):
             upfile.challenge = challenge
             upfile.ctime = datetime.now()
             upfile.mtime = datetime.now()
+            upfile.save()
             return redirect('view_challenge', ctf_slug=ctf_slug, chall_slug=chall_slug)
         else:
             data['form'] = ChallengeFileModelForm()

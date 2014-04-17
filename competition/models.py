@@ -1,3 +1,4 @@
+import os
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
@@ -69,6 +70,9 @@ class ChallengeFile(models.Model):
         return self.file.name
 
     __str__ = __unicode__
+
+    def filename(self):
+        return os.path.basename(self.file.name)
 
 
 class Tag(models.Model):

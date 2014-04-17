@@ -2,6 +2,8 @@
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+TIME_ZONE = 'America/New_York'
+
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 DATABASES = {

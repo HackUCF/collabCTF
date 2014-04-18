@@ -43,6 +43,7 @@ urlpatterns = patterns('',
     url(r'^tools/.rot$', 'collabCTF.views.rot_val', name='tools_rot'),
     url(r'^tools/.base_conversions$', 'collabCTF.views.base_conversion_val', name='tools_base_conversion'),
     url(r'^tools/.xor$', 'collabCTF.views.xor_val', name='tools_xor'),
+    url(r'^.challenge-visit$', 'competition.ajax.track_challenge_visit', name='track_challenge_visit'),
 )
 
 if settings.DEBUG:

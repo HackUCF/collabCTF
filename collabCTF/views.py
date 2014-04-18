@@ -16,11 +16,11 @@ from competition.models import Competition, Challenge
 
 @login_required
 def index(request):
-    recently_viewed = Challenge.objects.order_by('last_viewed')
+    recently_viewed = Challenge.objects.order_by('-last_viewed')
     recently_solved = Challenge.objects.filter(progress=Challenge.SOLVED)
     data = {
-        'recently_solved': recently_solved,
-        'recently_viewed': recently_viewed
+        'recently_solved': recently_solved[:5],
+        'recently_viewed': recently_viewed[:5]
     }
     return render_to_response('index.html', data, RequestContext(request))
 

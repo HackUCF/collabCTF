@@ -1,26 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-{% block subtitle %}- Reports{% endblock %}
-{% block settings_class %}active{% endblock %}
+{% block subtitle %}- Settings{% endblock %}
 {% block content %}
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h2 class="sub-header">Settings</h2>
-
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Options</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Reset Password</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        {% crispy password_form %}
     </div>
 {% endblock %}

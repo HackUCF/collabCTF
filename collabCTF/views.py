@@ -10,7 +10,8 @@ from django.views.decorators.http import require_safe, require_POST, require_GET
 import sys
 
 from collabCTF.tools import crypto
-from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm
+from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm, \
+    PasswordChangeForm
 from competition.models import Competition
 
 
@@ -26,7 +27,28 @@ def profile(request):
 
 @login_required
 def settings(request):
-    return render_to_response('settings.html')
+
+    if request.method == 'GET':
+        data = {
+            'password_form': PasswordChangeForm(request.user)
+        }
+
+        return render_to_response('settings.html', data, context_instance=RequestContext(request))
+    else:
+        password_changed = False
+        password_form = PasswordChangeForm(request.user, data=request.POST)
+        if password_form.is_valid():
+            cd = password_form.cleaned_data
+            password_form.save()
+            password_changed = True
+            password_form = PasswordChangeForm(request.user)
+
+
+        data = {
+            'password_form': password_form,
+            'password_changed': password_changed
+        }
+        return render_to_response('settings.html', data, context_instance=RequestContext(request))
 
 
 @login_required

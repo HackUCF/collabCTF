@@ -1,7 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder, HTML
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm as PWChangeForm
 from django.core.urlresolvers import reverse
 
 from competition.models import Challenge, Competition, ChallengeFile
@@ -313,6 +313,28 @@ class LoginForm(AuthenticationForm):
                 '',
                 'username',
                 'password'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
+
+
+class PasswordChangeForm(PWChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_id = 'pw-change-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = ''
+        self.helper.layout = Layout(
+            Fieldset(
+                'Change password',
+                'new_password1',
+                'new_password2'
             ),
             ButtonHolder(
                 Submit('submit', 'Submit'),

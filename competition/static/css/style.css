@@ -61,3 +61,7 @@ table#challenges > tbody > tr.solved:hover {
 .sidebar {
     overflow-y: auto;
 }
+
+.recent .challenge {
+    cursor: pointer;
+}

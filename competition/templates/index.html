@@ -10,7 +10,7 @@
 
         <p>Welcome to CollabCTF!</p>
         {% if recently_viewed %}
-            <section id="recently-viewed">
+            <section id="recently-viewed" class="recent">
                 <h2 class="sub-header">Recently Viewed Challenges</h2>
 
                 <div class="table-responsive">
@@ -37,8 +37,7 @@
                 </div>
             </section>
 
-
-            <section id="recently-solved">
+            <section id="recently-solved" class="recent">
                 <h2 class="sub-header">Recently Solved Challenges</h2>
                 {% if recently_solved %}
                     <div class="table-responsive">

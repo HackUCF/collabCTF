@@ -130,7 +130,7 @@ def view_challenge(request, ctf_slug, chall_slug):
         'ctf': ctf,
         'challenge': challenge,
         'files': challenge.files.all(),
-        'hash': hashlib.sha1(challenge.name + settings.SECRET_KEY).hexdigest()
+        'hash': hashlib.sha1(challenge.name.encode('utf8') + settings.SECRET_KEY.encode('utf8')).hexdigest()
     }
 
     return render_to_response('ctf/challenge/overview.html', data, RequestContext(request))

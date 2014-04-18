@@ -68,6 +68,12 @@ def ctfoverview(request):
 def ctfchallenge(request):
     return render_to_response('ctf/challenge/overview.html')
 
+def _404(request):
+    return render_to_response('404.html')
+
+def _500(request):
+    return render_to_response('500.html')
+
 
 @login_required
 @require_safe

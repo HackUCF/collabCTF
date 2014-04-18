@@ -156,6 +156,7 @@ def update_challenge(request, ctf_slug, chall_slug):
             challenge.last_viewed = datetime.now()
             challenge.save()
             saved = True
+            return redirect(challenge.get_absolute_url())
 
         data = {
             'challenge': challenge,

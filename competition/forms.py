@@ -333,6 +333,7 @@ class PasswordChangeForm(PWChangeForm):
         self.helper.layout = Layout(
             Fieldset(
                 'Change password',
+                'old_password',
                 'new_password1',
                 'new_password2'
             ),

@@ -12,34 +12,18 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>You Name</th>
+                    <th>Your Username</th>
+                    <th>Your Name</th>
                     <th>Your Email</th>
                     <th>Date Joined</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
+                    <td>{{ user.username }}</td>
                     <td>{{ user.first_name }} {{ user.last_name }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.date_joined }}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <h2 class="sub-header">All User Profiles</h2>
-
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date Joined</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Sample User</td>
-                    <td>April, 18th 2014</td>
                 </tr>
                 </tbody>
             </table>

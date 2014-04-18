@@ -1,7 +1,6 @@
 import json
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch, reverse
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect
@@ -12,12 +11,18 @@ import sys
 from collabCTF.tools import crypto
 from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm, \
     PasswordChangeForm
-from competition.models import Competition
+from competition.models import Competition, Challenge
 
 
 @login_required
-def home(request):
-    return render_to_response('index.html')
+def index(request):
+    recently_viewed = Challenge.objects.order_by('last_viewed')
+    recently_solved = Challenge.objects.filter(progress=Challenge.SOLVED)
+    data = {
+        'recently_solved': recently_solved,
+        'recently_viewed': recently_viewed
+    }
+    return render_to_response('index.html', data, RequestContext(request))
 
 
 @login_required
@@ -27,7 +32,6 @@ def profile(request):
 
 @login_required
 def settings(request):
-
     if request.method == 'GET':
         data = {
             'password_form': PasswordChangeForm(request.user)
@@ -42,7 +46,6 @@ def settings(request):
             password_form.save()
             password_changed = True
             password_form = PasswordChangeForm(request.user)
-
 
         data = {
             'password_form': password_form,

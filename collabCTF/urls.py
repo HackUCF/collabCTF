@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'collabCTF.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', 'collabCTF.views.home', name='index'),
+    url(r'^$', 'collabCTF.views.index', name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^settings$', 'collabCTF.views.settings', name='settings'),
     url(r'^profile$', 'collabCTF.views.profile', name='profile'),

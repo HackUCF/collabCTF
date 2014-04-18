@@ -5,86 +5,79 @@
 {% block overview_class %}active{% endblock %}
 {% block dashboard_class %}active{% endblock %}
 {% block content %}
-
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Dashboard</h1>
-        <h2 class="page-header">Most Recent CTF: Sample CTF</h2>
-        <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <!--img src="clocks/orange.png" width="200"-->
-                <div id="solved-container"></div>
-                <h4>Challenges Solved</h4>
-                <span class="text-muted">Percent by CTF</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <!--img src="clocks/pink.png" width="200"-->
-                <div id="time-container"></div>
-                <h4>Time Remaining</h4>
-                <span class="text-muted">Until the end of CTF</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <!--img src="clocks/green.png" width="200"-->
-                <div id="users-container"></div>
-                <h4>Users Online</h4>
-                <span class="text-muted">Within the Past 30 Min</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <!--img src="clocks/blue.png" width="200"-->
-                <div id="points-container"></div>
-                <h4>Points Earned</h4>
-                <span class="text-muted">Percent by CTF</span>
-            </div>
-        </div>
 
-        <h2 class="sub-header">Recently Added Challenges</h2>
+        <p>Welcome to CollabCTF!</p>
+        {% if recently_viewed %}
+            <section id="recently-viewed">
+                <h2 class="sub-header">Recently Viewed Challenges</h2>
 
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>CTF</th>
-                    <th>Challenge ID</th>
-                    <th>Status</th>
-                    <th>Added By</th>
-                    <th>Last Edit</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Sample CTF</td>
-                    <td>Sample Challenge</td>
-                    <td>Solved/In Progress</td>
-                    <td>Sample User</td>
-                    <td>Sample User</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Challenge</th>
+                            <th>Status</th>
+                            <th>Added By</th>
+                            <th>Last Viewed</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for challenge in recently_viewed %}
+                            <tr class="challenge" data-href="{{ challenge.get_absolute_url }}">
+                                <td>{{ challenge.name }}</td>
+                                <td>{{ challenge.get_progress_display }}</td>
+                                <td>Sample User</td>
+                                <td>{{ challenge.last_viewed }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-        <h2 class="sub-header">Recently Solved Challenges</h2>
 
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>CTF</th>
-                    <th>Challenge ID</th>
-                    <th>Status</th>
-                    <th>Added By</th>
-                    <th>Last Edit</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Sample CTF</td>
-                    <td>Sample Challenge</td>
-                    <td>Solved/In Progress</td>
-                    <td>Sample User</td>
-                    <td>Sample User</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+            <section id="recently-solved">
+                <h2 class="sub-header">Recently Solved Challenges</h2>
+                {% if recently_solved %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Challenge</th>
+                                <th>Status</th>
+                                <th>Added By</th>
+                                <th>Last Viewed</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for challenge in recently_solved  %}
+                                <tr class="challenge" data-href="{{ challenge.get_absolute_url }}">
+                                    <td>{{ challenge.name }}</td>
+                                    <td>{{ challenge.get_progress_display }}</td>
+                                    <td>Sample User</td>
+                                    <td>{{ challenge.last_viewed }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p>No challenges solved!</p>
+                {% endif %}
+            </section>
+        {% else %}
+            <p>No challenges have been added. Please add a CTF and/or a challenge!</p>
+        {% endif %}
+
     </div>
 
+{% endblock %}
+{% block extra_scripts %}
+    <script>
+        $('.challenge').on('click', function(event) {
+            event.preventDefault();
+            document.location = $(this).data('href');
+        });
+    </script>
 {% endblock %}

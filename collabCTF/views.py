@@ -115,7 +115,7 @@ def register(request):
             user.last_name = form.cleaned_data['last_name']
             user.save()
             data['user'] = user
-            return redirect(reverse('index'))
+            return redirect(reverse('login'))
 
         return render_to_response('register.html', data, RequestContext(request))
 

@@ -54,10 +54,6 @@ class CompetitionModelForm(forms.ModelForm):
     class Meta:
         model = Competition
         fields = ('name', 'url', 'start_time', 'end_time')
-        widgets = {
-            'start_time': forms.SplitDateTimeWidget(),
-            'end_time': forms.SplitDateTimeWidget()
-        }
 
 
 class ChallengeModelForm(forms.ModelForm):

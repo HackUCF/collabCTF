@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery.datetimepicker.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -62,11 +63,13 @@
 </div>
 {% block scripts %}
     <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="{% static 'js/jquery.datetimepicker.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <script src="{% static 'js/lib/socket.io.js' %}"></script>
     <script src="{% static 'js/metr.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
     <script src="{% static 'js/chat-client.js' %}"></script>
 {% endblock %}
 {% block extra_scripts %}{% endblock %}

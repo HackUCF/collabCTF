@@ -46,7 +46,7 @@
                 <li class="{% block settings_class %}{% endblock %}"><a href="{% url 'settings' %}">Settings</a></li>
                 <li class="{% block profile_class %}{% endblock %}"><a href="{% url 'profile' %}">Profile</a></li>
                 <li class="{% block about_class %}{% endblock %}"><a href="{% url 'about' %}">About</a></li>
-                <li class="{% block logout_class %}{% endblock %}"><a href="">Logout</a></li>
+                <li class="{% block logout_class %}{% endblock %}"><a href="{% url 'logout' %}">Logout</a></li>
                 <li class="{% block chat_class %}{% endblock %}"><a href="">Chat</a></li>
             </ul>
         </div>

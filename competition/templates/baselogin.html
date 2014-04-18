@@ -40,22 +40,15 @@
             <a class="navbar-brand" href="{% url 'index' %}">CollabCTF</a>
         </div>
         <div class="navbar-collapse collapse">
-
             <ul class="nav navbar-nav navbar-right">
-                <li class="{% block dashboard_class %}{% endblock %}"><a href="{% url 'index' %}">Dashboard</a></li>
-                <li class="{% block settings_class %}{% endblock %}"><a href="{% url 'settings' %}">Settings</a></li>
-                <li class="{% block profile_class %}{% endblock %}"><a href="{% url 'profile' %}">Profile</a></li>
-                <li class="{% block about_class %}{% endblock %}"><a href="{% url 'about' %}">About</a></li>
-                <li class="{% block logout_class %}{% endblock %}"><a href="{% url 'logout' %}">Logout</a></li>
-                <li class="{% block chat_class %}{% endblock %}"><a href="">Chat</a></li>
+                <li class="{% block login_class %}{% endblock %}"><a href="{% url 'login' %}">Login</a></li>
+                <li class="{% block register_class %}{% endblock %}"><a href="{% url 'register' %}">Register</a></li>
             </ul>
         </div>
     </div>
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div id="sidebar" style="display: none"></div>
-
         {# main viewport content #}
         {% block content %}{% endblock %}
     </div>

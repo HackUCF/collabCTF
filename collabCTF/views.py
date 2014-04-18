@@ -1,5 +1,6 @@
 import json
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch, reverse
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect
@@ -8,34 +9,67 @@ from django.views.decorators.http import require_safe, require_POST, require_GET
 import sys
 
 from collabCTF.tools import crypto
-from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm
-from competition.models import Competition
+from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm, \
+    PasswordChangeForm
+from competition.models import Competition, Challenge
 
 
-def home(request):
-    return render_to_response('index.html')
+@login_required
+def index(request):
+    recently_viewed = Challenge.objects.order_by('last_viewed')
+    recently_solved = Challenge.objects.filter(progress=Challenge.SOLVED)
+    data = {
+        'recently_solved': recently_solved,
+        'recently_viewed': recently_viewed
+    }
+    return render_to_response('index.html', data, RequestContext(request))
 
 
+@login_required
 def profile(request):
-    return render_to_response('profile.html')
+    return render_to_response('profile.html', context_instance=RequestContext(request))
 
 
+@login_required
 def settings(request):
-    return render_to_response('settings.html')
+    if request.method == 'GET':
+        data = {
+            'password_form': PasswordChangeForm(request.user)
+        }
+
+        return render_to_response('settings.html', data, context_instance=RequestContext(request))
+    else:
+        password_changed = False
+        password_form = PasswordChangeForm(request.user, data=request.POST)
+        if password_form.is_valid():
+            cd = password_form.cleaned_data
+            password_form.save()
+            password_changed = True
+            password_form = PasswordChangeForm(request.user)
+
+        data = {
+            'password_form': password_form,
+            'password_changed': password_changed
+        }
+        return render_to_response('settings.html', data, context_instance=RequestContext(request))
 
 
+@login_required
 def about(request):
     return render_to_response('about.html')
 
 
+@login_required
 def ctfoverview(request):
     return render_to_response('ctf/overview.html')
 
 
+@login_required
 def ctfchallenge(request):
     return render_to_response('ctf/challenge/overview.html')
 
 
+@login_required
 @require_safe
 def reports(request):
     data = {
@@ -44,18 +78,7 @@ def reports(request):
     return render_to_response('reports.html', data, RequestContext(request))
 
 
-def about(request):
-    return render_to_response('about.html')
-
-
-def profile(request):
-    return render_to_response('profile.html')
-
-
-def settings(request):
-    return render_to_response('settings.html')
-
-
+@login_required
 @require_GET
 def sidebar(request):
     url = request.GET.get('url', None)
@@ -76,6 +99,7 @@ def sidebar(request):
     return render_to_response('sidebar.html', data)
 
 
+@login_required
 @require_safe
 def ctf_tools(request):
     data = {
@@ -98,7 +122,7 @@ def register(request):
     elif request.method == 'POST':
         form = RegistrationForm(request.POST)
         data = {
-            'form': form
+            'register_form': form
         }
 
         if form.is_valid():
@@ -108,18 +132,36 @@ def register(request):
             user.last_name = form.cleaned_data['last_name']
             user.save()
             data['user'] = user
-            return redirect(reverse('index'))
+            return redirect(reverse('login'))
 
         return render_to_response('register.html', data, RequestContext(request))
 
-@require_safe
-def login(request):
-    data = {
-        'login_form': LoginForm()
-    }
 
-    return render_to_response('login.html', data, RequestContext(request))
+def log_in(request):
+    if request.method == 'GET':
+        data = {
+            'login_form': LoginForm()
+        }
 
+        return render_to_response('login.html', data, RequestContext(request))
+
+    elif request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(username=cd['username'], password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect(reverse('index'))
+
+        data = {
+            'login_form': form
+        }
+        return render_to_response('login.html', data, RequestContext(request))
+
+
+@login_required
 @require_POST
 def hash_val(request):
     form = HashForm(request.POST)
@@ -141,6 +183,7 @@ def hash_val(request):
         return HttpResponseBadRequest(jdata, content_type='application/json')
 
 
+@login_required
 @require_POST
 def rot_val(request):
     form = RotForm(request.POST)
@@ -157,6 +200,7 @@ def rot_val(request):
         return HttpResponseBadRequest(jdata, content_type='application/json')
 
 
+@login_required
 @require_POST
 def base_conversion_val(request):
     form = BaseConversionForm(request.POST)
@@ -173,6 +217,7 @@ def base_conversion_val(request):
         return HttpResponseBadRequest(jdata, content_type='application/json')
 
 
+@login_required
 @require_POST
 def xor_val(request):
     form = XorForm(request.POST)

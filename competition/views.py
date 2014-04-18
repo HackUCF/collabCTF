@@ -1,4 +1,7 @@
 from datetime import datetime
+import hashlib
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -9,6 +12,7 @@ from competition.forms import CompetitionModelForm, ChallengeModelForm, Challeng
 from competition.models import Competition, Challenge, ChallengeFile
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def add_ctf(request):
     if request.method == 'GET':
@@ -35,6 +39,7 @@ def add_ctf(request):
         return render_to_response('ctf/add.html', data, RequestContext(request))
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def update_ctf(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
@@ -60,6 +65,7 @@ def update_ctf(request, ctf_slug):
         return render_to_response('ctf/update.html', data, RequestContext(request))
 
 
+@login_required
 @require_safe
 def view_ctf(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects.prefetch_related('challenges'), slug=ctf_slug)
@@ -72,6 +78,7 @@ def view_ctf(request, ctf_slug):
     return render_to_response('ctf/overview.html', data, RequestContext(request))
 
 
+@login_required
 @require_POST
 def delete_ctf(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
@@ -83,6 +90,7 @@ def delete_ctf(request, ctf_slug):
     return response
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def add_challenge(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
@@ -112,6 +120,7 @@ def add_challenge(request, ctf_slug):
         return render_to_response('ctf/challenge/add.html', data, RequestContext(request))
 
 
+@login_required
 @require_safe
 def view_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
@@ -120,12 +129,14 @@ def view_challenge(request, ctf_slug, chall_slug):
     data = {
         'ctf': ctf,
         'challenge': challenge,
-        'files': challenge.files.all()
+        'files': challenge.files.all(),
+        'hash': hashlib.sha1(challenge.name.encode('utf8') + settings.SECRET_KEY.encode('utf8')).hexdigest()
     }
 
     return render_to_response('ctf/challenge/overview.html', data, RequestContext(request))
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def update_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
@@ -154,6 +165,7 @@ def update_challenge(request, ctf_slug, chall_slug):
         return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def delete_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
@@ -166,6 +178,8 @@ def delete_challenge(request, ctf_slug, chall_slug):
     challenge.delete()
     return response
 
+
+@login_required
 @require_http_methods(['GET', 'POST'])
 def add_file(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)

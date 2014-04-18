@@ -66,6 +66,7 @@ STATIC_URL = '/static/'
 # Theme
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+LOGIN_URL = '/login'
 MEDIA_URL = '/media/'
 
 try:

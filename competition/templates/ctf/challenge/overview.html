@@ -49,6 +49,9 @@
             <p>No files uploaded. <a href="{% url 'add_file' ctf.slug challenge.slug %}">Click here to add a file.</a>
             </p>
         {% endif %}
+        <h2 class="sub-header">Collaborative Document</h2>
+            <p>Your online collaborative document for this challenge is <a href="https://etherpad.wikimedia.org/p/{{hash}}">available here.</a>
+            </p>
     </div>
     <div class="modal fade" id="delete-challenge" role="dialog" aria-hidden="true" aria-labelledby="deleteModalLabel">
         <div class="modal-dialog">

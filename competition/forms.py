@@ -1,7 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder, HTML
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm as PWChangeForm
 from django.core.urlresolvers import reverse
 
 from competition.models import Challenge, Competition, ChallengeFile
@@ -54,6 +54,10 @@ class CompetitionModelForm(forms.ModelForm):
     class Meta:
         model = Competition
         fields = ('name', 'url', 'start_time', 'end_time')
+        widgets = {
+            'start_time': forms.SplitDateTimeWidget(),
+            'end_time': forms.SplitDateTimeWidget()
+        }
 
 
 class ChallengeModelForm(forms.ModelForm):
@@ -300,21 +304,42 @@ class RegistrationForm(UserCreationForm):
         )
 
 
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
+class LoginForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_id = 'login-form'
         self.helper.form_method = 'post'
-        self.helper.form_action = reverse("login")
+        self.helper.form_action = ''
         self.helper.layout = Layout(
             Fieldset(
                 '',
                 'username',
                 'password'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
+
+
+class PasswordChangeForm(PWChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_id = 'pw-change-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = ''
+        self.helper.layout = Layout(
+            Fieldset(
+                'Change password',
+                'old_password',
+                'new_password1',
+                'new_password2'
             ),
             ButtonHolder(
                 Submit('submit', 'Submit'),

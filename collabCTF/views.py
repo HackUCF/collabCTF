@@ -1,5 +1,5 @@
 import json
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch, reverse
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -28,12 +28,6 @@ def settings(request):
 def about(request):
     return render_to_response('about.html')
 
-def login(request):
-    return render_to_response('login.html')
-
-
-def register(request):
-    return render_to_response('register.html')
 
 def ctfoverview(request):
     return render_to_response('ctf/overview.html')
@@ -120,12 +114,7 @@ def register(request):
         return render_to_response('register.html', data, RequestContext(request))
 
 
-def _invalid_login(request, data):
-    data['error_message'] = 'Invalid username or password.'
-    return render_to_response('login.html', data, RequestContext(request))
-
-
-def login(request):
+def log_in(request):
     if request.method == 'GET':
         data = {
             'login_form': LoginForm()
@@ -134,22 +123,20 @@ def login(request):
         return render_to_response('login.html', data, RequestContext(request))
 
     elif request.method == 'POST':
-        form = LoginForm(request.POST)
-        data = {
-            'login_form': form
-        }
+        form = LoginForm(data=request.POST)
         if form.is_valid():
-            user = authenticate(username=form.username, password=form.password)
+            cd = form.cleaned_data
+            user = authenticate(username=cd['username'], password=cd['password'])
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     return redirect(reverse('index'))
-                else:
-                    return render_to_response('login.html', data, RequestContext(request))
-            else:
-                return _invalid_login(request, data)
-        else:
-            return _invalid_login(request, data)
+
+        data = {
+            'login_form': form
+        }
+        return render_to_response('login.html', data, RequestContext(request))
+
 
 @require_POST
 def hash_val(request):

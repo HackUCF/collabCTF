@@ -8,7 +8,7 @@ from django.views.decorators.http import require_safe, require_POST, require_GET
 import sys
 
 from collabCTF.tools import crypto
-from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm
+from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm
 from competition.models import Competition
 
 
@@ -112,6 +112,13 @@ def register(request):
 
         return render_to_response('register.html', data, RequestContext(request))
 
+@require_safe
+def login(request):
+    data = {
+        'login_form': LoginForm()
+    }
+
+    return render_to_response('login.html', data, RequestContext(request))
 
 @require_POST
 def hash_val(request):

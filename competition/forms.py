@@ -272,6 +272,10 @@ class XorForm(forms.Form):
 
 
 class RegistrationForm(UserCreationForm):
+    email = forms.EmailField()
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -280,10 +284,37 @@ class RegistrationForm(UserCreationForm):
         self.helper.form_action = reverse("register")
         self.helper.layout = Layout(
             Fieldset(
-                'Register',
+                '',
                 'username',
+                'first_name',
+                'last_name',
+                'email',
                 'password1',
                 'password2'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'login-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = reverse("login")
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'username',
+                'password'
             ),
             ButtonHolder(
                 Submit('submit', 'Submit'),

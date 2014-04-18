@@ -19,7 +19,6 @@
                         <tr>
                             <th>Challenge</th>
                             <th>Status</th>
-                            <th>Added By</th>
                             <th>Last Viewed</th>
                         </tr>
                         </thead>
@@ -28,7 +27,6 @@
                             <tr class="challenge" data-href="{{ challenge.get_absolute_url }}">
                                 <td>{{ challenge.name }}</td>
                                 <td>{{ challenge.get_progress_display }}</td>
-                                <td>Sample User</td>
                                 <td>{{ challenge.last_viewed }}</td>
                             </tr>
                         {% endfor %}

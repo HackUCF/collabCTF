@@ -27,6 +27,12 @@ def settings(request):
 def about(request):
     return render_to_response('about.html')
 
+def login(request):
+    return render_to_response('login.html')
+
+
+def register(request):
+    return render_to_response('register.html')
 
 def ctfoverview(request):
     return render_to_response('ctf/overview.html')

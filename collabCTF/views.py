@@ -10,7 +10,7 @@ import sys
 
 from collabCTF.tools import crypto
 from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm, \
-    PasswordChangeForm
+    PasswordChangeForm, EmailChangeForm
 from competition.models import Competition, Challenge
 
 
@@ -34,7 +34,8 @@ def profile(request):
 def settings(request):
     if request.method == 'GET':
         data = {
-            'password_form': PasswordChangeForm(request.user)
+            'password_form': PasswordChangeForm(request.user),
+            'email_form': EmailChangeForm()
         }
 
         return render_to_response('settings.html', data, context_instance=RequestContext(request))
@@ -67,6 +68,12 @@ def ctfoverview(request):
 @login_required
 def ctfchallenge(request):
     return render_to_response('ctf/challenge/overview.html')
+
+def _404(request):
+    return render_to_response('404.html')
+
+def _500(request):
+    return render_to_response('500.html')
 
 
 @login_required

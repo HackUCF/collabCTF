@@ -1,7 +1,8 @@
 import json
-from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch
+from django.contrib.auth.models import User
+from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch, reverse
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST, require_GET
 import sys
@@ -14,10 +15,15 @@ from competition.models import Competition
 def home(request):
     return render_to_response('index.html')
 
+
 def profile(request):
     return render_to_response('profile.html')
+
+
 def settings(request):
     return render_to_response('settings.html')
+
+
 def about(request):
     return render_to_response('about.html')
 
@@ -80,13 +86,31 @@ def ctf_tools(request):
     }
     return render_to_response('ctftools.html', data, RequestContext(request))
 
-@require_safe
-def register(request):
-    data = {
-        'register_form': RegistrationForm()
-    }
 
-    return render_to_response('register.html', data, RequestContext(request))
+def register(request):
+    if request.method == 'GET':
+        form = RegistrationForm()
+        data = {
+            'register_form': form
+        }
+        return render_to_response('register.html', data, RequestContext(request))
+
+    elif request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        data = {
+            'form': form
+        }
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.email = form.cleaned_data['email']
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
+            data['user'] = user
+            return redirect(reverse('index'))
+
+        return render_to_response('register.html', data, RequestContext(request))
 
 
 @require_POST

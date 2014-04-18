@@ -1,5 +1,6 @@
 import json
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch, reverse
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -13,30 +14,37 @@ from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, Re
 from competition.models import Competition
 
 
+@login_required
 def home(request):
     return render_to_response('index.html')
 
 
+@login_required
 def profile(request):
     return render_to_response('profile.html')
 
 
+@login_required
 def settings(request):
     return render_to_response('settings.html')
 
 
+@login_required
 def about(request):
     return render_to_response('about.html')
 
 
+@login_required
 def ctfoverview(request):
     return render_to_response('ctf/overview.html')
 
 
+@login_required
 def ctfchallenge(request):
     return render_to_response('ctf/challenge/overview.html')
 
 
+@login_required
 @require_safe
 def reports(request):
     data = {
@@ -45,18 +53,7 @@ def reports(request):
     return render_to_response('reports.html', data, RequestContext(request))
 
 
-def about(request):
-    return render_to_response('about.html')
-
-
-def profile(request):
-    return render_to_response('profile.html')
-
-
-def settings(request):
-    return render_to_response('settings.html')
-
-
+@login_required
 @require_GET
 def sidebar(request):
     url = request.GET.get('url', None)
@@ -77,6 +74,7 @@ def sidebar(request):
     return render_to_response('sidebar.html', data)
 
 
+@login_required
 @require_safe
 def ctf_tools(request):
     data = {
@@ -138,6 +136,7 @@ def log_in(request):
         return render_to_response('login.html', data, RequestContext(request))
 
 
+@login_required
 @require_POST
 def hash_val(request):
     form = HashForm(request.POST)
@@ -159,6 +158,7 @@ def hash_val(request):
         return HttpResponseBadRequest(jdata, content_type='application/json')
 
 
+@login_required
 @require_POST
 def rot_val(request):
     form = RotForm(request.POST)
@@ -175,6 +175,7 @@ def rot_val(request):
         return HttpResponseBadRequest(jdata, content_type='application/json')
 
 
+@login_required
 @require_POST
 def base_conversion_val(request):
     form = BaseConversionForm(request.POST)
@@ -191,6 +192,7 @@ def base_conversion_val(request):
         return HttpResponseBadRequest(jdata, content_type='application/json')
 
 
+@login_required
 @require_POST
 def xor_val(request):
     form = XorForm(request.POST)

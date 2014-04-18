@@ -1,4 +1,5 @@
 import json
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET
@@ -13,7 +14,7 @@ try:
 except ImportError:
     from collabCTF.tools.misc import UTC
 
-
+@login_required
 @require_GET
 def chart_data(request, ctf_slug):
     ctf = get_object_or_404(Competition.objects.prefetch_related('challenges'), slug=ctf_slug)

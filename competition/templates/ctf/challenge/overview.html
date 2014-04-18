@@ -49,37 +49,9 @@
             <p>No files uploaded. <a href="{% url 'add_file' ctf.slug challenge.slug %}">Click here to add a file.</a>
             </p>
         {% endif %}
-        <h2 class="sub-header">Collaborative Documents</h2>
-        {% if files %}
-            <div class="table-responsive">
-                <table id="uploaded-files" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Document Name</th>
-                        <th>Upload Time</th>
-                        <th>Uploaded By</th>
-                        <th>Link</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for upfile in files %}
-                    <tr>
-                        <td>{{ upfile.filename }}</td>
-                        <td>{{ upfile.ctime }}</td>
-                        <td>Sample User</td>
-                        <td><a href="{{ upfile.file.url }}">Download</a></td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="5"><a href="{% url 'add_file' ctf.slug challenge.slug %}">Upload New Document</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        {% else %}
-            <p>No documents uploaded. <a href="{% url 'add_file' ctf.slug challenge.slug %}">Click here to add a Document.</a>
+        <h2 class="sub-header">Collaborative Document</h2>
+            <p>Your online collaborative document for this challenge is <a href="https://etherpad.wikimedia.org/p/{{hash}}">available here.</a>
             </p>
-        {% endif %}
     </div>
     <div class="modal fade" id="delete-challenge" role="dialog" aria-hidden="true" aria-labelledby="deleteModalLabel">
         <div class="modal-dialog">

@@ -1,4 +1,6 @@
 from datetime import datetime
+import hashlib
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render_to_response, get_object_or_404, redirect
@@ -127,7 +129,8 @@ def view_challenge(request, ctf_slug, chall_slug):
     data = {
         'ctf': ctf,
         'challenge': challenge,
-        'files': challenge.files.all()
+        'files': challenge.files.all(),
+        'hash': hashlib.sha1(challenge.name + settings.SECRET_KEY).hexdigest()
     }
 
     return render_to_response('ctf/challenge/overview.html', data, RequestContext(request))

@@ -12,7 +12,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Your Name</th>
+                    <th>You Name</th>
                     <th>Your Email</th>
                     <th>Date Joined</th>
                     <th>Your Permissions</th>
@@ -20,9 +20,9 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Sample User</td>
-                    <td>Sample@email.com</td>
-                    <td>April, 18th 2014</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.date_joined }}</td>
                     <td>Master</td>
                 </tr>
                 </tbody>

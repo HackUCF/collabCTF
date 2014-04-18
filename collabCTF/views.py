@@ -21,7 +21,7 @@ def home(request):
 
 @login_required
 def profile(request):
-    return render_to_response('profile.html')
+    return render_to_response('profile.html', context_instance=RequestContext(request))
 
 
 @login_required

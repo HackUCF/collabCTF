@@ -1,4 +1,5 @@
 import json
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch, reverse
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -104,7 +105,7 @@ def register(request):
     elif request.method == 'POST':
         form = RegistrationForm(request.POST)
         data = {
-            'form': form
+            'register_form': form
         }
 
         if form.is_valid():
@@ -118,13 +119,37 @@ def register(request):
 
         return render_to_response('register.html', data, RequestContext(request))
 
-@require_safe
-def login(request):
-    data = {
-        'login_form': LoginForm()
-    }
 
+def _invalid_login(request, data):
+    data['error_message'] = 'Invalid username or password.'
     return render_to_response('login.html', data, RequestContext(request))
+
+
+def login(request):
+    if request.method == 'GET':
+        data = {
+            'login_form': LoginForm()
+        }
+
+        return render_to_response('login.html', data, RequestContext(request))
+
+    elif request.method == 'POST':
+        form = LoginForm(request.POST)
+        data = {
+            'login_form': form
+        }
+        if form.is_valid():
+            user = authenticate(username=form.username, password=form.password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect(reverse('index'))
+                else:
+                    return render_to_response('login.html', data, RequestContext(request))
+            else:
+                return _invalid_login(request, data)
+        else:
+            return _invalid_login(request, data)
 
 @require_POST
 def hash_val(request):

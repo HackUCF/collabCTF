@@ -55,5 +55,7 @@ $(document).ready(function () {
                 console.log("Stopping time update - CTF has ended");
             }
         }, 1000);
-    })
+    });
+
+    $.post('/.challenge-visit', {url: location.pathname});
 });

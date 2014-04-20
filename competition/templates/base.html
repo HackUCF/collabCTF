@@ -59,6 +59,7 @@
 
         {# main viewport content #}
         {% block content %}{% endblock %}
+        <div id="chat"></div>
     </div>
 </div>
 {% block scripts %}
@@ -66,11 +67,14 @@
     <script src="{% static 'js/jquery.datetimepicker.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-    <script src="{% static 'js/lib/socket.io.js' %}"></script>
+    <script src="/node/lib/jquery.mustache.js"></script>
+    <script src="/node/lib/jquery.cookie.js"></script>
+    <script src="/node/lib/jquery.slimscroll.min.js"></script>
+    <script src="/node/lib/socket.io.min.js"></script>
+    <script src="/node/chat-client.js"></script>
     <script src="{% static 'js/metr.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
-    <script src="{% static 'js/chat-client.js' %}"></script>
 {% endblock %}
 {% block extra_scripts %}{% endblock %}
 </body>

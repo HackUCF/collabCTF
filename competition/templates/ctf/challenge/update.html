@@ -13,3 +13,6 @@
         </div>
     </div>
 {% endblock %}
+{% block extra_scripts %}
+    <script>$.post('/.challenge-visit', {url: location.pathname});</script>
+{% endblock %}

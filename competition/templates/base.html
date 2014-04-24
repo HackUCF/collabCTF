@@ -12,42 +12,44 @@
     <title>CollabCTF {% block subtitle %}{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}"/>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{% url 'index' %}">CollabCTF</a>
-        </div>
-        <div class="navbar-collapse collapse">
+<nav class="top-bar" data-topbar>
+    <ul class="title-area">
+        <li class="name">
+            <h1><a href="#">CollabCTF</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+    </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li class="{% block dashboard_class %}{% endblock %}"><a href="{% url 'index' %}">Dashboard</a></li>
-                <li class="{% block settings_class %}{% endblock %}"><a href="{% url 'settings' %}">Settings</a></li>
-                <li class="{% block profile_class %}{% endblock %}"><a href="{% url 'profile' %}">Profile</a></li>
-                <li class="{% block about_class %}{% endblock %}"><a href="{% url 'about' %}">About</a></li>
-                <li class="{% block logout_class %}{% endblock %}"><a href="{% url 'logout' %}">Logout</a></li>
-                <li class="{% block chat_class %}{% endblock %}"><a href="">Chat</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <div id="sidebar" style="display: none"></div>
-
-        {# main viewport content #}
-        {% block content %}{% endblock %}
-    </div>
-</div>
+    <section class="top-bar-section">
+        <ul class="right">
+            <li class="active"><a href="#">Home</a></li>
+            {% if user.is_authenticated %}
+                <li class="has-dropdown">
+                    <a href="#">{{ user.username }}</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Preferences</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li><a href="#">Register</a></li>
+            {% endif %}
+        </ul>
+    </section>
+</nav>
+<section role="main">
+    {% block content %}{% endblock %}
+</section>
 {% block scripts %}
+    <script src="{% static 'js/lib/modernizr.js' %}"></script>
     <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="{% static 'js/lib/foundation.min.js' %}"></script>
+    <script>$(document).foundation();</script>
 
     <script src="{% static 'js/metr.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>

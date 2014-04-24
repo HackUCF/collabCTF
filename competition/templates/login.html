@@ -1,4 +1,4 @@
-{% extends 'baselogin.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -6,8 +6,10 @@
 {% block login_class %}active{% endblock %}
 {% block content %}
 
-<div class="col-sm-12 main">
-    <h2 class="sub-header">Login</h2>
-    {% crispy login_form %}
-</div>
+    <div class="row">
+        <div class="small-12 columns">
+            <h2 class="sub-header">Login</h2>
+            {% crispy login_form %}
+        </div>
+    </div>
 {% endblock %}

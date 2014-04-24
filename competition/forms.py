@@ -1,8 +1,8 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Reset, Layout, Fieldset, ButtonHolder, HTML
+from crispy_forms_foundation.layout import Submit, Reset, Layout, Fieldset, ButtonHolder, HTML
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm as PWChangeForm, \
-    UserChangeForm, SetPasswordForm
+    SetPasswordForm
 from django.core.urlresolvers import reverse
 
 from competition.models import Challenge, Competition, ChallengeFile
@@ -306,6 +306,7 @@ class LoginForm(AuthenticationForm):
         super(LoginForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_id = 'login-form'
+        self.helper.attrs = {'data_abide': ''}
         self.helper.form_method = 'post'
         self.helper.form_action = ''
         self.helper.layout = Layout(
@@ -315,9 +316,9 @@ class LoginForm(AuthenticationForm):
                 'password'
             ),
             ButtonHolder(
+                Reset('reset', 'Reset', css_class='secondary'),
                 Submit('submit', 'Submit'),
-                Reset('reset', 'Reset'),
-                css_class='text-right'
+                css_class='buttons text-right'
             )
         )
 
@@ -344,9 +345,10 @@ class PasswordChangeForm(PWChangeForm):
             )
         )
 
+
 #not currently working and actually changing things
 class EmailChangeForm(forms.Form):
-    email = forms.EmailField(label="New Email Address");
+    email = forms.EmailField(label="New Email Address")
     password = forms.CharField(widget=forms.PasswordInput(), label="Password")
 
     def __init__(self, *args, **kwargs):
@@ -374,7 +376,7 @@ class EmailChangeForm(forms.Form):
     #The below was taken from password change form
     error_messages = dict(SetPasswordForm.error_messages, **{
         'password_incorrect': ("Your old password was entered incorrectly. "
-                                "Please enter it again.")
+                               "Please enter it again.")
     })
 
     def clean_password(self):

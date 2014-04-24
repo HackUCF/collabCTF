@@ -24,6 +24,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'crispy_forms_foundation',
     'south',
     'competition'
 )
@@ -64,7 +65,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Theme
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'foundation-5'
 
 LOGIN_URL = '/login'
 MEDIA_URL = '/media/'

@@ -5,39 +5,14 @@
 {% block overview_class %}active{% endblock %}
 {% block dashboard_class %}active{% endblock %}
 {% block content %}
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">Dashboard</h1>
+        <div class="small-9 medium-10 columns">
+            <h1 class="page-header">Dashboard</h1>
 
-        <p>Welcome to CollabCTF!</p>
-        {% if recently_viewed %}
-            <section id="recently-viewed" class="recent">
-                <h2 class="sub-header">Recently Viewed Challenges</h2>
+            <p>Welcome to CollabCTF!</p>
+            {% if recently_viewed %}
+                <section id="recently-viewed" class="recent">
+                    <h2 class="sub-header">Recently Viewed Challenges</h2>
 
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Challenge</th>
-                            <th>Status</th>
-                            <th>Last Viewed</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for challenge in recently_viewed %}
-                            <tr class="challenge" data-href="{{ challenge.get_absolute_url }}">
-                                <td>{{ challenge.name }}</td>
-                                <td>{{ challenge.get_progress_display }}</td>
-                                <td>{{ challenge.last_viewed }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="recently-solved" class="recent">
-                <h2 class="sub-header">Recently Solved Challenges</h2>
-                {% if recently_solved %}
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -48,24 +23,48 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for challenge in recently_solved  %}
+                            {% for challenge in recently_viewed %}
                                 <tr class="challenge" data-href="{{ challenge.get_absolute_url }}">
                                     <td>{{ challenge.name }}</td>
                                     <td>{{ challenge.get_progress_display }}</td>
                                     <td>{{ challenge.last_viewed }}</td>
                                 </tr>
                             {% endfor %}
+                            </tbody>
                         </table>
                     </div>
-                {% else %}
-                    <p>No challenges solved!</p>
-                {% endif %}
-            </section>
-        {% else %}
-            <p>No challenges have been added. Please add a CTF and/or a challenge!</p>
-        {% endif %}
+                </section>
 
-    </div>
+                <section id="recently-solved" class="recent">
+                    <h2 class="sub-header">Recently Solved Challenges</h2>
+                    {% if recently_solved %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Challenge</th>
+                                    <th>Status</th>
+                                    <th>Last Viewed</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for challenge in recently_solved  %}
+                                    <tr class="challenge" data-href="{{ challenge.get_absolute_url }}">
+                                        <td>{{ challenge.name }}</td>
+                                        <td>{{ challenge.get_progress_display }}</td>
+                                        <td>{{ challenge.last_viewed }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>No challenges solved!</p>
+                    {% endif %}
+                </section>
+            {% else %}
+                <p>No challenges have been added. Please add a CTF and/or a challenge!</p>
+            {% endif %}
+        </div>
 
 {% endblock %}
 {% block extra_scripts %}

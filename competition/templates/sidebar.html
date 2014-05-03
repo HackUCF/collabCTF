@@ -1,13 +1,13 @@
 {% load static %}
-<div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-sidebar">
+<div id="sidebar" class="small-3 medium-2 columns">
+    <ul class="side-nav">
         <li class="{% if view_name == 'index' %}active{% endif %}"><a href="{% url 'index' %}">Overview</a></li>
         <li class="{% if view_name == 'reports' %}active{% endif %}"><a href="{% url 'reports' %}">Reports</a></li>
         <li class="{% if view_name == 'ctf_tools' %}active{% endif %}"><a href="{% url 'ctf_tools' %}">CTF Tools</a>
         </li>
-    </ul>
-    {% for ctf in ctfs %}
-        <ul class="nav nav-sidebar">
+        <li class="divider"></li>
+        <li>CTFs</li>
+        {% for ctf in ctfs %}
             {% if view_name != 'add_challenge' %}
                 <li class="{% if ctf.get_absolute_url in url %}active{% endif %}">
             {% else %}
@@ -16,9 +16,10 @@
                 <a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
             <li class="{% if view_name == 'add_challenge' and ctf.get_absolute_url in url %}active{% endif %}"><a
                     href="{% url 'add_challenge' ctf.slug %}">&ndash; Add Challenge</a></li>
-        </ul>
-    {% endfor %}
-    <ul class="nav nav-sidebar">
+        {% endfor %}
+        {% if ctfs %}
+        <li class="divider"></li>
+        {% endif %}
         <li class="{% if view_name == 'add_ctf' %}active{% endif %}"><a href="{% url 'add_ctf' %}">Add CTF</a></li>
     </ul>
 </div>

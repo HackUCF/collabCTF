@@ -45,7 +45,9 @@
 <section role="main">
     <div class="row">
         {% block sidebar %}
-            {% include 'sidebar.html' %}
+            {% if user.is_authenticated %}
+                {% include 'sidebar.html' %}
+            {% endif %}
         {% endblock %}
         {% block content %}{% endblock %}
     </div>

@@ -118,7 +118,7 @@ def ctf_tools(request):
         'base_conversion_form': BaseConversionForm(),
         'xor_form': XorForm()
     }
-    return render_to_response('ctftools.html', data, RequestContext(request))
+    return render_to_response('tools.html', data, RequestContext(request))
 
 
 def register(request):

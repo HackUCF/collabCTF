@@ -33,6 +33,21 @@
             </li>
         </ul>
 
+        <dl>
+            {% if ctf.url %}
+                <dt>URL</dt>
+                <dd><a href="{{ ctf.url }}">{{ ctf.url }}</a></dd>
+            {% endif %}
+            {% if ctf.start_time %}
+                <dt>Start time</dt>
+                <dd>{{ ctf.start_time }}</dd>
+            {% endif %}
+            {% if ctf.end_time %}
+                <dt>End time</dt>
+                <dd>{{ ctf.end_time }}</dd>
+            {% endif %}
+        </dl>
+
         <h2>Challenges</h2>
 
         {% if challenges %}
@@ -54,6 +69,11 @@
                         <td>{{ chall.last_viewed }}</td>
                     </tr>
                 {% endfor %}
+                    <tr class="add-challenge-row">
+                        <td colspan="3">
+                            <a href="{% url 'add_challenge' ctf.slug %}">Add a challenge</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

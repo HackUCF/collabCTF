@@ -77,3 +77,11 @@ form .button-holder.text-right > input.button {
 #clocks > li {
     overflow: hidden;
 }
+
+input[type=range] {
+    width: 100%;
+}
+
+.add-challenge-row a {
+    display: block;
+}

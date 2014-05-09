@@ -15,6 +15,7 @@
                 </span>
             </h1>
         {% endwith %}
+        {% include 'breadcrumbs.html' with state='overview' %}
 
         <h2>Files</h2>
         {% if files %}
@@ -53,8 +54,9 @@
         <p>Are you sure that you want to delete {{ ctf.name }}?</p>
         <form class="text-right" action="delete" method="post">
             {% csrf_token %}
-            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <input class="btn btn-danger" type="submit" value="Delete"/>
+            <input class="button secondary" type="reset" value="Cancel"/>
+            <input class="button alert" type="submit" value="Delete"/>
+            <a class="close-reveal-modal">&#215;</a>
         </form>
     </div>
 {% endblock %}

@@ -93,7 +93,7 @@
         <form class="text-right" action="{% url 'delete_ctf' ctf.slug %}" method="post">
             {% csrf_token %}
             <input class="button secondary" type="reset" value="Cancel"/>
-            <input class="button" type="submit" value="Delete"/>
+            <input class="button alert" type="submit" value="Delete"/>
             <a class="close-reveal-modal">&#215;</a>
         </form>
     </div>

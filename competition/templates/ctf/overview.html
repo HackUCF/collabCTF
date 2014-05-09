@@ -52,8 +52,7 @@
         <h2>Challenges</h2>
 
         {% if challenges %}
-        <div class="table-responsive">
-            <table id="challenges" class="table table-striped">
+            <table id="challenges">
                 <thead>
                 <tr>
                     <th></th>
@@ -70,14 +69,13 @@
                         <td>{{ chall.last_viewed }}</td>
                     </tr>
                 {% endfor %}
-                    <tr class="add-challenge-row">
-                        <td colspan="3">
-                            <a href="{% url 'add_challenge' ctf.slug %}">Add a challenge</a>
-                        </td>
-                    </tr>
+                <tr class="add-challenge-row">
+                    <td colspan="3">
+                        <a href="{% url 'add_challenge' ctf.slug %}">Add a challenge</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-        </div>
         {% else %}
             <div class="row">
                 <div class="col-sm-12">
@@ -87,10 +85,12 @@
         {% endif %}
     </div>
 
-    <div id="delete-ctf" class="reveal-modal small" data-reveal>
+    <div id="delete-ctf" class="delete-modal reveal-modal small" data-reveal>
         <h3>CTF Deletion Confirmation</h3>
+
         <p>Are you sure that you want to delete {{ ctf.name }}?</p>
-        <form class="text-right" action="delete" method="post">
+
+        <form class="text-right" action="{% url 'delete_ctf' ctf.slug %}" method="post">
             {% csrf_token %}
             <input class="button secondary" type="reset" value="Cancel"/>
             <input class="button" type="submit" value="Delete"/>

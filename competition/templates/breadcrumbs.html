@@ -1,11 +1,19 @@
 <ul class="breadcrumbs">
     <li><a href="{% url 'index' %}">CTFs</a></li>
     {% if ctf and challenge %}
-        <li></li>
+        <li><a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
+        {% if state == 'overview' %}
+            <li class="current">{{ challenge.name }}</li>
+        {% else %}
+            <li><a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></li>
+            {% if state == 'update' %}
+                <li class="current">Update</li>
+            {% endif %}
+        {% endif %}
     {% else %}
         {% if ctf %}
             {% if state == 'overview' %}
-                <li class="current"><a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
+                <li class="current">{{ ctf.name }}</li>
             {% else %}
                 <li><a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
                 {% if state == 'update' %}

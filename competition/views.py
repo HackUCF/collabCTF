@@ -143,6 +143,7 @@ def update_challenge(request, ctf_slug, chall_slug):
     challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)
     if request.method == 'GET':
         data = {
+            'ctf': ctf,
             'challenge': challenge,
             'form': ChallengeModelForm(instance=challenge)
         }
@@ -159,6 +160,7 @@ def update_challenge(request, ctf_slug, chall_slug):
             return redirect(challenge.get_absolute_url())
 
         data = {
+            'ctf': ctf,
             'challenge': challenge,
             'form': ChallengeModelForm(instance=challenge),
             'saved': saved

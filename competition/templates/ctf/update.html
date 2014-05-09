@@ -6,13 +6,17 @@
 {% block ctfoverview_class %}active{% endblock %}
 
 {% block content %}
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">{{ ctf.name }}</h1>
+    <div class="small-9 medium-10 columns">
+        <h1>{{ ctf.name }}</h1>
+        {% include 'breadcrumbs.html' with state='update' %}
 
         <div class="row">
-            <div class="col-sm-8 col-md-6">
+            <div class="small-8 medium-6 columns">
                 {% if saved %}
-                    <div class="alert alert-success">{{ ctf.name }} has been updated accordingly.</div>
+                    <div class="alert-box success" data-alert>
+                        {{ ctf.name }} has been updated accordingly.
+                        <a href="#" class="close">&times;</a>
+                    </div>
                 {% endif %}
                 {% crispy form form.update_helper %}
             </div>

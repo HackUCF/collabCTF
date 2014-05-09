@@ -4,36 +4,36 @@
 {% block subtitle %}- Overview{% endblock %}
 {% block ctfoverview_class %}active{% endblock %}
 {% block content %}
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="small-9 medium-10 columns">
         <h1 class="page-header">{{ ctf.name }}
-            <span class="pull-right">
-                <a class="edit" href="{% url 'update_ctf' ctf.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="delete" href="#" data-toggle="modal" data-target="#delete-ctf"><span class="glyphicon glyphicon-remove"></span></a>
+            <span class="right">
+                <a class="edit" href="{% url 'update_ctf' ctf.slug %}">&#9998;</a>
+                <a class="delete" href="#" data-reveal-id="delete-ctf">&#215;</a>
             </span>
         </h1>
 
-        <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
+        <ul id="clocks" class="medium-block-grid-3 small-block-grid-2 text-center">
+            <li>
                 <!--img src="clocks/orange.png" width="200"-->
                 <div id="solved-container"></div>
                 <h4>Challenges Solved</h4>
                 <span class="text-muted">Percent for {{ ctf.name }}</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
+            </li>
+            <li>
                 <!--img src="clocks/pink.png" width="200"-->
                 <div id="time-container"></div>
                 <h4>Time Remaining</h4>
                 <span class="text-muted">Until the end of {{ ctf.name }}</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
+            </li>
+            <li>
                 <!--img src="clocks/blue.png" width="200"-->
                 <div id="points-container"></div>
                 <h4>Points Earned</h4>
                 <span class="text-muted">Percent by {{ ctf.name }}</span>
-            </div>
-        </div>
+            </li>
+        </ul>
 
-        <h2 class="sub-header">Challenges</h2>
+        <h2>Challenges</h2>
 
         {% if challenges %}
         <div class="table-responsive">
@@ -66,22 +66,15 @@
         {% endif %}
     </div>
 
-    <div class="modal fade" id="delete-ctf" role="dialog" aria-hidden="true" aria-labelledby="deleteModalLabel">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="deleteModalLabel">CTF Deletion Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                    <div>Are you sure that you want to delete {{ ctf.name }}?</div>
-                    <form class="text-right" action="delete" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                        <input class="btn btn-danger" type="submit" value="Delete"/>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div id="delete-ctf" class="reveal-modal small" data-reveal>
+        <h3>CTF Deletion Confirmation</h3>
+        <p>Are you sure that you want to delete {{ ctf.name }}?</p>
+        <form class="text-right" action="delete" method="post">
+            {% csrf_token %}
+            <input class="button secondary" type="reset" value="Cancel"/>
+            <input class="button" type="submit" value="Delete"/>
+            <a class="close-reveal-modal">&#215;</a>
+        </form>
     </div>
 {% endblock %}
 {% block extra_scripts %}

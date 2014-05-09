@@ -5,6 +5,12 @@ $(document).ready(function () {
         document.location = $(this).data('href');
     });
 
+    var $deleteCTF = $('#delete-ctf');
+    $deleteCTF.find('input[type=reset]').on('click', function(event) {
+        event.preventDefault();
+        $deleteCTF.foundation('reveal', 'close');
+    });
+
     function timePercentage(startTime, endTime) {
         var nowUTC = new Date().getTime();
         var totalTime = endTime - startTime;

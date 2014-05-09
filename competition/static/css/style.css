@@ -2,6 +2,10 @@
     color: red;
 }
 
+table#challenges {
+    width: 100%;
+}
+
 table#challenges > tbody > tr {
     cursor: pointer;
 }
@@ -68,4 +72,8 @@ table#challenges > tbody > tr.solved:hover {
 
 form .button-holder.text-right > input.button {
     margin-left: 8px;
+}
+
+#clocks > li {
+    overflow: hidden;
 }

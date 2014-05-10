@@ -3,11 +3,11 @@
 
 {% block subtitle %}- Add Challenge{% endblock %}
 {% block content %}
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="small-9 medium-10 columns">
         <h1 class="page-header">{{ challenge.name }} <small>Upload file</small></h1>
 
         <div class="row">
-            <div class="col-sm-8 col-md-6">
+            <div class="small-12 medium-8 large-6 columns">
                 {% crispy form form.add_helper %}
             </div>
         </div>

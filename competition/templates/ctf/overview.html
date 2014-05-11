@@ -78,8 +78,8 @@
             </table>
         {% else %}
             <div class="row">
-                <div class="col-sm-12">
-                    No challenges found. Click here to <a href="{% url 'add_challenge' ctf.slug %}">add a challenge</a>.
+                <div class="col-sm-12 columns">
+                    <p>No challenges found. Click here to <a href="{% url 'add_challenge' ctf.slug %}">add a challenge</a>.</p>
                 </div>
             </div>
         {% endif %}

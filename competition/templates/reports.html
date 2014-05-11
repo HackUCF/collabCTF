@@ -4,26 +4,26 @@
 {% block subtitle %}- Reports{% endblock %}
 {% block reports_class %}active{% endblock %}
 {% block content %}
-
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">CTF Summary Report</h1>
+    <div class="small-9 medium-10 columns">
+        <h1>CTF Summary Report</h1>
 
         <div class="row">
             {% for ctf in ctfs %}
-                <div class="col-xs-12 col-sm-6">
-                    <h2 class="sub-header">{{ ctf.name }}</h2>
-                    <div class="row placeholders report-container" data-href="{% url 'ctf_chart' ctf.slug %}">
-                        <div class="col-xs-6 placeholder">
+                <div class="small-12 columns">
+                    <h2>{{ ctf.name }}</h2>
+
+                    <ul class="report-container row small-block-grid-2 text-center" data-href="{% url 'ctf_chart' ctf.slug %}">
+                        <li>
                             <div class="solved-container"></div>
                             <h4>Challenges Solved</h4>
                             <span class="text-muted">Percent for CTF</span>
-                        </div>
-                        <div class="col-xs-6 placeholder">
+                        </li>
+                        <li>
                             <div class="points-container"></div>
                             <h4>Points Earned</h4>
                             <span class="text-muted">Percent by CTF</span>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             {% endfor %}
         </div>

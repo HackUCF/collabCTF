@@ -57,11 +57,6 @@ def settings(request):
 
 
 @login_required
-def about(request):
-    return render_to_response('about.html')
-
-
-@login_required
 def ctfoverview(request):
     return render_to_response('ctf/overview.html')
 

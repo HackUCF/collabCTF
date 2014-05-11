@@ -7,8 +7,11 @@ $(document).ready(function() {
         cache: false
     });
     xhr.done(function(data) {
-        $sidebar.html(data);
-        $sidebar.fadeIn('fast');
+        var $resp = $(data);
+        $resp.hide();
+        $sidebar.after($resp);
+        $sidebar.remove();
+        $resp.fadeIn('fast');
     });
 
 });

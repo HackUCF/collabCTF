@@ -59,6 +59,9 @@
     <script>$(document).foundation();</script>
 
     <script src="{% static 'js/site.js' %}"></script>
+    {% if user.is_authenticated %}
+        <script src="{% static 'js/sidebar.js' %}"></script>
+    {% endif %}
     <script src="{% static 'js/metr.js' %}"></script>
 {% endblock %}
 {% block extra_scripts %}{% endblock %}

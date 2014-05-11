@@ -6,16 +6,14 @@
         <li class="{% if view_name == 'ctf_tools' %}active{% endif %}"><a href="{% url 'ctf_tools' %}">CTF Tools</a>
         </li>
         <li class="divider"></li>
-        <li>CTFs</li>
+        <li id="sidebar-ctf-header">CTFs</li>
         {% for ctf in ctfs %}
             {% if view_name != 'add_challenge' %}
-                <li class="{% if ctf.get_absolute_url in url %}active{% endif %}">
+                <li class="ctf {% if ctf.get_absolute_url in url %}active{% endif %}">
             {% else %}
-                <li>
+                <li class="ctf">
             {% endif %}
                 <a href="{{ ctf.get_absolute_url }}">{{ ctf.name }}</a></li>
-            <li class="{% if view_name == 'add_challenge' and ctf.get_absolute_url in url %}active{% endif %}"><a
-                    href="{% url 'add_challenge' ctf.slug %}">&ndash; Add Challenge</a></li>
         {% endfor %}
         {% if ctfs %}
         <li class="divider"></li>

@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST, require_GET, require_http_methods
+from django.conf import settings
 
 from collabCTF.tools import crypto
 from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm, \
@@ -32,7 +33,7 @@ def profile(request):
 
 
 @login_required
-def settings(request):
+def user_settings(request):
     if request.method == 'GET':
         data = {
             'password_form': PasswordChangeForm(request.user),
@@ -66,14 +67,6 @@ def ctfchallenge(request):
     return render_to_response('ctf/challenge/overview.html')
 
 
-def _404(request):
-    return render_to_response('404.html')
-
-
-def _500(request):
-    return render_to_response('500.html')
-
-
 @login_required
 @require_safe
 def reports(request):
@@ -81,27 +74,6 @@ def reports(request):
         'ctfs': Competition.objects.order_by('-start_time')
     }
     return render_to_response('reports.html', data, RequestContext(request))
-
-
-@login_required
-@require_GET
-def sidebar(request):
-    url = request.GET.get('url', None)
-    if url is not None:
-        try:
-            resolved = resolve(url)
-            view_name = resolved.view_name
-        except (Resolver404, NoReverseMatch):
-            view_name = 'index'
-    else:
-        view_name = 'index'
-    data = {
-        'ctfs': Competition.objects.prefetch_related('challenges'),
-        'view_name': view_name,
-        'url': url
-    }
-
-    return render_to_response('sidebar.html', data)
 
 
 @login_required
@@ -117,6 +89,11 @@ def ctf_tools(request):
 
 
 def register(request):
+    if settings.REGISTRATION_LOCK:
+        resp = render_to_response('registration_locked.html', {}, RequestContext(request))
+        resp.status_code = 403
+        return resp
+
     if request.method == 'GET':
         form = RegistrationForm()
         data = {

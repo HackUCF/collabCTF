@@ -8,12 +8,26 @@
     <div class="small-9 medium-10 columns">
         <h1 class="sub-header">CTF Tools</h1>
 
+        <div id="tools-sticky" class="hide-for-small-down" data-magellan-expedition="fixed">
+            <dl class="sub-nav">
+                <dt>Crypto:</dt>
+                <dd data-magellan-arrival="crypto-hash"><a href="#{{ hash_form.helper.form_id }}">Hashing</a></dd>
+                <dd data-magellan-arrival="crypto-subst"><a href="#{{ rot_form.helper.form_id }}">Substitution</a></dd>
+                <dd data-magellan-arrival="crypto-block"><a href="#{{ xor_form.helper.form_id }}">Block</a></dd>
+            </dl>
+            <dl class="sub-nav">
+                <dt>Payloads/Codec:</dt>
+                <dd data-magellan-arrival="codec-base"><a href="#{{ base_conversion_form.helper.form_id }}">Number coding</a></dd>
+                <dd data-magellan-arrival="codec-url"><a href="#{{ quote_form.helper.form_id }}">URL Codecs</a></dd>
+            </dl>
+        </div>
+
         <ul id="tools" class="small-block-grid-1 medium-block-grid-2">
-            <li>{% crispy hash_form %}</li>
-            <li>{% crispy rot_form %}</li>
-            <li>{% crispy base_conversion_form %}</li>
-            <li>{% crispy xor_form %}</li>
-            <li>{% crispy quote_form %}</li>
+            <li data-magellan-destination="crypto-hash">{% crispy hash_form %}</li>
+            <li data-magellan-destination="crypto-subst">{% crispy rot_form %}</li>
+            <li data-magellan-destination="crypto-block">{% crispy xor_form %}</li>
+            <li data-magellan-destination="codec-base">{% crispy base_conversion_form %}</li>
+            <li data-magellan-destination="codec-url">{% crispy quote_form %}</li>
             <li>{% crispy unquote_form %}</li>
         </ul>
     </div>

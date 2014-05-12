@@ -85,3 +85,7 @@ input[type=range] {
 .add-challenge-row a {
     display: block;
 }
+
+#tools-sticky dt {
+    margin-bottom: 0;
+}

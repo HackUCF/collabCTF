@@ -1,4 +1,5 @@
 import os
+from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
@@ -40,6 +41,9 @@ class Challenge(models.Model):
 
     competition = models.ForeignKey(Competition, related_name='challenges')
     last_viewed = models.DateTimeField(auto_created=True)
+
+    viewers = models.ManyToManyField(User, related_name='challenges_viewed')
+    participants = models.ManyToManyField(User, related_name='challenges_participated')
 
     def __unicode__(self):
         return self.name

@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load crispy_forms_tags %}
 
-{% block subtitle %}- Challenge{% endblock %}
-{% block register_class %}active{% endblock %}
+{% block subtitle %}- Registration{% endblock %}
 {% block content %}
-
-    <div class="col-sm-12 main">
-        <h2 class="sub-header">Register</h2>
+    <div class="small-12 columns">
+        <h2>Register</h2>
         {% crispy register_form %}
     </div>
 {% endblock %}

@@ -13,6 +13,10 @@ DATABASES = {
     }
 }
 
+# pretty important things
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+REGISTRATION_LOCK = False
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'ohyou'
 

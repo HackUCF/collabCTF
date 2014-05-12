@@ -11,7 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^$', 'collabCTF.views.index', name='index'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^settings$', 'collabCTF.views.settings', name='settings'),
+    url(r'^settings$', 'collabCTF.views.user_settings', name='settings'),
     url(r'^profile$', 'collabCTF.views.profile', name='profile'),
     url(r'^login$', 'collabCTF.views.log_in', name='login'),
     url(r'^logout$', 'django.contrib.auth.views.logout', {'next_page': "/login"}, name='logout'),

@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST, require_GET, require_http_methods
+from django.conf import settings
 
 from collabCTF.tools import crypto
 from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm, \
@@ -32,7 +33,7 @@ def profile(request):
 
 
 @login_required
-def settings(request):
+def user_settings(request):
     if request.method == 'GET':
         data = {
             'password_form': PasswordChangeForm(request.user),
@@ -88,6 +89,11 @@ def ctf_tools(request):
 
 
 def register(request):
+    if settings.REGISTRATION_LOCK:
+        resp = render_to_response('registration_locked.html', {}, RequestContext(request))
+        resp.status_code = 403
+        return resp
+
     if request.method == 'GET':
         form = RegistrationForm()
         data = {

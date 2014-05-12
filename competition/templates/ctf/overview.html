@@ -69,7 +69,7 @@
                         <td>{{ chall.last_viewed }}</td>
                     </tr>
                 {% endfor %}
-                <tr class="add-challenge-row">
+                <tr class="add-challenge-row" data-href="{% url 'add_challenge' ctf.slug %}">
                     <td colspan="3">
                         <a href="{% url 'add_challenge' ctf.slug %}">Add a challenge</a>
                     </td>

@@ -16,7 +16,7 @@ try:
     # not required since it's included, but...
     from pytz import UTC
 except ImportError:
-    from collabCTF.tools.misc import UTC
+    from tools.misc import UTC
 
 
 @login_required

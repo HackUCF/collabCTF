@@ -10,8 +10,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_safe, require_POST, require_http_methods
 from django.conf import settings
 
-from collabCTF.tools import crypto
-from competition.forms import HashForm, RotForm, BaseConversionForm, XorForm, RegistrationForm, LoginForm, \
+from competition.forms import RegistrationForm, LoginForm, \
     PasswordChangeForm, EmailChangeForm
 from competition.models import Competition, Challenge
 
@@ -76,18 +75,6 @@ def reports(request):
     return render_to_response('reports.html', data, RequestContext(request))
 
 
-@login_required
-@require_safe
-def ctf_tools(request):
-    data = {
-        'hash_form': HashForm(),
-        'rot_form': RotForm(),
-        'base_conversion_form': BaseConversionForm(),
-        'xor_form': XorForm()
-    }
-    return render_to_response('tools.html', data, RequestContext(request))
-
-
 def register(request):
     if request.user.is_authenticated():
         return redirect('index')
@@ -146,75 +133,3 @@ def log_in(request):
         }
         return render_to_response('login.html', data, RequestContext(request))
 
-
-@login_required
-@require_POST
-def hash_val(request):
-    form = HashForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        value = cd['value']
-        if sys.version_info.major == 3:
-            value = value.encode('utf8')
-
-        jdata = json.dumps({
-            'result': crypto.hash(cd['hash_type'], value)
-        })
-        return HttpResponse(jdata, content_type='application/json')
-
-    else:
-        jdata = json.dumps({
-            'error': form.errors
-        })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
-
-
-@login_required
-@require_POST
-def rot_val(request):
-    form = RotForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        jdata = json.dumps({
-            'result': crypto.rot(cd['rot_type'], cd['value'], cd['encode'])
-        })
-        return HttpResponse(jdata, content_type='application/json')
-    else:
-        jdata = json.dumps({
-            'error': form.errors
-        })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
-
-
-@login_required
-@require_POST
-def base_conversion_val(request):
-    form = BaseConversionForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        jdata = json.dumps({
-            'result': crypto.base_conversions(cd['value'], cd['base'], cd['currBase'])
-        })
-        return HttpResponse(jdata, content_type='application/json')
-    else:
-        jdata = json.dumps({
-            'error': form.errors
-        })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
-
-
-@login_required
-@require_POST
-def xor_val(request):
-    form = XorForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        jdata = json.dumps({
-            'result': crypto.xor_tool(cd['value'], cd['key'])
-        })
-        return HttpResponse(jdata, content_type='application/json')
-    else:
-        jdata = json.dumps({
-            'error': form.errors
-        })
-        return HttpResponseBadRequest(jdata, content_type='application/json')

@@ -111,9 +111,34 @@ class XorForm(forms.Form):
         self.helper.form_action = reverse("tools_xor")
         self.helper.layout = Layout(
             Fieldset(
-                'XOR Strings',
+                'String XOR Tool',
                 'value',
                 'key',
+                'result'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
+
+
+class URLUnquoteForm(forms.Form):
+    value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "unquote-result"}),
+                             required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(URLUnquoteForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'unquote-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = reverse('tools_unquote')
+        self.helper.layout = Layout(
+            Fieldset(
+                'URL Decoding',
+                'value',
                 'result'
             ),
             ButtonHolder(

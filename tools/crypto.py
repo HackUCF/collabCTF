@@ -5,7 +5,7 @@ import string
 import itertools
 
 
-def hash(type=None, value=None):
+def hash_value(type=None, value=None):
     if type is None:
         return 'You must specify a type'
     if value is None:
@@ -21,7 +21,7 @@ def hash(type=None, value=None):
     return 'Specified type not supported'
 
 
-#rotational cipher encoder/decoder
+# rotational cipher encoder/decoder
 def rot(shift, value, encode):
     try:
         alphabet = string.ascii_lowercase
@@ -49,7 +49,7 @@ def rot(shift, value, encode):
         return "An error occurred"
 
 
-#main base conversion function
+# main base conversion function
 def base_conversions(value=None, base=None, currBase=10):
     try:
         if base is None:
@@ -72,10 +72,10 @@ def base_conversions(value=None, base=None, currBase=10):
         return "An error occurred"
 
 
-#converts any integer to any base; only used internally, should never be called from the actual site
+# converts any integer to any base; only used internally, should never be called from the actual site
 def int_to_base(value, base):
     try:
-        digs = string.digits + string.lowercase
+        alphanum = string.digits + string.ascii_lowercase
 
         if value < 0:
             sign = -1
@@ -87,7 +87,7 @@ def int_to_base(value, base):
         value *= sign
         digits = []
         while value:
-            digits.append(digs[value % base])
+            digits.append(alphanum[value % base])
             value /= base
         if sign < 0:
             digits.append('-')

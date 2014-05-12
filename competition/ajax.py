@@ -78,6 +78,7 @@ def track_challenge_visit(request):
             challenge = Challenge.objects.get(competition__slug=kwargs['ctf_slug'], slug=kwargs['chall_slug'])
             if challenge.progress != Challenge.SOLVED:
                 challenge.last_viewed = dt.datetime.now(UTC)
+                challenge.viewers.add(request.user)
                 challenge.save()
         except Challenge.DoesNotExist:
             pass

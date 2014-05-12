@@ -89,7 +89,10 @@ def ctf_tools(request):
 
 
 def register(request):
-    if settings.REGISTRATION_LOCK:
+    if request.user.is_authenticated():
+        return redirect('index')
+
+    elif settings.REGISTRATION_LOCK:
         resp = render_to_response('registration_locked.html', {}, RequestContext(request))
         resp.status_code = 403
         return resp

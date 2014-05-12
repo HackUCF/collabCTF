@@ -84,27 +84,6 @@ def reports(request):
 
 
 @login_required
-@require_GET
-def sidebar(request):
-    url = request.GET.get('url', None)
-    if url is not None:
-        try:
-            resolved = resolve(url)
-            view_name = resolved.view_name
-        except (Resolver404, NoReverseMatch):
-            view_name = 'index'
-    else:
-        view_name = 'index'
-    data = {
-        'ctfs': Competition.objects.prefetch_related('challenges'),
-        'view_name': view_name,
-        'url': url
-    }
-
-    return render_to_response('sidebar.html', data)
-
-
-@login_required
 @require_safe
 def ctf_tools(request):
     data = {

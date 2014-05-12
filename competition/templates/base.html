@@ -44,11 +44,9 @@
 </nav>
 <section role="main">
     <div class="row">
-        {% block sidebar %}
-            {% if user.is_authenticated %}
-                {% include 'sidebar.html' %}
-            {% endif %}
-        {% endblock %}
+        {% if user.is_authenticated %}
+            {% include 'sidebar.html' %}
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
 </section>
@@ -59,9 +57,6 @@
     <script>$(document).foundation();</script>
 
     <script src="{% static 'js/site.js' %}"></script>
-    {% if user.is_authenticated %}
-        <script src="{% static 'js/sidebar.js' %}"></script>
-    {% endif %}
     <script src="{% static 'js/metr.js' %}"></script>
 {% endblock %}
 {% block extra_scripts %}{% endblock %}

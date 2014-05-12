@@ -3,11 +3,11 @@ import sys
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import resolve, Resolver404, NoReverseMatch, reverse
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.views.decorators.http import require_safe, require_POST, require_GET, require_http_methods
+from django.views.decorators.http import require_safe, require_POST, require_http_methods
 from django.conf import settings
 
 from collabCTF.tools import crypto

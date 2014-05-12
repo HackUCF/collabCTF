@@ -1,15 +1,15 @@
 from datetime import datetime
 import hashlib
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.utils.text import slugify
 from django.views.decorators.http import require_safe, require_http_methods, require_POST
 
 from competition.forms import CompetitionModelForm, ChallengeModelForm, ChallengeFileModelForm
-from competition.models import Competition, Challenge, ChallengeFile
+from competition.models import Competition, Challenge
 
 
 @login_required
@@ -141,6 +141,7 @@ def view_challenge(request, ctf_slug, chall_slug):
 def update_challenge(request, ctf_slug, chall_slug):
     ctf = get_object_or_404(Competition.objects, slug=ctf_slug)
     challenge = get_object_or_404(Challenge.objects, competition=ctf, slug=chall_slug)
+
     if request.method == 'GET':
         data = {
             'ctf': ctf,
@@ -151,19 +152,20 @@ def update_challenge(request, ctf_slug, chall_slug):
 
     elif request.method == 'POST':
         form = ChallengeModelForm(request.POST, instance=challenge)
-        saved = False
         if form.is_valid():
+            # add timestamp and participant
             challenge = form.save(commit=False)
             challenge.last_viewed = datetime.now()
+            challenge.viewers.add(request.user)
+            challenge.participants.add(request.user)
             challenge.save()
-            saved = True
+
             return redirect(challenge.get_absolute_url())
 
         data = {
             'ctf': ctf,
             'challenge': challenge,
             'form': ChallengeModelForm(instance=challenge),
-            'saved': saved
         }
         return render_to_response('ctf/challenge/update.html', data, RequestContext(request))
 

@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_POST
 
 from tools import crypto
-from tools.forms import HashForm, RotForm, BaseConversionForm, XorForm, URLUnquoteForm, URLQuoteForm
+from tools.forms import HashForm, RotForm, BaseConversionForm, XORForm, URLUnquoteForm, URLQuoteForm
 
 
 if sys.version_info.major == 2:
@@ -74,7 +74,7 @@ def base_conversion_val(request):
 @login_required
 @require_POST
 def xor_val(request):
-    form = XorForm(request.POST)
+    form = XORForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
         jdata = json.dumps({

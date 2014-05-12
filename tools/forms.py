@@ -98,13 +98,13 @@ class BaseConversionForm(forms.Form):
         )
 
 
-class XorForm(forms.Form):
+class XORForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     key = forms.CharField(widget=forms.TextInput(attrs={'size': 40}))
     result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "xor-result"}), required=False)
 
     def __init__(self, *args, **kwargs):
-        super(XorForm, self).__init__(*args, **kwargs)
+        super(XORForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_id = 'xor-form'
         self.helper.form_method = 'post'
@@ -125,7 +125,7 @@ class XorForm(forms.Form):
 
 
 class URLQuoteForm(forms.Form):
-    value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+    value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}), label='Plaintext')
     result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "quote-result"}),
                              required=False)
 
@@ -147,6 +147,7 @@ class URLQuoteForm(forms.Form):
                 css_class='text-right'
             )
         )
+
 
 class URLUnquoteForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))

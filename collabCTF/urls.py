@@ -38,6 +38,7 @@ urlpatterns = patterns('',
     url(r'^tools/.rot$', 'tools.ajax.rot_val', name='tools_rot'),
     url(r'^tools/.base_conversions$', 'tools.ajax.base_conversion_val', name='tools_base_conversion'),
     url(r'^tools/.xor$', 'tools.ajax.xor_val', name='tools_xor'),
+    url(r'^tools/.url-quote$', 'tools.ajax.quote_url', name='tools_quote'),
     url(r'^tools/.url-unquote$', 'tools.ajax.unquote_url', name='tools_unquote'),
     url(r'^.challenge-visit$', 'competition.ajax.track_challenge_visit', name='track_challenge_visit'),
 )

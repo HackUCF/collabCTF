@@ -124,6 +124,30 @@ class XorForm(forms.Form):
         )
 
 
+class URLQuoteForm(forms.Form):
+    value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
+    result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "quote-result"}),
+                             required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(URLQuoteForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'quote-form'
+        self.helper.form_method = 'post'
+        self.helper.form_action = reverse('tools_quote')
+        self.helper.layout = Layout(
+            Fieldset(
+                'URL Encoding',
+                'value',
+                'result'
+            ),
+            ButtonHolder(
+                Submit('submit', 'Submit'),
+                Reset('reset', 'Reset'),
+                css_class='text-right'
+            )
+        )
+
 class URLUnquoteForm(forms.Form):
     value = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
     result = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 40, 'id': "unquote-result"}),

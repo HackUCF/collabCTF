@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_POST
 
 from tools import crypto
-from tools.forms import HashForm, RotForm, BaseConversionForm, XorForm, URLUnquoteForm
+from tools.forms import HashForm, RotForm, BaseConversionForm, XorForm, URLUnquoteForm, URLQuoteForm
 
 
 if sys.version_info.major == 2:
@@ -87,6 +87,22 @@ def xor_val(request):
         })
         return HttpResponseBadRequest(jdata, content_type='application/json')
 
+@login_required
+@require_POST
+def quote_url(request):
+    form = URLQuoteForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        jdata = json.dumps({
+            'result': url_quote(cd['value'])
+        })
+        return HttpResponse(jdata, content_type='application/json')
+    else:
+        jdata = json.dumps({
+            'error': form.errors
+        })
+        return HttpResponseBadRequest(jdata, content_type='application/json')
+
 
 @login_required
 @require_POST
@@ -103,3 +119,4 @@ def unquote_url(request):
             'error': form.errors
         })
         return HttpResponseBadRequest(jdata, content_type='application/json')
+

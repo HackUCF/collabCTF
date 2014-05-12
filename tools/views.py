@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.http import require_safe
 
-from tools.forms import HashForm, RotForm, BaseConversionForm, XorForm, URLUnquoteForm
+from tools.forms import HashForm, RotForm, BaseConversionForm, XorForm, URLQuoteForm, URLUnquoteForm
 
 
 @login_required
@@ -14,6 +14,7 @@ def ctf_tools(request):
         'rot_form': RotForm(),
         'base_conversion_form': BaseConversionForm(),
         'xor_form': XorForm(),
+        'quote_form': URLQuoteForm(),
         'unquote_form': URLUnquoteForm()
     }
     return render_to_response('tools.html', data, RequestContext(request))

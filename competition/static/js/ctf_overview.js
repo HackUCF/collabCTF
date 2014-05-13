@@ -36,7 +36,7 @@ $(document).ready(function () {
         var usersMetr = new Metr($('#users-container'), {
             background: true,
             colors: ['#0000D0', '#0000A0'],
-            progress: [users['online'] / users['total'] * 100, 100]
+            progress: [users['participating'] / users['total'] * 100, 100]
         });
         var pointsMetr = new Metr($('#points-container'), {
             background: true,

@@ -13,24 +13,26 @@
         </h1>
         {% include 'breadcrumbs.html' with state='overview' %}
 
-        <ul id="clocks" class="medium-block-grid-3 small-block-grid-2 text-center">
+        <ul id="clocks" class="medium-block-grid-4 small-block-grid-2 text-center">
             <li>
-                <!--img src="clocks/orange.png" width="200"-->
                 <div id="solved-container"></div>
                 <h4>Challenges Solved</h4>
-                <span class="text-muted">Percent for {{ ctf.name }}</span>
+                <span class="text-muted">Percent done of <br/> {{ ctf.name }}</span>
             </li>
             <li>
-                <!--img src="clocks/pink.png" width="200"-->
                 <div id="time-container"></div>
                 <h4>Time Remaining</h4>
-                <span class="text-muted">Until the end of {{ ctf.name }}</span>
+                <span class="text-muted">Until the end of <br/> {{ ctf.name }}</span>
             </li>
             <li>
-                <!--img src="clocks/blue.png" width="200"-->
                 <div id="points-container"></div>
                 <h4>Points Earned</h4>
-                <span class="text-muted">Percent by {{ ctf.name }}</span>
+                <span class="text-muted">Percent done of <br/> {{ ctf.name }}</span>
+            </li>
+            <li>
+                <div id="users-container"></div>
+                <h4>Users Participating</h4>
+                <span class="text-muted">Working on {{ ctf.name }}</span>
             </li>
         </ul>
 

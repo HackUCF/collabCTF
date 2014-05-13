@@ -2,6 +2,7 @@ import json
 import datetime as dt
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -44,16 +45,17 @@ def chart_data(request, ctf_slug):
         end_time = (ctf.end_time - dt.datetime(1970, 1, 1, tzinfo=UTC)).total_seconds()
     else:
         end_time = None
+
     users = {
-        'online': 4,
-        'total': 22
+        'participating': User.objects.filter(challenges_participated__in=ctf.challenges.all()).distinct().count(),
+        'total': User.objects.count()
     }
 
     pv_sum = Sum('point_value')
     points = {
-        'earned': solved_challenges.aggregate(pv_sum)['point_value__sum'] or 0.001,
-        'in_progress': in_progress_challenges.aggregate(pv_sum)['point_value__sum'] or 0.001,
-        'total': challenges.aggregate(pv_sum)['point_value__sum'] or 1
+        'earned': solved_challenges.aggregate(pv_sum)['point_value__sum'],
+        'in_progress': in_progress_challenges.aggregate(pv_sum)['point_value__sum'],
+        'total': challenges.aggregate(pv_sum)['point_value__sum']
     }
 
     data = {

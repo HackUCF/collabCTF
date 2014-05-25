@@ -1,4 +1,6 @@
 import datetime
+from django.http import HttpResponse
+
 
 ZERO = datetime.timedelta(0)
 HOUR = datetime.timedelta(hours=1)
@@ -55,3 +57,15 @@ class UTC(datetime.tzinfo):
 
 
 UTC = utc = UTC() # UTC is a singleton
+
+
+class JSONResponse(HttpResponse):
+    def __init__(self, *args, **kwargs):
+        # Content-Type override
+        if 'content_type' not in kwargs:
+            kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(*args, **kwargs)
+
+
+class JSONResponseBadRequest(JSONResponse):
+    status_code = 400

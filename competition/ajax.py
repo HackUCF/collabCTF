@@ -16,7 +16,7 @@ try:
     # not required since it's included, but...
     from pytz import UTC
 except ImportError:
-    from tools.misc import UTC
+    from tools.misc import UTC, JSONResponse
 
 
 @login_required
@@ -64,7 +64,7 @@ def chart_data(request, ctf_slug):
         'points': points
     }
 
-    return HttpResponse(json.dumps(data), content_type='application/json')
+    return JSONResponse(json.dumps(data))
 
 
 @login_required

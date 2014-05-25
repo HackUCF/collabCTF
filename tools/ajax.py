@@ -2,11 +2,11 @@ import json
 import sys
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_POST
 
 from tools import crypto
 from tools.forms import HashForm, RotForm, BaseConversionForm, XORForm, URLUnquoteForm, URLQuoteForm
+from tools.misc import JSONResponse, JSONResponseBadRequest
 
 
 if sys.version_info.major == 2:
@@ -30,13 +30,13 @@ def hash_val(request):
         jdata = json.dumps({
             'result': crypto.hash_value(cd['hash_type'], value)
         })
-        return HttpResponse(jdata, content_type='application/json')
+        return JSONResponse(jdata)
 
     else:
         jdata = json.dumps({
             'error': form.errors
         })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
+        return JSONResponseBadRequest(jdata)
 
 
 @login_required
@@ -48,12 +48,12 @@ def rot_val(request):
         jdata = json.dumps({
             'result': crypto.rot(cd['rot_type'], cd['value'], cd['encode'])
         })
-        return HttpResponse(jdata, content_type='application/json')
+        return JSONResponse(jdata)
     else:
         jdata = json.dumps({
             'error': form.errors
         })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
+        return JSONResponseBadRequest(jdata)
 
 
 @login_required
@@ -65,12 +65,12 @@ def base_conversion_val(request):
         jdata = json.dumps({
             'result': crypto.base_conversions(cd['value'], cd['base'], cd['currBase'])
         })
-        return HttpResponse(jdata, content_type='application/json')
+        return JSONResponse(jdata)
     else:
         jdata = json.dumps({
             'error': form.errors
         })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
+        return JSONResponseBadRequest(jdata)
 
 
 @login_required
@@ -82,12 +82,12 @@ def xor_val(request):
         jdata = json.dumps({
             'result': crypto.xor_tool(cd['value'], cd['key'])
         })
-        return HttpResponse(jdata, content_type='application/json')
+        return JSONResponse(jdata)
     else:
         jdata = json.dumps({
             'error': form.errors
         })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
+        return JSONResponseBadRequest(jdata)
 
 @login_required
 @require_POST
@@ -98,12 +98,12 @@ def quote_url(request):
         jdata = json.dumps({
             'result': url_quote(cd['value'])
         })
-        return HttpResponse(jdata, content_type='application/json')
+        return JSONResponse(jdata)
     else:
         jdata = json.dumps({
             'error': form.errors
         })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
+        return JSONResponseBadRequest(jdata)
 
 
 @login_required
@@ -115,10 +115,10 @@ def unquote_url(request):
         jdata = json.dumps({
             'result': url_unquote(cd['value'])
         })
-        return HttpResponse(jdata, content_type='application/json')
+        return JSONResponse(jdata)
     else:
         jdata = json.dumps({
             'error': form.errors
         })
-        return HttpResponseBadRequest(jdata, content_type='application/json')
+        return JSONResponseBadRequest(jdata)
 

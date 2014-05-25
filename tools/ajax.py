@@ -12,6 +12,8 @@ from tools.forms import HashForm, RotForm, BaseConversionForm, XORForm, URLUnquo
 if sys.version_info.major == 2:
     from urllib import quote as url_quote, unquote as url_unquote
 elif sys.version_info.major == 3:
+    # noinspection PyCompatibility
+    # noinspection PyUnresolvedReferences
     from urllib.parse import quote as url_quote, unquote as url_unquote
 
 

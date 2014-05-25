@@ -26,7 +26,8 @@ INSTALLED_APPS = (
     'crispy_forms',
     'crispy_forms_foundation',
     'south',
-    'competition'
+    'competition',
+    'tools'
 )
 
 MIDDLEWARE_CLASSES = (

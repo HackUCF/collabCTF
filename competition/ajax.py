@@ -10,14 +10,14 @@ from django.views.decorators.http import require_GET, require_POST
 from django.db.models import Sum
 
 from competition.models import Competition, Challenge
+from tools.misc import JSONResponse
 
 
 try:
     # not required since it's included, but...
     from pytz import UTC
 except ImportError:
-    from tools.misc import UTC, JSONResponse
-
+    from tools.misc import UTC
 
 @login_required
 @require_GET

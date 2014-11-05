@@ -1,4 +1,4 @@
-Django==1.6.2
-South==0.8.4
+Django==1.7.1
+Markdown>=2.5.1
 django-crispy-forms>=1.4.0
-crispy-forms-foundation>=0.3.2
+crispy-forms-foundation>=0.3.5

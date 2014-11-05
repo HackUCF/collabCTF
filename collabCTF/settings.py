@@ -25,7 +25,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_forms_foundation',
-    'south',
     'competition',
     'tools'
 )

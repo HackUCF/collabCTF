@@ -28,11 +28,33 @@ $(document).ready(function () {
             colors: ['#D00000', '#A00000'],
             progress: [challenges['solved'] / challenges['total'] * 100, (challenges['solved'] + challenges['in_progress']) / challenges['total'] * 100]
         });
-        var timeMetr = new Metr($('#time-container'), {
-            background: true,
-            colors: ['#C0C000', '#A0A000'],
-            progress: [timePercentage(startTime, endTime) * 100, 100]
-        });
+        var timeVal = timePercentage(startTime, endTime);
+        console.log("timeVal: " + timeVal);
+        if (timeVal != 0 && timeVal != Infinity) {
+            var timeMetr = new Metr($('#time-container'), {
+                background: true,
+                colors: ['#C0C000', '#A0A000'],
+                progress: [timePercentage(startTime, endTime) * 100, 100]
+            });
+
+            // time circle thing updates every second
+            var timeInterval = setInterval(function () {
+                var tp = timePercentage(startTime, endTime);
+                console.log(tp);
+                timeMetr.update([tp * 100, 100]);
+                if (tp > 1) {
+                    clearInterval(timeInterval);
+                    console.log("Stopping time update - CTF has ended");
+                }
+            }, 1000);
+        }
+        else {
+            // remove time container
+            $('#time-container').parent().remove();
+            $('#clocks').removeClass('medium-block-grid-3').removeClass('small-block-grid-2')
+                .addClass('medium-block-grid-2').addClass('small-block-grid-1');
+        }
+
         var usersMetr = new Metr($('#users-container'), {
             background: true,
             colors: ['#0000D0', '#0000A0'],
@@ -45,16 +67,7 @@ $(document).ready(function () {
         });
 
 
-        // time circle thing updates every second
-        var timeInterval = setInterval(function () {
-            var tp = timePercentage(startTime, endTime);
-            console.log(tp);
-            timeMetr.update([tp * 100, 100]);
-            if (tp > 1) {
-                clearInterval(timeInterval);
-                console.log("Stopping time update - CTF has ended");
-            }
-        }, 1000);
+
     });
 
     $.post('/.challenge-visit', {url: location.pathname});

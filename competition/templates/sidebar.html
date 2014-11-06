@@ -18,6 +18,6 @@
         {% if ctfs %}
         <li class="divider"></li>
         {% endif %}
-        <li class="{% if sidebar.view_name == 'add_ctf' %}active{% endif %}"><a href="{% url 'add_ctf' %}">Add CTF</a></li>
+        <li class="{% if request.resolver_match.url_name == 'add_ctf' %}active{% endif %}"><a href="{% url 'add_ctf' %}">Add CTF</a></li>
     </ul>
 </div>
